@@ -4,6 +4,11 @@ import { z } from "zod";
 import { detectProject } from "./utils/framework-detector.js";
 import { checkProject } from "./tools/check-project.js";
 import { deployToVercel, getDeploymentStatus } from "./tools/deploy.js";
+import { getDeploymentLogs } from "./tools/logs.js";
+import { validateEnvironmentVariables, scanEnv, compareEnv, syncEnv, createEnvExample } from "./tools/env-vars.js";
+import { gitStatus, gitCommitAndPush, checkEnvLeak } from "./tools/git.js";
+import { diagnoseBuildFailure } from "./tools/diagnose.js";
+import { projectReport } from "./tools/project-report.js";
 
 const server = new McpServer({
   name: "deploy-mcp",
@@ -50,6 +55,105 @@ server.server.setRequestHandler(
             properties: { projectName: { type: "string" } },
             required: ["projectName"]
           } as any
+        },
+        {
+          name: "get_deployment_logs",
+          description: "Get deployment logs for a project",
+          inputSchema: {
+            type: "object",
+            properties: { projectName: { type: "string" } },
+            required: ["projectName"]
+          } as any
+        },
+        {
+          name: "scan_env",
+          description: "Scan local environment variables (redacted for security)",
+          inputSchema: {
+            type: "object",
+            properties: { projectPath: { type: "string" } },
+            required: ["projectPath"]
+          } as any
+        },
+        {
+          name: "compare_env",
+          description: "Compare local environment variables against Vercel",
+          inputSchema: {
+            type: "object",
+            properties: { projectPath: { type: "string" }, projectName: { type: "string" } },
+            required: ["projectPath", "projectName"]
+          } as any
+        },
+        {
+          name: "sync_env",
+          description: "Safely sync missing environment variables to Vercel",
+          inputSchema: {
+            type: "object",
+            properties: { projectPath: { type: "string" }, projectName: { type: "string" }, keysToSync: { type: "array", items: { type: "string" } }, overwrite: { type: "boolean" } },
+            required: ["projectPath", "projectName", "keysToSync"]
+          } as any
+        },
+        {
+          name: "create_env_example",
+          description: "Automatically generate a .env.example file",
+          inputSchema: {
+            type: "object",
+            properties: { projectPath: { type: "string" } },
+            required: ["projectPath"]
+          } as any
+        },
+        {
+          name: "check_env_leak",
+          description: "Check if .env files are accidentally tracked by Git",
+          inputSchema: {
+            type: "object",
+            properties: { projectPath: { type: "string" } },
+            required: ["projectPath"]
+          } as any
+        },
+        {
+          name: "project_report",
+          description: "Get a comprehensive pre-flight project report",
+          inputSchema: {
+            type: "object",
+            properties: { projectPath: { type: "string" }, projectName: { type: "string" } },
+            required: ["projectPath"]
+          } as any
+        },
+        {
+          name: "validate_environment_variables",
+          description: "Validate required environment variables for a project",
+          inputSchema: {
+            type: "object",
+            properties: { projectPath: { type: "string" } },
+            required: ["projectPath"]
+          } as any
+        },
+        {
+          name: "git_status",
+          description: "Check the git status of a project",
+          inputSchema: {
+            type: "object",
+            properties: { projectPath: { type: "string" } },
+            required: ["projectPath"]
+          } as any
+        },
+        {
+          name: "git_commit_and_push",
+          description: "Commit and push changes to git",
+          inputSchema: {
+            type: "object",
+            properties: { projectPath: { type: "string" }, message: { type: "string" } },
+            required: ["projectPath", "message"]
+          } as any
+        },
+        {
+          name: "diagnose_build_failure",
+          description: "Diagnose a build failure from logs",
+          inputSchema: {
+            type: "object",
+            properties: { logs: { type: "array", items: { type: "string" } } },
+            required: ["logs"]
+          } as any
         }
       ]
     };
@@ -91,6 +195,82 @@ server.server.setRequestHandler(
     if (name === "get_deployment_status") {
       const { projectName } = args as { projectName: string };
       const result = await getDeploymentStatus(projectName);
+      return {
+        content: [{ type: "text", text: JSON.stringify(result, null, 2) }]
+      };
+    }
+    
+    if (name === "get_deployment_logs") {
+      const { projectName } = args as { projectName: string };
+      const result = await getDeploymentLogs(projectName);
+      return {
+        content: [{ type: "text", text: JSON.stringify(result, null, 2) }]
+      };
+    }
+    
+    if (name === "scan_env") {
+      const { projectPath } = args as { projectPath: string };
+      const result = await scanEnv(projectPath);
+      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+    }
+
+    if (name === "compare_env") {
+      const { projectPath, projectName } = args as { projectPath: string; projectName: string };
+      const result = await compareEnv(projectPath, projectName);
+      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+    }
+
+    if (name === "sync_env") {
+      const { projectPath, projectName, keysToSync, overwrite } = args as { projectPath: string; projectName: string; keysToSync: string[]; overwrite?: boolean };
+      const result = await syncEnv(projectPath, projectName, keysToSync, overwrite);
+      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+    }
+
+    if (name === "create_env_example") {
+      const { projectPath } = args as { projectPath: string };
+      const result = await createEnvExample(projectPath);
+      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+    }
+
+    if (name === "check_env_leak") {
+      const { projectPath } = args as { projectPath: string };
+      const result = await checkEnvLeak(projectPath);
+      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+    }
+
+    if (name === "project_report") {
+      const { projectPath, projectName } = args as { projectPath: string; projectName?: string };
+      const result = await projectReport(projectPath, projectName);
+      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+    }
+    
+    if (name === "validate_environment_variables") {
+      const { projectPath } = args as { projectPath: string };
+      const result = await validateEnvironmentVariables(projectPath);
+      return {
+        content: [{ type: "text", text: JSON.stringify(result, null, 2) }]
+      };
+    }
+
+    if (name === "git_status") {
+      const { projectPath } = args as { projectPath: string };
+      const result = await gitStatus(projectPath);
+      return {
+        content: [{ type: "text", text: JSON.stringify(result, null, 2) }]
+      };
+    }
+
+    if (name === "git_commit_and_push") {
+      const { projectPath, message } = args as { projectPath: string; message: string };
+      const result = await gitCommitAndPush(projectPath, message);
+      return {
+        content: [{ type: "text", text: JSON.stringify(result, null, 2) }]
+      };
+    }
+
+    if (name === "diagnose_build_failure") {
+      const { logs } = args as { logs: string[] };
+      const result = await diagnoseBuildFailure(logs);
       return {
         content: [{ type: "text", text: JSON.stringify(result, null, 2) }]
       };

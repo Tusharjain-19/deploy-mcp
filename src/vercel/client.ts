@@ -77,12 +77,12 @@ export class VercelClient {
 
   async getDeploymentStatus(
     projectName: string
-  ): Promise<{ status: string; url: string }> {
+  ): Promise<{ status: string; url: string; id: string }> {
     try {
       const project = await this.getProject(projectName);
       
       if (!project) {
-        return { status: "NOT_FOUND", url: "" };
+        return { status: "NOT_FOUND", url: "", id: "" };
       }
 
       // Get latest deployment
@@ -92,18 +92,73 @@ export class VercelClient {
       );
 
       if (!deployments.deployments || deployments.deployments.length === 0) {
-        return { status: "NO_DEPLOYMENTS", url: "" };
+        return { status: "NO_DEPLOYMENTS", url: "", id: "" };
       }
 
       const latest = deployments.deployments[0];
       return {
         status: latest.state,
-        url: `https://${latest.url}`
+        url: `https://${latest.url}`,
+        id: latest.uid
       };
     } catch (error) {
       throw new Error(
         `Status check failed: ${error instanceof Error ? error.message : "Unknown error"}`
       );
+    }
+  }
+
+  async getDeploymentLogs(
+    deploymentId: string
+  ): Promise<any[]> {
+    try {
+      // For Vercel API, getting logs often requires specific endpoints.
+      // Usually it's /v2/deployments/:id/events
+      const response = await this.request(
+        "GET",
+        `/v2/deployments/${deploymentId}/events`
+      );
+      
+      return response || [];
+    } catch (error) {
+      throw new Error(
+        `Log fetch failed: ${error instanceof Error ? error.message : "Unknown error"}`
+      );
+    }
+  }
+
+  async getEnvironmentVariables(projectId: string): Promise<any[]> {
+    try {
+      const response = await this.request(
+        "GET",
+        `/v9/projects/${projectId}/env`
+      );
+      return response.envs || [];
+    } catch (error) {
+      throw new Error(`Failed to fetch environment variables: ${error instanceof Error ? error.message : "Unknown error"}`);
+    }
+  }
+
+  async createEnvironmentVariable(
+    projectId: string,
+    key: string,
+    value: string,
+    target: string[] = ["production", "preview", "development"]
+  ): Promise<any> {
+    try {
+      const response = await this.request(
+        "POST",
+        `/v10/projects/${projectId}/env`,
+        {
+          key,
+          value,
+          target,
+          type: "encrypted" // or "system" / "plain" but encrypted is standard for secrets
+        }
+      );
+      return response;
+    } catch (error) {
+      throw new Error(`Failed to create environment variable: ${error instanceof Error ? error.message : "Unknown error"}`);
     }
   }
 

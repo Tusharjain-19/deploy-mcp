@@ -64,9 +64,17 @@ export class VercelClient {
       );
       const deploymentUrl = urlMatch ? urlMatch[0] : "";
 
+      // Resolve the latest deployment UID for the project so downstream
+      // status/log calls use a real deployment identifier.
+      const deployments = await this.request(
+        "GET",
+        `/v6/deployments?projectId=${project.id}&limit=1`
+      );
+      const latestDeployment = deployments?.deployments?.[0];
+
       return {
-        deploymentId: project.id,
-        url: deploymentUrl
+        deploymentId: latestDeployment?.uid || "",
+        url: latestDeployment?.url ? `https://${latestDeployment.url}` : deploymentUrl
       };
     } catch (error) {
       throw new Error(

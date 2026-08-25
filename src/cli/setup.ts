@@ -67,7 +67,7 @@ export async function runSetup(): Promise<void> {
   "mcpServers": {
     "deploy": {
       "command": "npx",
-      "args": ["-y", "deploy-mcp"]
+      "args": ["-y", "@tusharjain-19/deploy-mcp"]
     }
   }
 }
@@ -80,7 +80,7 @@ export async function runSetup(): Promise<void> {
     {
       "name": "deploy",
       "command": "npx",
-      "args": ["-y", "deploy-mcp"]
+      "args": ["-y", "@tusharjain-19/deploy-mcp"]
     }
   ]
 }

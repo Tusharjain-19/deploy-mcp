@@ -97,7 +97,7 @@ Your website is live at https://my-portfolio.vercel.app 🎉
 
 ```bash
 # 1. Run the setup wizard
-npx deploy-mcp setup
+npx @tusharjain-19/deploy-mcp setup
 ```
 
 The wizard will:
@@ -122,7 +122,7 @@ The wizard will:
   "mcpServers": {
     "deploy": {
       "command": "npx",
-      "args": ["-y", "deploy-mcp"],
+      "args": ["-y", "@tusharjain-19/deploy-mcp"],
       "disabled": false
     }
   }
@@ -137,7 +137,7 @@ The wizard will:
     {
       "name": "deploy",
       "command": "npx",
-      "args": ["-y", "deploy-mcp"]
+      "args": ["-y", "@tusharjain-19/deploy-mcp"]
     }
   ]
 }
@@ -151,7 +151,7 @@ The wizard will:
     {
       "name": "deploy",
       "command": "npx",
-      "args": ["-y", "deploy-mcp"]
+      "args": ["-y", "@tusharjain-19/deploy-mcp"]
     }
   ]
 }
@@ -189,10 +189,10 @@ The AI will automatically call the right tools in sequence:
 
 ```bash
 # First-time setup
-npx deploy-mcp setup
+npx @tusharjain-19/deploy-mcp setup
 
 # Run MCP server manually (used by IDEs automatically)
-npx deploy-mcp
+npx @tusharjain-19/deploy-mcp
 ```
 
 ---
@@ -459,7 +459,7 @@ Output: {
 
 ### Transport
 
-Deploy MCP uses **stdio transport** — the standard for local npm packages. When you run `npx deploy-mcp`, it starts a process that communicates with your IDE via stdin/stdout. This means:
+Deploy MCP uses **stdio transport** — the standard for local npm packages. When you run `npx @tusharjain-19/deploy-mcp`, it starts a process that communicates with your IDE via stdin/stdout. This means:
 - ✅ No server required
 - ✅ No cloud account needed (except Vercel, which is yours)
 - ✅ Runs entirely on your machine
@@ -642,7 +642,7 @@ Please open an issue first for large changes.
 
 Deploy MCP is designed to automatically stay up to date. 
 
-Because your IDE configuration uses the `npx -y deploy-mcp` command, Node.js will automatically fetch the latest version from npm every time the server starts. You get new features, bug fixes, and security patches immediately without having to run any manual update commands!
+Because your IDE configuration uses the `npx -y @tusharjain-19/deploy-mcp` command, Node.js will automatically fetch the latest version from npm every time the server starts. You get new features, bug fixes, and security patches immediately without having to run any manual update commands!
 
 ---
 

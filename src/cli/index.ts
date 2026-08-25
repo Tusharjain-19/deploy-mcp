@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { runSetup } from "./setup.js";
 
 const args = process.argv.slice(2);

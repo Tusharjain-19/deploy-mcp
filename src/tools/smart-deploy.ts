@@ -74,6 +74,7 @@ export async function smartDeploy(
         const statusResult = await client.getDeploymentStatus(projectName);
         status = statusResult.status;
         if (statusResult.url) deploymentUrl = statusResult.url;
+        if (statusResult.id) deploymentId = statusResult.id;
         if (status === "READY") break;
         if (status === "ERROR" || status === "CANCELLED") break;
       } catch {
@@ -94,6 +95,9 @@ export async function smartDeploy(
     // 4. FAILURE path — auto-fetch logs and diagnose
     let failureLogs: string[] = [];
     try {
+      if (!deploymentId) {
+        throw new Error("Deployment ID unavailable for log retrieval.");
+      }
       const events = await client.getDeploymentLogs(deploymentId);
       failureLogs = events
         .map((e: any) => e.text || JSON.stringify(e))

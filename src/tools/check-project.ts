@@ -1,6 +1,7 @@
 import { spawn } from "child_process";
 import path from "path";
 import { fileExists, readJsonFile } from "../utils/filesystem.js";
+import { scanForLargeFiles } from "../utils/scanner.js";
 
 export interface ProjectCheck {
   packageJsonExists: boolean;
@@ -9,6 +10,7 @@ export interface ProjectCheck {
   warnings: string[];
   errors: string[];
   framework?: string;
+  largeFilesDetected?: boolean;
 }
 
 export async function checkProject(
@@ -47,6 +49,13 @@ export async function checkProject(
 
   // Test build command
   result.buildSucceeds = await testBuild(projectPath);
+
+  // Check for large files
+  const largeFiles = await scanForLargeFiles(projectPath);
+  if (largeFiles.length > 0) {
+    result.largeFilesDetected = true;
+    result.warnings.push(`Detected ${largeFiles.length} file(s) larger than 50MB (e.g. ${path.relative(projectPath, largeFiles[0].path)} - ${largeFiles[0].sizeFormatted}). Vercel has strict size limits. Consider adding them to .vercelignore before deploying.`);
+  }
 
   return result;
 }

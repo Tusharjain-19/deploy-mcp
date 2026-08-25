@@ -9,6 +9,7 @@ import { validateEnvironmentVariables, scanEnv, compareEnv, syncEnv, createEnvEx
 import { gitStatus, gitCommitAndPush, checkEnvLeak } from "./tools/git.js";
 import { diagnoseBuildFailure } from "./tools/diagnose.js";
 import { projectReport } from "./tools/project-report.js";
+import { smartDeploy } from "./tools/smart-deploy.js";
 
 const server = new McpServer({
   name: "deploy-mcp",
@@ -20,6 +21,19 @@ server.server.setRequestHandler(
   async () => {
     return {
       tools: [
+        {
+          name: "smart_deploy",
+          description: "Deploy to Vercel with auto-polling. On failure, automatically fetches logs and diagnoses the error so the AI can fix it and redeploy.",
+          inputSchema: {
+            type: "object",
+            properties: {
+              projectPath: { type: "string", description: "Absolute path to the project" },
+              projectName: { type: "string", description: "Vercel project name" },
+              maxPollSeconds: { type: "number", description: "Max seconds to wait for deployment (default 180)" }
+            },
+            required: ["projectPath", "projectName"]
+          } as any
+        },
         {
           name: "detect_project",
           description: "Detect framework and build configuration",
@@ -164,6 +178,20 @@ server.server.setRequestHandler(
   "tools/call",
   async (request) => {
     const { name, arguments: args } = request as any;
+
+    if (name === "smart_deploy") {
+      const { projectPath, projectName, maxPollSeconds } = args as {
+        projectPath: string;
+        projectName: string;
+        maxPollSeconds?: number;
+      };
+      const result = await smartDeploy(projectPath, projectName, maxPollSeconds);
+      // If failed, aiInstruction is what the AI should read and act on immediately
+      const text = result.failed && result.aiInstruction
+        ? result.aiInstruction + "\n\n--- Full Result ---\n" + JSON.stringify(result, null, 2)
+        : JSON.stringify(result, null, 2);
+      return { content: [{ type: "text", text }] };
+    }
 
     if (name === "detect_project") {
       const { projectPath } = args as { projectPath: string };

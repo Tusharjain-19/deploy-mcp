@@ -44,7 +44,7 @@ export async function runSetup(): Promise<void> {
 
   try {
     // Verify token works
-    const response = await fetch("https://api.vercel.com/v9/user", {
+    const response = await fetch("https://api.vercel.com/v2/user", {
       headers: {
         Authorization: `Bearer ${token}`
       }

@@ -93,25 +93,18 @@ Your website is live at https://my-portfolio.vercel.app 🎉
 
 ## 📦 Installation
 
-### One-time Setup (2 minutes)
+### Quick Setup
+
+Run the interactive setup wizard anywhere on your computer:
 
 ```bash
-# 1. Run the setup wizard
 npx @tusharjain-19/deploy-mcp setup
 ```
 
 The wizard will:
-1. Ask for your Vercel Personal Access Token
-2. Verify it works by authenticating with Vercel
-3. Store it securely on your local machine at `~/.deploy-mcp/config.json`
-4. Print the exact config to paste into your IDE
-
-### Get Your Vercel Token
-
-1. Go to [vercel.com/account/tokens](https://vercel.com/account/tokens)
-2. Click **Create** → choose **Full Access**
-3. Copy the token
-4. Paste it when the wizard asks
+1. Guide you to get a Vercel Personal Access Token.
+2. Authenticate and store it securely on your machine.
+3. Print the exact JSON config to paste into your IDE!
 
 ### Connect to Your IDE
 

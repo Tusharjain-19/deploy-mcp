@@ -638,9 +638,29 @@ Please open an issue first for large changes.
 
 ---
 
+## 🔄 Automatic Updates
+
+Deploy MCP is designed to automatically stay up to date. 
+
+Because your IDE configuration uses the `npx -y deploy-mcp` command, Node.js will automatically fetch the latest version from npm every time the server starts. You get new features, bug fixes, and security patches immediately without having to run any manual update commands!
+
+---
+
+## 👨‍💻 About the Developer
+
+**Tushar Jain**  
+I build tools that bridge the gap between AI and human creativity. If you have any feedback or feature requests, feel free to reach out or connect!
+
+- **Website:** [tusharjain.in](https://tusharjain.in)
+- **GitHub:** [@Tusharjain-19](https://github.com/Tusharjain-19)
+
+---
+
 ## 📄 License
 
-MIT — free forever. See [LICENSE](LICENSE).
+This project is licensed under the **MIT License**.
+
+This means it is 100% free forever. You are allowed to use it in your commercial applications, modify the source code, distribute it, and use it privately. See the [LICENSE](LICENSE) file for the full text.
 
 ---
 

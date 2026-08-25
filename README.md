@@ -68,6 +68,7 @@ Your website is live at https://my-portfolio.vercel.app 🎉
 |---|---|
 | ![Cursor](https://img.shields.io/badge/Cursor-000000?style=flat&logo=cursor&logoColor=white) | ✅ Fully Supported |
 | ![VS Code](https://img.shields.io/badge/VS_Code-007ACC?style=flat&logo=visual-studio-code&logoColor=white) + Claude Extension | ✅ Fully Supported |
+| ![Antigravity](https://img.shields.io/badge/Antigravity-6C63FF?style=flat&logo=visual-studio-code&logoColor=white) (VS Code + Antigravity AI) | ✅ Fully Supported |
 | Any MCP-compatible IDE | ✅ Should work |
 
 ### Supported Frameworks
@@ -129,6 +130,20 @@ The wizard will:
 ```
 
 **VS Code + Claude Extension** — Add to `settings.json`:
+
+```json
+{
+  "claude.mcp.servers": [
+    {
+      "name": "deploy",
+      "command": "npx",
+      "args": ["-y", "deploy-mcp"]
+    }
+  ]
+}
+```
+
+**Antigravity (VS Code + Antigravity AI)** — Add to `settings.json`:
 
 ```json
 {

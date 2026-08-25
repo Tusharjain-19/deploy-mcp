@@ -10,6 +10,7 @@ import { gitStatus, gitCommitAndPush, checkEnvLeak } from "./tools/git.js";
 import { diagnoseBuildFailure } from "./tools/diagnose.js";
 import { projectReport } from "./tools/project-report.js";
 import { smartDeploy } from "./tools/smart-deploy.js";
+import { deleteProject } from "./tools/delete-project.js";
 
 const server = new McpServer({
   name: "deploy-mcp",
@@ -50,6 +51,15 @@ server.server.setRequestHandler(
             type: "object",
             properties: { projectPath: { type: "string" } },
             required: ["projectPath"]
+          } as any
+        },
+        {
+          name: "delete_project",
+          description: "Permanently delete a Vercel project. Triggers a secure native OS prompt that the user MUST manually click to approve.",
+          inputSchema: {
+            type: "object",
+            properties: { projectName: { type: "string" } },
+            required: ["projectName"]
           } as any
         },
         {
@@ -204,6 +214,14 @@ server.server.setRequestHandler(
     if (name === "check_project") {
       const { projectPath } = args as { projectPath: string };
       const result = await checkProject(projectPath);
+      return {
+        content: [{ type: "text", text: JSON.stringify(result, null, 2) }]
+      };
+    }
+
+    if (name === "delete_project") {
+      const { projectName } = args as { projectName: string };
+      const result = await deleteProject(projectName);
       return {
         content: [{ type: "text", text: JSON.stringify(result, null, 2) }]
       };

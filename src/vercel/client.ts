@@ -162,6 +162,15 @@ export class VercelClient {
     }
   }
 
+  async deleteProject(projectId: string): Promise<boolean> {
+    try {
+      await this.request("DELETE", `/v9/projects/${projectId}`);
+      return true;
+    } catch (error) {
+      throw new Error(`Failed to delete project: ${error instanceof Error ? error.message : "Unknown error"}`);
+    }
+  }
+
   private async ensureProject(name: string): Promise<any> {
     // Try to get existing project
     const existing = await this.getProject(name);

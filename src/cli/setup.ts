@@ -1,4 +1,5 @@
 import { setVercelToken, loadConfig } from "../utils/config.js";
+import { checkForUpdates } from "../utils/version-checker.js";
 import readline from "readline";
 
 const rl = readline.createInterface({
@@ -16,6 +17,9 @@ export async function runSetup(): Promise<void> {
   const config = await loadConfig();
   const currentWorkingDir = process.cwd();
 
+  // Asynchronously check for updates
+  const updateInfo = await checkForUpdates();
+
   console.log(`
 ┌─ Welcome to Deploy MCP ─────────────────────────────────────────────────────────────────┐
 │                                                                                         │
@@ -26,7 +30,7 @@ export async function runSetup(): Promise<void> {
 │  ██████╔╝███████╗██║     ███████╗╚██████╔╝   ██║     ██║ ╚═╝ ██║╚██████╗██║            │
 │  ╚═════╝ ╚══════╝╚═╝     ╚══════╝ ╚═════╝    ╚═╝     ╚═╝     ╚═╝ ╚═════╝╚═╝            │
 │                                                                                         │
-│  v1.0.0                                                                                 │
+│  v${updateInfo.currentVersion}                                                                                 │
 │                                                                                         │
 │             Your agent deploys your site. We make sure it goes live.                    │
 │                                                                                         │
@@ -35,6 +39,11 @@ export async function runSetup(): Promise<void> {
 │                                                                                         │
 └─────────────────────────────────────────────────────────────────────────────────────────┘
   `);
+
+  if (updateInfo.hasUpdate) {
+    console.log(`🎉 A new version of Deploy MCP is available! (v${updateInfo.latestVersion})`);
+    console.log(`   Update command: ${updateInfo.updateCommand}\n`);
+  }
 
   if (config.vercelToken) {
     console.log(`●  status: configured (token saved in ~/.deploy-mcp/config.json)`);

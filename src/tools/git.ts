@@ -7,6 +7,7 @@ export interface GitStatusResult {
   branch?: string;
   uncommittedChanges?: number;
   files?: string[];
+  suggestedCommitMessage?: string;
 }
 
 async function runGitCommand(args: string[], cwd: string): Promise<string> {
@@ -25,6 +26,23 @@ async function runGitCommand(args: string[], cwd: string): Promise<string> {
   });
 }
 
+export function generateSuggestedCommitMessage(files: string[]): string {
+  if (files.length === 0) return "feat: update website";
+
+  const lowerFiles = files.map(f => f.toLowerCase());
+
+  if (lowerFiles.some(f => f.includes("package.json") || f.includes("package-lock.json"))) {
+    return "chore: update project configuration and dependencies";
+  }
+  if (lowerFiles.some(f => f.endsWith(".css") || f.endsWith(".scss") || f.includes("style") || f.includes("layout"))) {
+    return "style: update website styling and UI layout";
+  }
+  if (lowerFiles.some(f => f.endsWith(".tsx") || f.endsWith(".jsx") || f.endsWith(".vue") || f.endsWith(".html"))) {
+    return "feat: update website pages and UI components";
+  }
+  return `feat: update ${files.slice(0, 3).map(f => path.basename(f)).join(", ")}`;
+}
+
 export async function gitStatus(projectPath: string): Promise<GitStatusResult> {
   try {
     const gitPath = path.join(projectPath, ".git");
@@ -36,12 +54,14 @@ export async function gitStatus(projectPath: string): Promise<GitStatusResult> {
     const statusOutput = await runGitCommand(["status", "--porcelain"], projectPath);
     
     const files = statusOutput.split('\n').filter(Boolean).map(line => line.substring(3));
-    
+    const suggestedCommitMessage = generateSuggestedCommitMessage(files);
+
     return {
       hasRepository: true,
       branch,
       uncommittedChanges: files.length,
-      files
+      files,
+      suggestedCommitMessage
     };
   } catch (error) {
     return { hasRepository: false };

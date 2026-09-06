@@ -1,12 +1,19 @@
 import { getVercelClient } from "../vercel/client.js";
 import { getVercelToken } from "../utils/config.js";
 import { diagnoseBuildFailure } from "./diagnose.js";
+import { gitStatus } from "./git.js";
 
 export interface SmartDeployResult {
   success: boolean;
   deploymentId?: string;
   deploymentUrl?: string;
   status?: string;
+  versionControlSummary?: {
+    uncommittedChangesCount: number;
+    changedFiles: string[];
+    suggestedCommitMessage?: string;
+    aiPromptSuggestion?: string;
+  };
   // Populated only on failure
   failed?: boolean;
   failureLogs?: string[];
@@ -24,7 +31,7 @@ export interface SmartDeployResult {
 
 /**
  * Smart Deploy: Deploys to Vercel, polls until terminal state,
- * and on failure automatically fetches logs + diagnoses the error
+ * inspects uncommitted git changes, and on failure automatically fetches logs + diagnoses the error
  * so the AI model can understand and fix it.
  *
  * Secret values are NEVER included in the response.
@@ -39,13 +46,29 @@ export async function smartDeploy(
     if (!token) {
       return {
         success: false,
-        error: "Vercel not authenticated. Run 'npx deploy-mcp setup' first."
+        error: "Vercel not authenticated. Run 'npx @tusharjain-19/deploy-mcp setup' first."
       };
     }
 
     const client = await getVercelClient();
     if (!client) {
       return { success: false, error: "Failed to initialize Vercel client." };
+    }
+
+    // 0. Inspect Git Status & Uncommitted Changes
+    let versionControlSummary: SmartDeployResult["versionControlSummary"] = undefined;
+    try {
+      const gitRes = await gitStatus(projectPath);
+      if (gitRes.hasRepository && gitRes.uncommittedChanges && gitRes.uncommittedChanges > 0) {
+        versionControlSummary = {
+          uncommittedChangesCount: gitRes.uncommittedChanges,
+          changedFiles: gitRes.files || [],
+          suggestedCommitMessage: gitRes.suggestedCommitMessage,
+          aiPromptSuggestion: `Ask user: "I noticed you modified ${gitRes.files?.length || 0} file(s) (${(gitRes.files || []).slice(0, 3).join(", ")}). Should I commit these updates with message '${gitRes.suggestedCommitMessage}'?"`
+        };
+      }
+    } catch {
+      // Ignore git errors if directory isn't a git repo
     }
 
     // 1. Trigger the deployment
@@ -59,6 +82,7 @@ export async function smartDeploy(
       return {
         success: false,
         failed: true,
+        versionControlSummary,
         error: err instanceof Error ? err.message : "Deployment trigger failed."
       };
     }
@@ -87,7 +111,8 @@ export async function smartDeploy(
         success: true,
         deploymentId,
         deploymentUrl,
-        status: "READY"
+        status: "READY",
+        versionControlSummary
       };
     }
 
@@ -114,6 +139,7 @@ export async function smartDeploy(
       status,
       failureLogs: failureLogs.slice(-50), // Last 50 lines for context
       diagnosis,
+      versionControlSummary,
       aiInstruction
     };
   } catch (error) {

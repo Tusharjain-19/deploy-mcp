@@ -13,6 +13,7 @@ import { smartDeploy } from "./tools/smart-deploy.js";
 import { deleteProject } from "./tools/delete-project.js";
 import { rateLimiter } from "./utils/rate-limiter.js";
 import { DeployMcpError, ValidationError } from "./utils/errors.js";
+import { checkForUpdates } from "./utils/version-checker.js";
 
 const server = new McpServer({
   name: "deploy-mcp",
@@ -248,6 +249,18 @@ server.server.setRequestHandler(
           destructiveHint: false,
           idempotentHint: true,
           openWorldHint: false
+        },
+        {
+          name: "check_for_updates",
+          description: "Check npm registry for Deploy MCP server updates and new features",
+          inputSchema: {
+            type: "object",
+            properties: {}
+          } as any,
+          readOnlyHint: true,
+          destructiveHint: false,
+          idempotentHint: true,
+          openWorldHint: true
         }
       ]
     };
@@ -400,6 +413,11 @@ server.server.setRequestHandler(
           throw new ValidationError("logs", "Must be an array of log string lines.");
         }
         const result = await diagnoseBuildFailure(logs);
+        return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      }
+
+      if (name === "check_for_updates") {
+        const result = await checkForUpdates();
         return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
       }
 

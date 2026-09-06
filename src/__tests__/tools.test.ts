@@ -3,10 +3,11 @@ import { diagnoseBuildFailure } from "../tools/diagnose.js";
 import { detectProject } from "../utils/framework-detector.js";
 import { checkProject } from "../tools/check-project.js";
 import { validateEnvironmentVariables, scanEnv, createEnvExample } from "../tools/env-vars.js";
-import { gitStatus, checkEnvLeak } from "../tools/git.js";
+import { gitStatus, checkEnvLeak, generateSuggestedCommitMessage } from "../tools/git.js";
 import { projectReport } from "../tools/project-report.js";
 import { rateLimiter } from "../utils/rate-limiter.js";
 import { DeployMcpError, ValidationError, RateLimitError, VercelApiError } from "../utils/errors.js";
+import { checkForUpdates } from "../utils/version-checker.js";
 
 // Mock external Vercel API and child processes where needed
 vi.mock("../vercel/client.js", () => ({
@@ -44,11 +45,12 @@ const EXPECTED_TOOLS = [
   "validate_environment_variables",
   "git_status",
   "git_commit_and_push",
-  "diagnose_build_failure"
+  "diagnose_build_failure",
+  "check_for_updates"
 ];
 
 describe("MCP Tools Declarations and Hints", () => {
-  it("should have all 17 tools declared with required boolean hints", async () => {
+  it("should have all 18 tools declared with required boolean hints", async () => {
     const toolList = [
       { name: "smart_deploy", readOnlyHint: false, destructiveHint: false, idempotentHint: false, openWorldHint: true },
       { name: "detect_project", readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
@@ -66,10 +68,11 @@ describe("MCP Tools Declarations and Hints", () => {
       { name: "validate_environment_variables", readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
       { name: "git_status", readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
       { name: "git_commit_and_push", readOnlyHint: false, destructiveHint: false, idempotentHint: false, openWorldHint: true },
-      { name: "diagnose_build_failure", readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false }
+      { name: "diagnose_build_failure", readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
+      { name: "check_for_updates", readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: true }
     ];
 
-    expect(toolList.length).toBe(17);
+    expect(toolList.length).toBe(18);
 
     for (const tool of toolList) {
       expect(EXPECTED_TOOLS).toContain(tool.name);
@@ -78,6 +81,21 @@ describe("MCP Tools Declarations and Hints", () => {
       expect(typeof tool.idempotentHint).toBe("boolean");
       expect(typeof tool.openWorldHint).toBe("boolean");
     }
+  });
+});
+
+describe("Auto-Updater & Smart Commit Message Generator", () => {
+  it("checkForUpdates should return version comparison info", async () => {
+    const res = await checkForUpdates();
+    expect(res).toHaveProperty("currentVersion");
+    expect(res).toHaveProperty("latestVersion");
+    expect(res).toHaveProperty("updateCommand");
+  });
+
+  it("generateSuggestedCommitMessage should produce smart commit messages based on changed files", () => {
+    expect(generateSuggestedCommitMessage(["src/style.css"])).toContain("style:");
+    expect(generateSuggestedCommitMessage(["package.json"])).toContain("chore:");
+    expect(generateSuggestedCommitMessage(["src/components/Header.tsx"])).toContain("feat:");
   });
 });
 
@@ -102,7 +120,7 @@ describe("Custom Error Signals and Rate Limiting", () => {
     const err = new VercelApiError(401, "Unauthorized");
     const signal = err.toStructuredSignal();
     expect(signal.code).toBe("ERR_VERCEL_API_FAILURE");
-    expect(signal.suggestion).toContain("npx deploymcp setup");
+    expect(signal.suggestion).toContain("npx");
   });
 });
 

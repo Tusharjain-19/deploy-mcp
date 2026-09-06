@@ -146,7 +146,14 @@ The git tools work automatically during deployment — if you have uncommitted c
 
 ## 🧰 Available Tools
 
-Your AI has access to **16 tools** across 4 modules:
+Your AI has access to **20 tools** across 5 modules:
+
+### 🌐 Domain Tools
+
+| Tool | What it does |
+|---|---|
+| `check_domain_availability` | Checks if a Vercel domain is available and suggests the top 2 best alternatives if taken |
+| `manage_domain` | Assigns custom/Vercel domain to a project with option to remove or redirect old domain (308 permanent redirect) |
 
 ### 📦 Project Tools
 
@@ -357,10 +364,11 @@ This opens a browser UI where you can call every tool manually and see outputs.
 ```
 mcp-server/
 ├── src/
-│   ├── index.ts                    ← MCP server entry (all 16 tools registered)
+│   ├── index.ts                    ← MCP server entry (all 20 tools registered)
 │   │
 │   ├── tools/
 │   │   ├── smart-deploy.ts         ← All-in-one deploy with auto-diagnose
+│   │   ├── domains.ts              ← Domain availability & management (redirect/remove)
 │   │   ├── check-project.ts        ← Build validation
 │   │   ├── deploy.ts               ← Vercel deployment trigger
 │   │   ├── diagnose.ts             ← Build failure diagnosis

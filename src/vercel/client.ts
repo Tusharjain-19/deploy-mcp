@@ -171,6 +171,58 @@ export class VercelClient {
     }
   }
 
+  async getProjectDomains(projectId: string): Promise<any[]> {
+    try {
+      const response = await this.request("GET", `/v9/projects/${projectId}/domains`);
+      return response.domains || [];
+    } catch (error) {
+      throw new Error(`Failed to fetch project domains: ${error instanceof Error ? error.message : "Unknown error"}`);
+    }
+  }
+
+  async addProjectDomain(projectId: string, domain: string, redirectTarget?: string): Promise<any> {
+    try {
+      const body: any = { name: domain };
+      if (redirectTarget) {
+        body.redirect = redirectTarget;
+        body.redirectStatusCode = 308;
+      }
+      return await this.request("POST", `/v9/projects/${projectId}/domains`, body);
+    } catch (error) {
+      throw new Error(`Failed to add domain ${domain}: ${error instanceof Error ? error.message : "Unknown error"}`);
+    }
+  }
+
+  async removeProjectDomain(projectId: string, domain: string): Promise<boolean> {
+    try {
+      await this.request("DELETE", `/v9/projects/${projectId}/domains/${domain}`);
+      return true;
+    } catch (error) {
+      throw new Error(`Failed to remove domain ${domain}: ${error instanceof Error ? error.message : "Unknown error"}`);
+    }
+  }
+
+  async updateDomainRedirect(projectId: string, domain: string, redirectTarget: string): Promise<any> {
+    try {
+      return await this.request("PATCH", `/v9/projects/${projectId}/domains/${domain}`, {
+        redirect: redirectTarget,
+        redirectStatusCode: 308
+      });
+    } catch (error) {
+      throw new Error(`Failed to set redirect for domain ${domain}: ${error instanceof Error ? error.message : "Unknown error"}`);
+    }
+  }
+
+  async checkDomainStatus(domain: string): Promise<{ available: boolean; name: string }> {
+    try {
+      const res = await this.request("GET", `/v6/domains/status?name=${encodeURIComponent(domain)}`);
+      return { available: Boolean(res.available), name: domain };
+    } catch {
+      // If check fails, assume unavailable for safety
+      return { available: false, name: domain };
+    }
+  }
+
   private async ensureProject(name: string): Promise<any> {
     // Try to get existing project
     const existing = await this.getProject(name);

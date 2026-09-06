@@ -8,6 +8,7 @@ import { projectReport } from "../tools/project-report.js";
 import { rateLimiter } from "../utils/rate-limiter.js";
 import { DeployMcpError, ValidationError, RateLimitError, VercelApiError } from "../utils/errors.js";
 import { checkForUpdates } from "../utils/version-checker.js";
+import { checkDomainAvailability, formatDomainName } from "../tools/domains.js";
 
 // Mock external Vercel API and child processes where needed
 vi.mock("../vercel/client.js", () => ({
@@ -19,7 +20,14 @@ vi.mock("../vercel/client.js", () => ({
     getDeployments: vi.fn().mockResolvedValue([{ uid: "dep_1", state: "READY", url: "test.vercel.app" }]),
     getDeployment: vi.fn().mockResolvedValue({ uid: "dep_1", state: "READY", url: "test.vercel.app" }),
     getDeploymentEvents: vi.fn().mockResolvedValue([{ text: "Build success" }]),
-    createDeployment: vi.fn().mockResolvedValue({ id: "dep_1", url: "test.vercel.app", status: "QUEUED" })
+    createDeployment: vi.fn().mockResolvedValue({ id: "dep_1", url: "test.vercel.app", status: "QUEUED" }),
+    checkDomainStatus: vi.fn().mockImplementation(async (d: string) => ({
+      available: d.includes("live") || d.includes("app") || !d.includes("taken"),
+      name: d
+    })),
+    addProjectDomain: vi.fn().mockResolvedValue({ name: "new-site.vercel.app" }),
+    removeProjectDomain: vi.fn().mockResolvedValue(true),
+    updateDomainRedirect: vi.fn().mockResolvedValue({ redirect: "new-site.vercel.app" })
   }))
 }));
 
@@ -46,11 +54,13 @@ const EXPECTED_TOOLS = [
   "git_status",
   "git_commit_and_push",
   "diagnose_build_failure",
-  "check_for_updates"
+  "check_for_updates",
+  "check_domain_availability",
+  "manage_domain"
 ];
 
 describe("MCP Tools Declarations and Hints", () => {
-  it("should have all 18 tools declared with required boolean hints", async () => {
+  it("should have all 20 tools declared with required boolean hints", async () => {
     const toolList = [
       { name: "smart_deploy", readOnlyHint: false, destructiveHint: false, idempotentHint: false, openWorldHint: true },
       { name: "detect_project", readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
@@ -69,10 +79,12 @@ describe("MCP Tools Declarations and Hints", () => {
       { name: "git_status", readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
       { name: "git_commit_and_push", readOnlyHint: false, destructiveHint: false, idempotentHint: false, openWorldHint: true },
       { name: "diagnose_build_failure", readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: false },
-      { name: "check_for_updates", readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: true }
+      { name: "check_for_updates", readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: true },
+      { name: "check_domain_availability", readOnlyHint: true, destructiveHint: false, idempotentHint: true, openWorldHint: true },
+      { name: "manage_domain", readOnlyHint: false, destructiveHint: false, idempotentHint: true, openWorldHint: true }
     ];
 
-    expect(toolList.length).toBe(18);
+    expect(toolList.length).toBe(20);
 
     for (const tool of toolList) {
       expect(EXPECTED_TOOLS).toContain(tool.name);
@@ -80,6 +92,22 @@ describe("MCP Tools Declarations and Hints", () => {
       expect(typeof tool.destructiveHint).toBe("boolean");
       expect(typeof tool.idempotentHint).toBe("boolean");
       expect(typeof tool.openWorldHint).toBe("boolean");
+    }
+  });
+});
+
+describe("Domain Tools & Alternative Suggestions", () => {
+  it("formatDomainName should append .vercel.app if no extension provided", () => {
+    expect(formatDomainName("my-portfolio")).toBe("my-portfolio.vercel.app");
+    expect(formatDomainName("custom-domain.com")).toBe("custom-domain.com");
+  });
+
+  it("checkDomainAvailability should generate top 2 alternatives if domain is taken", async () => {
+    const res = await checkDomainAvailability("taken-name.vercel.app");
+    expect(res).toHaveProperty("available");
+    if (!res.available) {
+      expect(res.bestAlternatives).toBeDefined();
+      expect(res.bestAlternatives!.length).toBe(2);
     }
   });
 });

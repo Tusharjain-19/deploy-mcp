@@ -14,6 +14,7 @@ import { deleteProject } from "./tools/delete-project.js";
 import { rateLimiter } from "./utils/rate-limiter.js";
 import { DeployMcpError, ValidationError } from "./utils/errors.js";
 import { checkForUpdates } from "./utils/version-checker.js";
+import { checkDomainAvailability, manageDomain } from "./tools/domains.js";
 
 const server = new McpServer({
   name: "deploy-mcp",
@@ -261,6 +262,37 @@ server.server.setRequestHandler(
           destructiveHint: false,
           idempotentHint: true,
           openWorldHint: true
+        },
+        {
+          name: "check_domain_availability",
+          description: "Check if a domain or alias is available on Vercel. If unavailable, returns the top 2 best available alternative suggestions.",
+          inputSchema: {
+            type: "object",
+            properties: { domainName: { type: "string" } },
+            required: ["domainName"]
+          } as any,
+          readOnlyHint: true,
+          destructiveHint: false,
+          idempotentHint: true,
+          openWorldHint: true
+        },
+        {
+          name: "manage_domain",
+          description: "Assign a new domain to a Vercel project, with options to remove or redirect (308) the old domain.",
+          inputSchema: {
+            type: "object",
+            properties: {
+              projectName: { type: "string" },
+              newDomain: { type: "string" },
+              oldDomain: { type: "string" },
+              oldDomainAction: { type: "string", enum: ["remove", "redirect"] }
+            },
+            required: ["projectName", "newDomain"]
+          } as any,
+          readOnlyHint: false,
+          destructiveHint: false,
+          idempotentHint: true,
+          openWorldHint: true
         }
       ]
     };
@@ -418,6 +450,22 @@ server.server.setRequestHandler(
 
       if (name === "check_for_updates") {
         const result = await checkForUpdates();
+        return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      }
+
+      if (name === "check_domain_availability") {
+        const { domainName } = args || {};
+        const validDomain = requireStringParam("domainName", domainName);
+        const result = await checkDomainAvailability(validDomain);
+        return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      }
+
+      if (name === "manage_domain") {
+        const { projectName, newDomain, oldDomain, oldDomainAction } = args || {};
+        const validProject = requireStringParam("projectName", projectName);
+        const validNewDomain = requireStringParam("newDomain", newDomain);
+        const action = oldDomainAction === "remove" ? "remove" : "redirect";
+        const result = await manageDomain(validProject, validNewDomain, oldDomain, action);
         return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
       }
 

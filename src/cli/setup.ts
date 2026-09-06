@@ -13,55 +13,90 @@ function question(prompt: string): Promise<string> {
 }
 
 export async function runSetup(): Promise<void> {
-  console.log("\n🚀 Deploy MCP Setup\n");
-  console.log("This wizard will configure Vercel authentication.\n");
-
   const config = await loadConfig();
+  const currentWorkingDir = process.cwd();
+
+  console.log(`
+┌─ Welcome to Deploy MCP ─────────────────────────────────────────────────────────────────┐
+│                                                                                         │
+│  ██████╗ ███████╗██████╗ ██╗      ██████╗ ██╗   ██╗███╗   ███╗ ██████╗██████╗           │
+│  ██╔══██╗██╔════╝██╔══██╗██║     ██╔══██╗╚██╗ ██╔╝████╗ ████║██╔════╝██╔══██╗          │
+│  ██║  ██║█████╗  ██████╔╝██║     ██║  ██║ ╚████╔╝ ██╔████╔██║██║     ██████╔╝          │
+│  ██║  ██║██╔══╝  ██╔═══╝ ██║     ██║  ██║  ╚██╔╝  ██║╚██╔╝██║██║     ██╔═══╝           │
+│  ██████╔╝███████╗██║     ███████╗╚██████╔╝   ██║   ██║ ╚═╝ ██║╚██████╗██║              │
+│  ╚═════╝ ╚══════╝╚═╝     ╚══════╝ ╚═════╝    ╚═╝   ╚═╝     ╚═╝ ╚═════╝╚═╝              │
+│  v1.0.0                                                                                 │
+│                                                                                         │
+│             Your agent deploys your site. We make sure it goes live.                    │
+│                                                                                         │
+│  Deploy MCP connects your AI assistant (Claude / Cursor / Antigravity) directly to      │
+│  Vercel — zero server costs, environment syncing, and auto-diagnostics handled.         │
+│                                                                                         │
+└─────────────────────────────────────────────────────────────────────────────────────────┘
+  `);
+
+  if (config.vercelToken) {
+    console.log(`●  status: configured (token saved in ~/.deploy-mcp/config.json)`);
+  } else {
+    console.log(`●  status: not configured - run deploymcp setup`);
+  }
+  console.log(`${currentWorkingDir}\n`);
+
+  console.log(`get started`);
+  console.log(`  ›  deploymcp setup                  set up Vercel authentication & IDE config`);
+  console.log(`  ›  deploymcp help                   show complete feature guide\n`);
 
   if (config.vercelToken) {
     const reconfig = await question(
-      "Vercel is already configured. Reconfigure? (y/n): "
+      "⚡ Vercel token is already configured. Reconfigure? (y/N): "
     );
-    if (reconfig.toLowerCase() !== "y") {
-      console.log("✅ Setup cancelled");
+    if (reconfig.trim().toLowerCase() !== "y") {
+      console.log("\n✅ Keeping existing Vercel configuration. You're ready to deploy!");
       rl.close();
       return;
     }
   }
 
-  console.log("\n📝 Getting your Vercel token...\n");
-  console.log("Visit: https://vercel.com/account/tokens");
-  console.log("Create a new Personal Access Token");
-  console.log("(Choose 'Full Access')\n");
+  console.log(`  ─────────────────────────────────────────────\n`);
+  console.log(`  Step 1 of 3  -  Get Vercel Personal Access Token`);
+  console.log(`  › Open: https://vercel.com/account/tokens`);
+  console.log(`  › Click 'Create Token', enter name 'deploy-mcp', choose 'Full Access'.\n`);
 
-  const token = await question("Paste your Vercel token: ");
+  console.log(`  ─────────────────────────────────────────────\n`);
+  console.log(`  Step 2 of 3  -  Connect Your Vercel Account\n`);
 
-  if (!token) {
-    console.log("❌ No token provided");
+  const token = await question("  👉 Paste your Vercel token: ");
+
+  if (!token || token.trim().length === 0) {
+    console.log("\n  ❌ No token provided. Setup cancelled.");
     rl.close();
     return;
   }
 
   try {
+    const cleanToken = token.trim();
     // Verify token works
     const response = await fetch("https://api.vercel.com/v2/user", {
       headers: {
-        Authorization: `Bearer ${token}`
+        Authorization: `Bearer ${cleanToken}`
       }
     });
 
     if (!response.ok) {
-      throw new Error("Invalid token");
+      throw new Error("Invalid Vercel Personal Access Token.");
     }
 
     const user = await response.json();
-    console.log(`\n✅ Authenticated as: ${user.user.email}`);
+    console.log(`\n  🎉 Success! Connected Vercel account: ${user.user.email}`);
 
     // Save token
-    await setVercelToken(token);
+    await setVercelToken(cleanToken);
 
-    console.log("\n📝 Adding to your IDE config:\n");
-    console.log("For Cursor, add to cursor_settings.json:");
+    console.log(`\n  ─────────────────────────────────────────────\n`);
+    console.log(`  Step 3 of 3  -  Add Deploy MCP to Your AI IDE\n`);
+    console.log(`  Copy and paste the config snippet below into your IDE settings:\n`);
+
+    console.log(`  🟦 CURSOR IDE (%APPDATA%\\Cursor\\User\\settings\\cursor_settings.json):`);
     console.log(`
 {
   "mcpServers": {
@@ -73,7 +108,7 @@ export async function runSetup(): Promise<void> {
 }
     `);
 
-    console.log("\nFor VS Code Claude extension, add to settings.json:");
+    console.log(`  🟩 VS CODE / CLAUDE EXTENSION / ANTIGRAVITY AI (settings.json):`);
     console.log(`
 {
   "claude.mcp.servers": [
@@ -86,9 +121,16 @@ export async function runSetup(): Promise<void> {
 }
     `);
 
-    console.log("\n✅ Setup complete! Restart your IDE.\n");
+    console.log(`  ─────────────────────────────────────────────\n`);
+    console.log(`  ✨ ALL DONE! HOW TO DEPLOY YOUR WEBSITE:\n`);
+    console.log(`  1. Restart your IDE.`);
+    console.log(`  2. Open your website project folder.`);
+    console.log(`  3. In your AI Chat (Claude / Cursor / Antigravity), type:`);
+    console.log(`     👉 "Use Deploy MCP to deploy my website"\n`);
+    console.log(`  🤖 Your AI assistant will handle 100% of the building, checking, and deploying for you!\n`);
   } catch (error) {
-    console.log(`\n❌ Authentication failed: ${error}`);
+    console.log(`\n  ❌ Authentication failed: ${error instanceof Error ? error.message : error}`);
+    console.log(`  Please check your token at https://vercel.com/account/tokens and re-run: deploymcp setup\n`);
   }
 
   rl.close();

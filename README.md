@@ -4,6 +4,7 @@
 
 ### Deploy any website to Vercel — straight from your AI IDE, in seconds.
 
+[![M8ven Score](https://m8ven.ai/badge/mcp/tusharjain-19-deploy-mcp-erwsd3)](https://m8ven.ai/mcp/tusharjain-19-deploy-mcp-erwsd3)
 [![npm version](https://img.shields.io/npm/v/@tusharjain-19/deploy-mcp?color=0076D1&style=for-the-badge&logo=npm)](https://www.npmjs.com/package/@tusharjain-19/deploy-mcp)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
@@ -37,69 +38,48 @@ AI:   ✓ Next.js detected
 
 ---
 
-## ⚡ Quick Start — Deploy in 3 Steps
+## ⚡ Easy 4-Step Quick Start Guide
 
-### Step 1 — Run Setup (one-time only)
-
-Open your terminal and run:
-
-```bash
-npx @tusharjain-19/deploy-mcp setup
-```
-
-This will:
-- Ask you for your **Vercel Personal Access Token** (see how to get it below)
-- Save it securely on your machine
-- Print the exact config to paste into your IDE
-
-> **How to get your Vercel Token:**
-> 1. Go to [vercel.com/account/tokens](https://vercel.com/account/tokens)
-> 2. Click **"Create Token"**
-> 3. Name it anything (e.g. `deploy-mcp`)
-> 4. Set scope to **Full Access**
-> 5. Copy the token and paste it when the setup wizard asks
+Deploying your website takes less than 2 minutes. Follow these 4 easy steps:
 
 ---
 
-### Step 2 — Add to Your IDE
+### 1️⃣ Step 1 — Run the Setup Command (One-Time Only)
 
-Copy the right config for your IDE and add it to your settings file:
+Open your terminal in any directory and run:
 
-#### Cursor
+```bash
+npx deploymcp setup
+```
+*(or `npx @tusharjain-19/deploy-mcp setup`)*
 
-File location: `%APPDATA%\Cursor\User\settings\cursor_settings.json` (Windows) or `~/.cursor/rules/cursor_settings.json` (Mac/Linux)
+This interactive wizard will:
+1. Guide you to get your free **Vercel Personal Access Token** ([vercel.com/account/tokens](https://vercel.com/account/tokens))
+2. Save your token securely on your machine (`~/.deploy-mcp/config.json`)
+3. Provide the exact JSON configuration to paste into your IDE!
+
+---
+
+### 2️⃣ Step 2 — Add Deploy MCP to Your AI IDE
+
+Copy and paste the configuration snippet for your IDE:
+
+#### 🟦 Cursor IDE
+File: `%APPDATA%\Cursor\User\settings\cursor_settings.json` (Windows) or `~/.cursor/rules/cursor_settings.json` (Mac/Linux)
 
 ```json
 {
   "mcpServers": {
     "deploy": {
       "command": "npx",
-      "args": ["-y", "@tusharjain-19/deploy-mcp"],
-      "disabled": false
+      "args": ["-y", "@tusharjain-19/deploy-mcp"]
     }
   }
 }
 ```
 
-#### VS Code + Claude Extension
-
-File location: `settings.json` (Ctrl+Shift+P → "Open Settings JSON")
-
-```json
-{
-  "claude.mcp.servers": [
-    {
-      "name": "deploy",
-      "command": "npx",
-      "args": ["-y", "@tusharjain-19/deploy-mcp"]
-    }
-  ]
-}
-```
-
-#### Antigravity (VS Code + Antigravity AI)
-
-File location: `settings.json` (Ctrl+Shift+P → "Open Settings JSON")
+#### 🟩 VS Code / Claude Extension / Antigravity AI
+File: `settings.json` (Press `Ctrl+Shift+P` → *"Open User Settings (JSON)"*)
 
 ```json
 {
@@ -113,29 +93,34 @@ File location: `settings.json` (Ctrl+Shift+P → "Open Settings JSON")
 }
 ```
 
-> ✅ **Restart your IDE** after saving the config.
+> 🔄 **Restart your IDE** after saving the file.
 
 ---
 
-### Step 3 — Deploy!
+### 3️⃣ Step 3 — Open Your Project & Ask Your AI Model!
 
-Open your project folder in your IDE and tell the AI:
+Open your website project folder in your IDE, open your AI chat (Claude / Cursor / Antigravity), and simply say:
 
+```text
+"Use Deploy MCP to deploy my website"
 ```
-"Deploy this website"
-```
+*(or simply "Deploy my website to Vercel")*
 
-The AI handles everything from there:
+---
 
-```
-1. Scans your project           → Detects Next.js / React / Vue / etc.
-2. Runs build check             → Makes sure your code compiles
-3. Checks git status            → Warns if files aren't committed
-4. Scans environment variables  → Keys only, values NEVER exposed to AI
-5. Syncs missing env vars       → Uploads secrets directly to Vercel
-6. Deploys to Vercel            → Triggers the actual deployment
-7. Polls until live             → Waits and confirms it's up
-8. Returns your live URL 🎉
+### 4️⃣ Step 4 — Sit Back & Relax! The AI Model Does Everything Automatically
+
+Once you tell your AI model to deploy, **it handles 100% of the workflow autonomously**:
+
+```text
+1. 🔍 Detects Framework   → Next.js, React, Vite, Vue, HTML, etc.
+2. 🔨 Validates Build     → Ensures local project builds without errors
+3. 🌿 Checks Git Safety   → Warns if uncommitted changes or leaked secrets exist
+4. 🔐 Syncs Secrets       → Securely uploads missing .env keys to Vercel
+5. 🚀 Deploys to Vercel    → Triggers deployment via Vercel REST API
+6. ⏳ Auto-Polls Status   → Waits until deployment turns READY
+7. 🩺 Auto-Diagnoses      → If build fails, reads logs & automatically fixes code!
+8. 🎉 Returns Live URL    → Gives you your live production URL!
 ```
 
 ---

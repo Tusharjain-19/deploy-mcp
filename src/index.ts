@@ -11,6 +11,8 @@ import { diagnoseBuildFailure } from "./tools/diagnose.js";
 import { projectReport } from "./tools/project-report.js";
 import { smartDeploy } from "./tools/smart-deploy.js";
 import { deleteProject } from "./tools/delete-project.js";
+import { rateLimiter } from "./utils/rate-limiter.js";
+import { DeployMcpError, ValidationError } from "./utils/errors.js";
 
 const server = new McpServer({
   name: "deploy-mcp",
@@ -33,7 +35,11 @@ server.server.setRequestHandler(
               maxPollSeconds: { type: "number", description: "Max seconds to wait for deployment (default 180)" }
             },
             required: ["projectPath", "projectName"]
-          } as any
+          } as any,
+          readOnlyHint: false,
+          destructiveHint: false,
+          idempotentHint: false,
+          openWorldHint: true
         },
         {
           name: "detect_project",
@@ -42,7 +48,11 @@ server.server.setRequestHandler(
             type: "object",
             properties: { projectPath: { type: "string" } },
             required: ["projectPath"]
-          } as any
+          } as any,
+          readOnlyHint: true,
+          destructiveHint: false,
+          idempotentHint: true,
+          openWorldHint: false
         },
         {
           name: "check_project",
@@ -51,7 +61,11 @@ server.server.setRequestHandler(
             type: "object",
             properties: { projectPath: { type: "string" } },
             required: ["projectPath"]
-          } as any
+          } as any,
+          readOnlyHint: false,
+          destructiveHint: false,
+          idempotentHint: true,
+          openWorldHint: true
         },
         {
           name: "delete_project",
@@ -60,7 +74,11 @@ server.server.setRequestHandler(
             type: "object",
             properties: { projectName: { type: "string" } },
             required: ["projectName"]
-          } as any
+          } as any,
+          readOnlyHint: false,
+          destructiveHint: true,
+          idempotentHint: true,
+          openWorldHint: true
         },
         {
           name: "deploy_to_vercel",
@@ -69,7 +87,11 @@ server.server.setRequestHandler(
             type: "object",
             properties: { projectPath: { type: "string" }, projectName: { type: "string" } },
             required: ["projectPath", "projectName"]
-          } as any
+          } as any,
+          readOnlyHint: false,
+          destructiveHint: false,
+          idempotentHint: false,
+          openWorldHint: true
         },
         {
           name: "get_deployment_status",
@@ -78,7 +100,11 @@ server.server.setRequestHandler(
             type: "object",
             properties: { projectName: { type: "string" } },
             required: ["projectName"]
-          } as any
+          } as any,
+          readOnlyHint: true,
+          destructiveHint: false,
+          idempotentHint: true,
+          openWorldHint: true
         },
         {
           name: "get_deployment_logs",
@@ -87,7 +113,11 @@ server.server.setRequestHandler(
             type: "object",
             properties: { projectName: { type: "string" } },
             required: ["projectName"]
-          } as any
+          } as any,
+          readOnlyHint: true,
+          destructiveHint: false,
+          idempotentHint: true,
+          openWorldHint: true
         },
         {
           name: "scan_env",
@@ -96,7 +126,11 @@ server.server.setRequestHandler(
             type: "object",
             properties: { projectPath: { type: "string" } },
             required: ["projectPath"]
-          } as any
+          } as any,
+          readOnlyHint: true,
+          destructiveHint: false,
+          idempotentHint: true,
+          openWorldHint: false
         },
         {
           name: "compare_env",
@@ -105,7 +139,11 @@ server.server.setRequestHandler(
             type: "object",
             properties: { projectPath: { type: "string" }, projectName: { type: "string" } },
             required: ["projectPath", "projectName"]
-          } as any
+          } as any,
+          readOnlyHint: true,
+          destructiveHint: false,
+          idempotentHint: true,
+          openWorldHint: true
         },
         {
           name: "sync_env",
@@ -114,7 +152,11 @@ server.server.setRequestHandler(
             type: "object",
             properties: { projectPath: { type: "string" }, projectName: { type: "string" }, keysToSync: { type: "array", items: { type: "string" } }, overwrite: { type: "boolean" } },
             required: ["projectPath", "projectName", "keysToSync"]
-          } as any
+          } as any,
+          readOnlyHint: false,
+          destructiveHint: false,
+          idempotentHint: true,
+          openWorldHint: true
         },
         {
           name: "create_env_example",
@@ -123,7 +165,11 @@ server.server.setRequestHandler(
             type: "object",
             properties: { projectPath: { type: "string" } },
             required: ["projectPath"]
-          } as any
+          } as any,
+          readOnlyHint: false,
+          destructiveHint: false,
+          idempotentHint: true,
+          openWorldHint: false
         },
         {
           name: "check_env_leak",
@@ -132,7 +178,11 @@ server.server.setRequestHandler(
             type: "object",
             properties: { projectPath: { type: "string" } },
             required: ["projectPath"]
-          } as any
+          } as any,
+          readOnlyHint: true,
+          destructiveHint: false,
+          idempotentHint: true,
+          openWorldHint: false
         },
         {
           name: "project_report",
@@ -141,7 +191,11 @@ server.server.setRequestHandler(
             type: "object",
             properties: { projectPath: { type: "string" }, projectName: { type: "string" } },
             required: ["projectPath"]
-          } as any
+          } as any,
+          readOnlyHint: true,
+          destructiveHint: false,
+          idempotentHint: true,
+          openWorldHint: true
         },
         {
           name: "validate_environment_variables",
@@ -150,7 +204,11 @@ server.server.setRequestHandler(
             type: "object",
             properties: { projectPath: { type: "string" } },
             required: ["projectPath"]
-          } as any
+          } as any,
+          readOnlyHint: true,
+          destructiveHint: false,
+          idempotentHint: true,
+          openWorldHint: false
         },
         {
           name: "git_status",
@@ -159,7 +217,11 @@ server.server.setRequestHandler(
             type: "object",
             properties: { projectPath: { type: "string" } },
             required: ["projectPath"]
-          } as any
+          } as any,
+          readOnlyHint: true,
+          destructiveHint: false,
+          idempotentHint: true,
+          openWorldHint: false
         },
         {
           name: "git_commit_and_push",
@@ -168,7 +230,11 @@ server.server.setRequestHandler(
             type: "object",
             properties: { projectPath: { type: "string" }, message: { type: "string" } },
             required: ["projectPath", "message"]
-          } as any
+          } as any,
+          readOnlyHint: false,
+          destructiveHint: false,
+          idempotentHint: false,
+          openWorldHint: true
         },
         {
           name: "diagnose_build_failure",
@@ -177,7 +243,11 @@ server.server.setRequestHandler(
             type: "object",
             properties: { logs: { type: "array", items: { type: "string" } } },
             required: ["logs"]
-          } as any
+          } as any,
+          readOnlyHint: true,
+          destructiveHint: false,
+          idempotentHint: true,
+          openWorldHint: false
         }
       ]
     };
@@ -189,140 +259,168 @@ server.server.setRequestHandler(
   async (request) => {
     const { name, arguments: args } = request as any;
 
-    if (name === "smart_deploy") {
-      const { projectPath, projectName, maxPollSeconds } = args as {
-        projectPath: string;
-        projectName: string;
-        maxPollSeconds?: number;
-      };
-      const result = await smartDeploy(projectPath, projectName, maxPollSeconds);
-      // If failed, aiInstruction is what the AI should read and act on immediately
-      const text = result.failed && result.aiInstruction
-        ? result.aiInstruction + "\n\n--- Full Result ---\n" + JSON.stringify(result, null, 2)
-        : JSON.stringify(result, null, 2);
-      return { content: [{ type: "text", text }] };
-    }
+    try {
+      // 1. Enforce rate limits
+      rateLimiter.checkRateLimit(name);
 
-    if (name === "detect_project") {
-      const { projectPath } = args as { projectPath: string };
-      const result = await detectProject(projectPath);
+      // Helper for path/string validation
+      const requireStringParam = (paramName: string, val: any): string => {
+        if (typeof val !== "string" || val.trim().length === 0) {
+          throw new ValidationError(paramName, `Must be a non-empty string.`);
+        }
+        return val.trim();
+      };
+
+      if (name === "smart_deploy") {
+        const { projectPath, projectName, maxPollSeconds } = args || {};
+        const validPath = requireStringParam("projectPath", projectPath);
+        const validName = requireStringParam("projectName", projectName);
+        const result = await smartDeploy(validPath, validName, maxPollSeconds);
+        const text = result.failed && result.aiInstruction
+          ? result.aiInstruction + "\n\n--- Full Result ---\n" + JSON.stringify(result, null, 2)
+          : JSON.stringify(result, null, 2);
+        return { content: [{ type: "text", text }] };
+      }
+
+      if (name === "detect_project") {
+        const { projectPath } = args || {};
+        const validPath = requireStringParam("projectPath", projectPath);
+        const result = await detectProject(validPath);
+        return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      }
+
+      if (name === "check_project") {
+        const { projectPath } = args || {};
+        const validPath = requireStringParam("projectPath", projectPath);
+        const result = await checkProject(validPath);
+        return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      }
+
+      if (name === "delete_project") {
+        const { projectName } = args || {};
+        const validName = requireStringParam("projectName", projectName);
+        const result = await deleteProject(validName);
+        return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      }
+
+      if (name === "deploy_to_vercel") {
+        const { projectPath, projectName } = args || {};
+        const validPath = requireStringParam("projectPath", projectPath);
+        const validName = requireStringParam("projectName", projectName);
+        const result = await deployToVercel(validPath, validName);
+        return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      }
+
+      if (name === "get_deployment_status") {
+        const { projectName } = args || {};
+        const validName = requireStringParam("projectName", projectName);
+        const result = await getDeploymentStatus(validName);
+        return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      }
+
+      if (name === "get_deployment_logs") {
+        const { projectName } = args || {};
+        const validName = requireStringParam("projectName", projectName);
+        const result = await getDeploymentLogs(validName);
+        return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      }
+
+      if (name === "scan_env") {
+        const { projectPath } = args || {};
+        const validPath = requireStringParam("projectPath", projectPath);
+        const result = await scanEnv(validPath);
+        return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      }
+
+      if (name === "compare_env") {
+        const { projectPath, projectName } = args || {};
+        const validPath = requireStringParam("projectPath", projectPath);
+        const validName = requireStringParam("projectName", projectName);
+        const result = await compareEnv(validPath, validName);
+        return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      }
+
+      if (name === "sync_env") {
+        const { projectPath, projectName, keysToSync, overwrite } = args || {};
+        const validPath = requireStringParam("projectPath", projectPath);
+        const validName = requireStringParam("projectName", projectName);
+        if (!Array.isArray(keysToSync)) {
+          throw new ValidationError("keysToSync", "Must be an array of string key names.");
+        }
+        const result = await syncEnv(validPath, validName, keysToSync, overwrite);
+        return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      }
+
+      if (name === "create_env_example") {
+        const { projectPath } = args || {};
+        const validPath = requireStringParam("projectPath", projectPath);
+        const result = await createEnvExample(validPath);
+        return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      }
+
+      if (name === "check_env_leak") {
+        const { projectPath } = args || {};
+        const validPath = requireStringParam("projectPath", projectPath);
+        const result = await checkEnvLeak(validPath);
+        return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      }
+
+      if (name === "project_report") {
+        const { projectPath, projectName } = args || {};
+        const validPath = requireStringParam("projectPath", projectPath);
+        const result = await projectReport(validPath, projectName);
+        return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      }
+
+      if (name === "validate_environment_variables") {
+        const { projectPath } = args || {};
+        const validPath = requireStringParam("projectPath", projectPath);
+        const result = await validateEnvironmentVariables(validPath);
+        return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      }
+
+      if (name === "git_status") {
+        const { projectPath } = args || {};
+        const validPath = requireStringParam("projectPath", projectPath);
+        const result = await gitStatus(validPath);
+        return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      }
+
+      if (name === "git_commit_and_push") {
+        const { projectPath, message } = args || {};
+        const validPath = requireStringParam("projectPath", projectPath);
+        const validMsg = requireStringParam("message", message);
+        const result = await gitCommitAndPush(validPath, validMsg);
+        return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      }
+
+      if (name === "diagnose_build_failure") {
+        const { logs } = args || {};
+        if (!Array.isArray(logs)) {
+          throw new ValidationError("logs", "Must be an array of log string lines.");
+        }
+        const result = await diagnoseBuildFailure(logs);
+        return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
+      }
+
+      throw new ValidationError("toolName", `Unknown tool: ${name}`);
+    } catch (err: any) {
+      if (err instanceof DeployMcpError) {
+        return {
+          content: [{ type: "text", text: JSON.stringify(err.toStructuredSignal(), null, 2) }],
+          isError: true
+        };
+      }
+      const genericError = new DeployMcpError(
+        "ERR_INTERNAL_FAILURE",
+        err instanceof Error ? err.message : String(err),
+        "Review tool arguments and check system logs."
+      );
       return {
-        content: [{ type: "text", text: JSON.stringify(result, null, 2) }]
+        content: [{ type: "text", text: JSON.stringify(genericError.toStructuredSignal(), null, 2) }],
+        isError: true
       };
     }
-
-    if (name === "check_project") {
-      const { projectPath } = args as { projectPath: string };
-      const result = await checkProject(projectPath);
-      return {
-        content: [{ type: "text", text: JSON.stringify(result, null, 2) }]
-      };
-    }
-
-    if (name === "delete_project") {
-      const { projectName } = args as { projectName: string };
-      const result = await deleteProject(projectName);
-      return {
-        content: [{ type: "text", text: JSON.stringify(result, null, 2) }]
-      };
-    }
-
-    if (name === "deploy_to_vercel") {
-      const { projectPath, projectName } = args as {
-        projectPath: string;
-        projectName: string;
-      };
-      const result = await deployToVercel(projectPath, projectName);
-      return {
-        content: [{ type: "text", text: JSON.stringify(result, null, 2) }]
-      };
-    }
-
-    if (name === "get_deployment_status") {
-      const { projectName } = args as { projectName: string };
-      const result = await getDeploymentStatus(projectName);
-      return {
-        content: [{ type: "text", text: JSON.stringify(result, null, 2) }]
-      };
-    }
-    
-    if (name === "get_deployment_logs") {
-      const { projectName } = args as { projectName: string };
-      const result = await getDeploymentLogs(projectName);
-      return {
-        content: [{ type: "text", text: JSON.stringify(result, null, 2) }]
-      };
-    }
-    
-    if (name === "scan_env") {
-      const { projectPath } = args as { projectPath: string };
-      const result = await scanEnv(projectPath);
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
-    }
-
-    if (name === "compare_env") {
-      const { projectPath, projectName } = args as { projectPath: string; projectName: string };
-      const result = await compareEnv(projectPath, projectName);
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
-    }
-
-    if (name === "sync_env") {
-      const { projectPath, projectName, keysToSync, overwrite } = args as { projectPath: string; projectName: string; keysToSync: string[]; overwrite?: boolean };
-      const result = await syncEnv(projectPath, projectName, keysToSync, overwrite);
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
-    }
-
-    if (name === "create_env_example") {
-      const { projectPath } = args as { projectPath: string };
-      const result = await createEnvExample(projectPath);
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
-    }
-
-    if (name === "check_env_leak") {
-      const { projectPath } = args as { projectPath: string };
-      const result = await checkEnvLeak(projectPath);
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
-    }
-
-    if (name === "project_report") {
-      const { projectPath, projectName } = args as { projectPath: string; projectName?: string };
-      const result = await projectReport(projectPath, projectName);
-      return { content: [{ type: "text", text: JSON.stringify(result, null, 2) }] };
-    }
-    
-    if (name === "validate_environment_variables") {
-      const { projectPath } = args as { projectPath: string };
-      const result = await validateEnvironmentVariables(projectPath);
-      return {
-        content: [{ type: "text", text: JSON.stringify(result, null, 2) }]
-      };
-    }
-
-    if (name === "git_status") {
-      const { projectPath } = args as { projectPath: string };
-      const result = await gitStatus(projectPath);
-      return {
-        content: [{ type: "text", text: JSON.stringify(result, null, 2) }]
-      };
-    }
-
-    if (name === "git_commit_and_push") {
-      const { projectPath, message } = args as { projectPath: string; message: string };
-      const result = await gitCommitAndPush(projectPath, message);
-      return {
-        content: [{ type: "text", text: JSON.stringify(result, null, 2) }]
-      };
-    }
-
-    if (name === "diagnose_build_failure") {
-      const { logs } = args as { logs: string[] };
-      const result = await diagnoseBuildFailure(logs);
-      return {
-        content: [{ type: "text", text: JSON.stringify(result, null, 2) }]
-      };
-    }
-
-    throw new Error(`Unknown tool: ${name}`);
   }
 );
 

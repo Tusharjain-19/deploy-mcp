@@ -1,5 +1,6 @@
 import { setVercelToken, loadConfig } from "../utils/config.js";
 import { checkForUpdates } from "../utils/version-checker.js";
+import { c, cyanMagentaGradient, lineGradient } from "../utils/colors.js";
 import readline from "readline";
 
 const rl = readline.createInterface({
@@ -20,64 +21,66 @@ export async function runSetup(): Promise<void> {
   // Asynchronously check for updates
   const updateInfo = await checkForUpdates();
 
+  const rawAsciiLogo = `  ██████╗ ███████╗██████╗ ██╗      ██████╗ ██╗   ██╗   ███╗   ███╗ ██████╗██████╗ 
+  ██╔══██╗██╔════╝██╔══██╗██║     ██╔══██╗╚██╗ ██╔╝   ████╗ ████║██╔════╝██╔══██╗
+  ██║  ██║█████╗  ██████╔╝██║     ██║  ██║ ╚████╔╝    ██╔████╔██║██║     ██████╔╝
+  ██║  ██║██╔══╝  ██╔═══╝ ██║     ██║  ██║  ╚██╔╝     ██║╚██╔╝██║██║     ██╔═══╝ 
+  ██████╔╝███████╗██║     ███████╗╚██████╔╝   ██║     ██║ ╚═╝ ██║╚██████╗██║     
+  ╚═════╝ ╚══════╝╚═╝     ╚══════╝ ╚═════╝    ╚═╝     ╚═╝     ╚═╝ ╚═════╝╚═╝     `;
+
+  const coloredLogo = cyanMagentaGradient(rawAsciiLogo);
+
+  const topBorder = c.gray("┌─ ") + lineGradient("Welcome to Deploy MCP") + c.gray(" ────────────────────────────────────────────────────────┐");
+  const bottomBorder = c.gray("└─────────────────────────────────────────────────────────────────────────────────────────┘");
+
   console.log(`
-┌─ Welcome to Deploy MCP ─────────────────────────────────────────────────────────────────┐
+${topBorder}
 │                                                                                         │
-│  ██████╗ ███████╗██████╗ ██╗      ██████╗ ██╗   ██╗   ███╗   ███╗ ██████╗██████╗        │
-│  ██╔══██╗██╔════╝██╔══██╗██║     ██╔══██╗╚██╗ ██╔╝   ████╗ ████║██╔════╝██╔══██╗       │
-│  ██║  ██║█████╗  ██████╔╝██║     ██║  ██║ ╚████╔╝    ██╔████╔██║██║     ██████╔╝       │
-│  ██║  ██║██╔══╝  ██╔═══╝ ██║     ██║  ██║  ╚██╔╝     ██║╚██╔╝██║██║     ██╔═══╝        │
-│  ██████╔╝███████╗██║     ███████╗╚██████╔╝   ██║     ██║ ╚═╝ ██║╚██████╗██║            │
-│  ╚═════╝ ╚══════╝╚═╝     ╚══════╝ ╚═════╝    ╚═╝     ╚═╝     ╚═╝ ╚═════╝╚═╝            │
+${coloredLogo}
 │                                                                                         │
-│  v${updateInfo.currentVersion}                                                                                 │
+│  ${c.badge(` v${updateInfo.currentVersion} `, 0, 150, 255)}  ${c.italic(c.gray("Your agent deploys your site. We make sure it goes live."))}                    │
 │                                                                                         │
-│             Your agent deploys your site. We make sure it goes live.                    │
+│  ${c.brightCyan("Deploy MCP")} connects your AI assistant (${c.cyan("Claude")} / ${c.blue("Cursor")} / ${c.magenta("Antigravity")}) directly to      │
+│  ${c.white("Vercel")} — zero server costs, environment syncing, and auto-diagnostics handled.         │
 │                                                                                         │
-│  Deploy MCP connects your AI assistant (Claude / Cursor / Antigravity) directly to      │
-│  Vercel — zero server costs, environment syncing, and auto-diagnostics handled.         │
-│                                                                                         │
-└─────────────────────────────────────────────────────────────────────────────────────────┘
+${bottomBorder}
   `);
 
   if (updateInfo.hasUpdate) {
-    console.log(`🎉 A new version of Deploy MCP is available! (v${updateInfo.latestVersion})`);
-    console.log(`   Update command: ${updateInfo.updateCommand}\n`);
+    console.log(`\n  ${c.badge(" UPDATE AVAILABLE ", 255, 165, 0)} ${c.yellow(`v${updateInfo.latestVersion} is ready!`)}`);
+    console.log(`  ${c.gray("Run update:")} ${c.code(updateInfo.updateCommand)}\n`);
   }
 
   if (config.vercelToken) {
-    console.log(`●  status: configured (token saved in ~/.deploy-mcp/config.json)`);
+    console.log(`  ${c.success("●")}  ${c.bold("Status:")} ${c.green("CONFIGURED")} ${c.gray("(token saved in ~/.deploy-mcp/config.json)")}`);
   } else {
-    console.log(`●  status: not configured - run npx @tusharjain-19/deploy-mcp setup`);
+    console.log(`  ${c.warn("●")}  ${c.bold("Status:")} ${c.yellow("NOT CONFIGURED")} ${c.gray("- run npx @tusharjain-19/deploy-mcp setup")}`);
   }
-  console.log(`${currentWorkingDir}\n`);
-
-  console.log(`get started`);
-  console.log(`  ›  npx @tusharjain-19/deploy-mcp setup  set up Vercel authentication & IDE config\n`);
+  console.log(`  ${c.gray("Directory:")} ${c.dim(currentWorkingDir)}\n`);
 
   if (config.vercelToken) {
     const reconfig = await question(
-      "⚡ Vercel token is already configured. Reconfigure? (y/N): "
+      `  ${c.yellow("⚡ Vercel token is already configured. Reconfigure? (y/N): ")}`
     );
     if (reconfig.trim().toLowerCase() !== "y") {
-      console.log("\n✅ Keeping existing Vercel configuration. You're ready to deploy!");
+      console.log(`\n  ${c.success("✅ Keeping existing Vercel configuration. You're ready to deploy!")}\n`);
       rl.close();
       return;
     }
   }
 
-  console.log(`  ─────────────────────────────────────────────\n`);
-  console.log(`  Step 1 of 3  -  Get Vercel Personal Access Token`);
-  console.log(`  › Open: https://vercel.com/account/tokens`);
-  console.log(`  › Click 'Create Token', enter name 'deploy-mcp', choose 'Full Access'.\n`);
+  console.log(`  ${c.gray("─".repeat(70))}\n`);
+  console.log(`  ${c.badge(" STEP 1 OF 3 ", 0, 180, 216)}  ${c.bold("Get Your Vercel Personal Access Token")}`);
+  console.log(`  ${c.gray("› Open in browser:")} ${c.underline(c.brightCyan("https://vercel.com/account/tokens"))}`);
+  console.log(`  ${c.gray("› Click")} ${c.bold("'Create Token'")}${c.gray(", enter name")} ${c.code("deploy-mcp")}${c.gray(", choose")} ${c.bold("'Full Access'")}.\n`);
 
-  console.log(`  ─────────────────────────────────────────────\n`);
-  console.log(`  Step 2 of 3  -  Connect Your Vercel Account\n`);
+  console.log(`  ${c.gray("─".repeat(70))}\n`);
+  console.log(`  ${c.badge(" STEP 2 OF 3 ", 0, 180, 216)}  ${c.bold("Connect Your Vercel Account")}\n`);
 
-  const token = await question("  👉 Paste your Vercel token: ");
+  const token = await question(`  ${c.highlight("👉 Paste your Vercel token: ")}`);
 
   if (!token || token.trim().length === 0) {
-    console.log("\n  ❌ No token provided. Setup cancelled.");
+    console.log(`\n  ${c.error("❌ No token provided. Setup cancelled.")}\n`);
     rl.close();
     return;
   }
@@ -96,17 +99,17 @@ export async function runSetup(): Promise<void> {
     }
 
     const user = await response.json();
-    console.log(`\n  🎉 Success! Connected Vercel account: ${user.user.email}`);
+    console.log(`\n  ${c.success("🎉 Success!")} Connected Vercel account: ${c.highlight(user.user.email)}`);
 
     // Save token
     await setVercelToken(cleanToken);
 
-    console.log(`\n  ─────────────────────────────────────────────\n`);
-    console.log(`  Step 3 of 3  -  Add Deploy MCP to Your AI IDE\n`);
+    console.log(`\n  ${c.gray("─".repeat(70))}\n`);
+    console.log(`  ${c.badge(" STEP 3 OF 3 ", 0, 180, 216)}  ${c.bold("Add Deploy MCP to Your AI IDE")}\n`);
     console.log(`  Copy and paste the config snippet below into your IDE settings:\n`);
 
-    console.log(`  🟦 CURSOR IDE (%APPDATA%\\Cursor\\User\\settings\\cursor_settings.json):`);
-    console.log(`
+    console.log(`  ${c.badge(" CURSOR IDE ", 0, 122, 255)} ${c.gray("(%APPDATA%\\Cursor\\User\\settings\\cursor_settings.json):")}`);
+    console.log(c.code(`
 {
   "mcpServers": {
     "deploy": {
@@ -115,10 +118,10 @@ export async function runSetup(): Promise<void> {
     }
   }
 }
-    `);
+    `));
 
-    console.log(`  🟩 VS CODE / CLAUDE EXTENSION / ANTIGRAVITY AI (settings.json):`);
-    console.log(`
+    console.log(`  ${c.badge(" VS CODE / CLAUDE / ANTIGRAVITY ", 46, 160, 67)} ${c.gray("(settings.json):")}`);
+    console.log(c.code(`
 {
   "claude.mcp.servers": [
     {
@@ -128,17 +131,17 @@ export async function runSetup(): Promise<void> {
     }
   ]
 }
-    `);
+    `));
 
-    console.log(`  ─────────────────────────────────────────────\n`);
-    console.log(`  ✨ ALL DONE! HOW TO DEPLOY YOUR WEBSITE:\n`);
+    console.log(`  ${c.gray("─".repeat(70))}\n`);
+    console.log(`  ${c.success("✨ ALL DONE! HOW TO DEPLOY YOUR WEBSITE:")}\n`);
     console.log(`  1. Open your website project folder.`);
-    console.log(`  2. In your AI Chat (Claude / Cursor / Antigravity), type:`);
-    console.log(`     👉 "Use Deploy MCP to deploy my website"\n`);
-    console.log(`  🤖 Your AI assistant will handle 100% of the building, checking, and deploying for you!\n`);
+    console.log(`  2. In your AI Chat (${c.cyan("Claude")} / ${c.blue("Cursor")} / ${c.magenta("Antigravity")}), type:`);
+    console.log(`     ${c.highlight("👉 \"Use Deploy MCP to deploy my website\"")}\n`);
+    console.log(`  ${c.italic(c.brightCyan("🤖 Your AI assistant will handle 100% of the building, checking, and deploying for you!"))}\n`);
   } catch (error) {
-    console.log(`\n  ❌ Authentication failed: ${error instanceof Error ? error.message : error}`);
-    console.log(`  Please check your token at https://vercel.com/account/tokens and re-run: npx @tusharjain-19/deploy-mcp setup\n`);
+    console.log(`\n  ${c.error("❌ Authentication failed:")} ${error instanceof Error ? error.message : error}`);
+    console.log(`  Please check your token at ${c.underline(c.brightCyan("https://vercel.com/account/tokens"))} and re-run: ${c.code("npx @tusharjain-19/deploy-mcp setup")}\n`);
   }
 
   rl.close();

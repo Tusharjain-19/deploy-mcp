@@ -493,7 +493,7 @@ server.server.setRequestHandler(
 export async function main() {
   const transport = new StdioServerTransport();
   await server.connect(transport);
-  console.error("Deploy MCP server running on stdio");
+  console.error("\x1b[38;2;0;229;255m\x1b[1m🚀 Deploy MCP server running on stdio\x1b[0m");
 }
 
 main().catch(console.error);

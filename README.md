@@ -394,11 +394,8 @@ mcp-server/
 
 | Version | Status | Features |
 |---|---|---|
-| **v1.0** | ✅ Done | Project detection, build check, Vercel deployment, status polling |
-| **v1.5** | ✅ Done | Env scanning (no leakage), env diff, env sync, git tools, project report |
-| **v1.6** | ✅ Done | Smart deploy (auto-diagnose failures), safe project deletion |
-| **v2.0** | 🔄 Planned | AI error auto-fix loop, preview deployments, rollback |
-| **v3.0** | 💭 Future | Netlify/Railway support, GitHub integration, team deployments |
+| **v1.0** | ✅ Active | Vercel deployment, smart auto-diagnose, secret env sync, git tools, rate limiting & auto-updater |
+| **v2.0** | 🔄 Next | Multi-platform support (Netlify/Railway) & team deployments |
 
 ---
 

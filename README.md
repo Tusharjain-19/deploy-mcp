@@ -49,9 +49,14 @@ Deploying your website takes less than 2 minutes. Follow these 4 easy steps:
 Open your terminal in any directory and run:
 
 ```bash
-npx deploymcp setup
+npx @tusharjain-19/deploy-mcp setup
 ```
-*(or `npx @tusharjain-19/deploy-mcp setup`)*
+
+> 💡 **Tip:** If you want to use the short `deploymcp setup` command, install it globally once:
+> ```bash
+> npm install -g @tusharjain-19/deploy-mcp
+> deploymcp setup
+> ```
 
 This interactive wizard will:
 1. Guide you to get your free **Vercel Personal Access Token** ([vercel.com/account/tokens](https://vercel.com/account/tokens))

@@ -19,12 +19,13 @@ export async function runSetup(): Promise<void> {
   console.log(`
 ┌─ Welcome to Deploy MCP ─────────────────────────────────────────────────────────────────┐
 │                                                                                         │
-│  ██████╗ ███████╗██████╗ ██╗      ██████╗ ██╗   ██╗███╗   ███╗ ██████╗██████╗           │
-│  ██╔══██╗██╔════╝██╔══██╗██║     ██╔══██╗╚██╗ ██╔╝████╗ ████║██╔════╝██╔══██╗          │
-│  ██║  ██║█████╗  ██████╔╝██║     ██║  ██║ ╚████╔╝ ██╔████╔██║██║     ██████╔╝          │
-│  ██║  ██║██╔══╝  ██╔═══╝ ██║     ██║  ██║  ╚██╔╝  ██║╚██╔╝██║██║     ██╔═══╝           │
-│  ██████╔╝███████╗██║     ███████╗╚██████╔╝   ██║   ██║ ╚═╝ ██║╚██████╗██║              │
-│  ╚═════╝ ╚══════╝╚═╝     ╚══════╝ ╚═════╝    ╚═╝   ╚═╝     ╚═╝ ╚═════╝╚═╝              │
+│  ██████╗ ███████╗██████╗ ██╗      ██████╗ ██╗   ██╗   ███╗   ███╗ ██████╗██████╗        │
+│  ██╔══██╗██╔════╝██╔══██╗██║     ██╔══██╗╚██╗ ██╔╝   ████╗ ████║██╔════╝██╔══██╗       │
+│  ██║  ██║█████╗  ██████╔╝██║     ██║  ██║ ╚████╔╝    ██╔████╔██║██║     ██████╔╝       │
+│  ██║  ██║██╔══╝  ██╔═══╝ ██║     ██║  ██║  ╚██╔╝     ██║╚██╔╝██║██║     ██╔═══╝        │
+│  ██████╔╝███████╗██║     ███████╗╚██████╔╝   ██║     ██║ ╚═╝ ██║╚██████╗██║            │
+│  ╚═════╝ ╚══════╝╚═╝     ╚══════╝ ╚═════╝    ╚═╝     ╚═╝     ╚═╝ ╚═════╝╚═╝            │
+│                                                                                         │
 │  v1.0.0                                                                                 │
 │                                                                                         │
 │             Your agent deploys your site. We make sure it goes live.                    │
@@ -38,13 +39,12 @@ export async function runSetup(): Promise<void> {
   if (config.vercelToken) {
     console.log(`●  status: configured (token saved in ~/.deploy-mcp/config.json)`);
   } else {
-    console.log(`●  status: not configured - run deploymcp setup`);
+    console.log(`●  status: not configured - run npx @tusharjain-19/deploy-mcp setup`);
   }
   console.log(`${currentWorkingDir}\n`);
 
   console.log(`get started`);
-  console.log(`  ›  deploymcp setup                  set up Vercel authentication & IDE config`);
-  console.log(`  ›  deploymcp help                   show complete feature guide\n`);
+  console.log(`  ›  npx @tusharjain-19/deploy-mcp setup  set up Vercel authentication & IDE config\n`);
 
   if (config.vercelToken) {
     const reconfig = await question(
@@ -123,14 +123,13 @@ export async function runSetup(): Promise<void> {
 
     console.log(`  ─────────────────────────────────────────────\n`);
     console.log(`  ✨ ALL DONE! HOW TO DEPLOY YOUR WEBSITE:\n`);
-    console.log(`  1. Restart your IDE.`);
-    console.log(`  2. Open your website project folder.`);
-    console.log(`  3. In your AI Chat (Claude / Cursor / Antigravity), type:`);
+    console.log(`  1. Open your website project folder.`);
+    console.log(`  2. In your AI Chat (Claude / Cursor / Antigravity), type:`);
     console.log(`     👉 "Use Deploy MCP to deploy my website"\n`);
     console.log(`  🤖 Your AI assistant will handle 100% of the building, checking, and deploying for you!\n`);
   } catch (error) {
     console.log(`\n  ❌ Authentication failed: ${error instanceof Error ? error.message : error}`);
-    console.log(`  Please check your token at https://vercel.com/account/tokens and re-run: deploymcp setup\n`);
+    console.log(`  Please check your token at https://vercel.com/account/tokens and re-run: npx @tusharjain-19/deploy-mcp setup\n`);
   }
 
   rl.close();

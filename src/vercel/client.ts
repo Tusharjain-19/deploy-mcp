@@ -54,7 +54,7 @@ export class VercelClient {
       const { execSync } = await import("child_process");
       
       const deployResult = execSync(
-        `cd "${projectPath}" && vercel --token=${this.token} --confirm`,
+        `cd "${projectPath}" && vercel --token=${this.token} --yes`,
         { encoding: "utf-8" }
       );
 

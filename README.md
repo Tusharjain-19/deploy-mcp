@@ -98,8 +98,6 @@ File: `settings.json` (Press `Ctrl+Shift+P` → *"Open User Settings (JSON)"*)
 }
 ```
 
-> 🔄 **Restart your IDE** after saving the file.
-
 ---
 
 ### 3️⃣ Step 3 — Open Your Project & Ask Your AI Model!

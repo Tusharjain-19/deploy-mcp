@@ -72,24 +72,24 @@ AI:   ✓ Framework Detected: Next.js (App Router)
 
 Set up Deploy MCP in less than 2 minutes:
 
-### 1️⃣ Step 1 — Run the Setup Wizard (One-Time Only)
+### 1️⃣ Step 1 — Run the 1-Minute Setup Command
 
-Execute the interactive setup command in your terminal:
+Open your terminal (or your IDE terminal) and run:
 
 ```bash
 npx @tusharjain-19/deploy-mcp setup
 ```
 
-> 💡 **Global CLI Shortcut**: Install globally for convenient CLI execution:
+**What this wizard does in 3 easy steps:**
+1. 🔑 **Connects Vercel**: Guides you to get your free [Vercel Personal Access Token](https://vercel.com/account/tokens).
+2. 🔒 **Saves Token Securely**: Stores your token safely on your machine (`~/.deploy-mcp/config.json`).
+3. 📋 **Gives You IDE Config**: Prints the exact JSON snippet ready to copy into your AI IDE!
+
+> 💡 **Short Command Shortcut**: You can also install it globally once to use the short `deploymcp` command:
 > ```bash
 > npm install -g @tusharjain-19/deploy-mcp
 > deploymcp setup
 > ```
-
-The setup wizard will:
-1. Guide you to retrieve your free **Vercel Personal Access Token** ([vercel.com/account/tokens](https://vercel.com/account/tokens))
-2. Store your token securely on your local system (`~/.deploy-mcp/config.json`)
-3. Output the ready-to-paste JSON configuration tailored to your specific AI IDE.
 
 ---
 

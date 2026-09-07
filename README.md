@@ -1,8 +1,25 @@
 <div align="center">
 
+```text
+┌──────────────────────────────────────────────────────────────────────────────┐
+│  ● ● ● terminal — deploy-mcp                                                 │
+├──────────────────────────────────────────────────────────────────────────────┤
+│                                                                              │
+│   ██████╗ ███████╗██████╗ ██╗      ██████╗ ██╗   ██╗    ███╗   ███╗██████╗   │
+│   ██╔══██╗██╔════╝██╔══██╗██║     ██╔═══██╗╚██╗ ██╔╝    ████╗ ████║██╔══██╗  │
+│   ██║  ██║█████╗  ██████╔╝██║     ██║   ██║ ╚████╔╝     ██╔████╔██║██████╔╝  │
+│   ██║  ██║██╔══╝  ██╔═══╝ ██║     ██║   ██║  ╚██╔╝      ██║╚██╔╝██║██╔═══╝   │
+│   ██████╔╝███████╗██║     ███████╗╚██████╔╝   ██║       ██║ ╚═╝ ██║██║       │
+│   ╚═════╝ ╚══════╝╚═╝     ╚══════╝ ╚═════╝    ╚═╝       ╚═╝     ╚═╝╚═╝       │
+│                                                                              │
+│         🚀 Zero-Config Autonomous Vercel Deployment Engine for AI IDEs        │
+│                                                                              │
+└──────────────────────────────────────────────────────────────────────────────┘
+```
+
 # 🚀 Deploy MCP
 
-### Deploy any website to Vercel — straight from your AI IDE, in seconds.
+### Deploy any web application to Vercel — directly from your AI IDE in seconds.
 
 [![M8ven Score](https://m8ven.ai/badge/mcp/tusharjain-19-deploy-mcp-erwsd3)](https://m8ven.ai/mcp/tusharjain-19-deploy-mcp-erwsd3)
 [![npm version](https://img.shields.io/npm/v/@tusharjain-19/deploy-mcp?color=0076D1&style=for-the-badge&logo=npm)](https://www.npmjs.com/package/@tusharjain-19/deploy-mcp)
@@ -10,10 +27,11 @@
 [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
 [![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
+[![MCP Protocol](https://img.shields.io/badge/MCP-Protocol-purple?style=for-the-badge)](https://modelcontextprotocol.io/)
 
-**Free. Open source. Zero server costs. Built for vibe coders.**
+**Free. Open source. Zero server costs. Engineered for modern developers.**
 
-[Quick Start](#-quick-start-deploy-in-3-steps) • [IDE Setup](#-connect-to-your-ide) • [Tools](#-available-tools) • [Troubleshooting](#-troubleshooting) • [Contributing](#-contributing)
+[Quick Start](#-quick-start-guide) • [IDE Setup](#2%EF%B8%8F%E2%83%A3-step-2--connect-to-your-ai-ide) • [Tool Reference](#-comprehensive-tool-suite) • [Architecture](#-architecture--security-model) • [Troubleshooting](#-troubleshooting--diagnostics)
 
 </div>
 
@@ -21,53 +39,63 @@
 
 ## ✨ What is Deploy MCP?
 
-Deploy MCP is a **free, open-source MCP (Model Context Protocol) server** that lets your AI coding assistant (Cursor, VS Code, Antigravity, etc.) deploy your website to Vercel automatically — with full environment variable syncing, build validation, and git safety checks.
+**Deploy MCP** is an enterprise-grade Model Context Protocol (MCP) server that empowers AI coding assistants—including **Cursor**, **VS Code**, **Antigravity**, **Windsurf**, and **Claude Desktop**—to autonomously validate, configure, environment-sync, and deploy web applications to Vercel.
 
-Just say **"Deploy this"** in your AI chat. That's it.
+Rather than manually running builds, managing Vercel CLI logins, or copy-pasting environment variables across developer portals, simply ask your AI assistant **"Deploy this"**.
 
-```
+```text
 You:  "Deploy this website."
 
-AI:   ✓ Next.js detected
-      ✓ Build check passed
-      ✓ Environment variables verified (secrets never exposed)
-      ✓ Deployed to Vercel
+AI:   ✓ Framework Detected: Next.js (App Router)
+      ✓ Local Build Check: Passed (0 errors)
+      ✓ Git Status Verified: Clean branch & zero tracked secrets
+      ✓ Environment Sync: Uploaded 4 required secrets directly to Vercel
+      ✓ Deployment Triggered: Deployed to Vercel Infrastructure
+      ✓ Health Check: Status READY in 14.2s
 
-      🎉 Live at: https://my-portfolio.vercel.app
+      🎉 Production URL live at: https://my-app.vercel.app
 ```
 
 ---
 
-## ⚡ Easy 4-Step Quick Start Guide
+## ⚡ Key Pillars & Features
 
-Deploying your website takes less than 2 minutes. Follow these 4 easy steps:
+- **⚡ Zero-Touch Automated Deployments**: Automatic framework detection for Next.js, React, Vite, Vue, Svelte, Remix, Static HTML, and more.
+- **🔐 Zero-Trust Local Secret Isolation**: Scans local `.env` keys and syncs them straight to Vercel via secure local REST calls. Secret values are **never sent to AI models**.
+- **🩺 Self-Healing Build Diagnosis**: If a deployment fails on Vercel, Deploy MCP retrieves build logs, identifies exact code errors, and gives your AI model structured fix instructions to redeploy automatically.
+- **🌿 Version Control Safety Matrix**: Prevents accidental deployment of uncommitted changes or secret leakage in Git tracking.
+- **🌐 Smart Domain Management**: Checks domain availability instantly and suggests optimized alternatives if taken. Manages custom domain bindings and 308 permanent redirects.
 
 ---
 
-### 1️⃣ Step 1 — Run the Setup Command (One-Time Only)
+## ⚡ Quick Start Guide
 
-Open your terminal in any directory and run:
+Set up Deploy MCP in less than 2 minutes:
+
+### 1️⃣ Step 1 — Run the Setup Wizard (One-Time Only)
+
+Execute the interactive setup command in your terminal:
 
 ```bash
 npx @tusharjain-19/deploy-mcp setup
 ```
 
-> 💡 **Tip:** If you want to use the short `deploymcp setup` command, install it globally once:
+> 💡 **Global CLI Shortcut**: Install globally for convenient CLI execution:
 > ```bash
 > npm install -g @tusharjain-19/deploy-mcp
 > deploymcp setup
 > ```
 
-This interactive wizard will:
-1. Guide you to get your free **Vercel Personal Access Token** ([vercel.com/account/tokens](https://vercel.com/account/tokens))
-2. Save your token securely on your machine (`~/.deploy-mcp/config.json`)
-3. Provide the exact JSON configuration to paste into your IDE!
+The setup wizard will:
+1. Guide you to retrieve your free **Vercel Personal Access Token** ([vercel.com/account/tokens](https://vercel.com/account/tokens))
+2. Store your token securely on your local system (`~/.deploy-mcp/config.json`)
+3. Output the ready-to-paste JSON configuration tailored to your specific AI IDE.
 
 ---
 
-### 2️⃣ Step 2 — Add Deploy MCP to Your AI IDE
+### 2️⃣ Step 2 — Connect to Your AI IDE
 
-Copy and paste the configuration snippet for your IDE:
+Copy and paste the appropriate snippet into your IDE's MCP configuration settings:
 
 #### 🟦 Cursor IDE
 File: `%APPDATA%\Cursor\User\settings\cursor_settings.json` (Windows) or `~/.cursor/rules/cursor_settings.json` (Mac/Linux)
@@ -98,299 +126,276 @@ File: `settings.json` (Press `Ctrl+Shift+P` → *"Open User Settings (JSON)"*)
 }
 ```
 
----
+#### 🏄 Windsurf / Supermaven
+File: `~/.codeium/windsurf/mcp_config.json`
 
-### 3️⃣ Step 3 — Open Your Project & Ask Your AI Model!
-
-Open your website project folder in your IDE, open your AI chat (Claude / Cursor / Antigravity), and simply say:
-
-```text
-"Use Deploy MCP to deploy my website"
-```
-*(or simply "Deploy my website to Vercel")*
-
----
-
-### 4️⃣ Step 4 — Sit Back & Relax! The AI Model Does Everything Automatically
-
-Once you tell your AI model to deploy, **it handles 100% of the workflow autonomously**:
-
-```text
-1. 🔍 Detects Framework   → Next.js, React, Vite, Vue, HTML, etc.
-2. 🔨 Validates Build     → Ensures local project builds without errors
-3. 🌿 Checks Git Safety   → Warns if uncommitted changes or leaked secrets exist
-4. 🔐 Syncs Secrets       → Securely uploads missing .env keys to Vercel
-5. 🚀 Deploys to Vercel    → Triggers deployment via Vercel REST API
-6. ⏳ Auto-Polls Status   → Waits until deployment turns READY
-7. 🩺 Auto-Diagnoses      → If build fails, reads logs & automatically fixes code!
-8. 🎉 Returns Live URL    → Gives you your live production URL!
+```json
+{
+  "mcpServers": {
+    "deploy": {
+      "command": "npx",
+      "args": ["-y", "@tusharjain-19/deploy-mcp"]
+    }
+  }
+}
 ```
 
 ---
 
-## 🔄 Version Control (Git) — Built In
+### 3️⃣ Step 3 — Instruct Your AI Assistant
 
-Deploy MCP has **full Git support** built in. Your AI can:
+Open any web project in your IDE, open the AI prompt panel, and request:
 
-| What it does | Command to ask AI |
-|---|---|
-| Check uncommitted changes | *"Check my git status"* |
-| Commit & push before deploy | *"Commit my changes and deploy"* |
-| Detect leaked `.env` files | *"Check if my .env is in git"* |
+```text
+"Use Deploy MCP to deploy my project to Vercel."
+```
 
-> **Best practice:** Always commit your code before deploying. Ask the AI: *"Commit my changes with message 'fix: update homepage' and then deploy"*
-
-The git tools work automatically during deployment — if you have uncommitted changes, the AI will warn you and ask if you want to commit first.
+*(or simply: "Deploy my website")*
 
 ---
 
-## 🧰 Available Tools
+### 4️⃣ Step 4 — Autonomous Execution Engine
 
-Your AI has access to **20 tools** across 5 modules:
+Once invoked, Deploy MCP coordinates the full lifecycle end-to-end:
 
-### 🌐 Domain Tools
-
-| Tool | What it does |
-|---|---|
-| `check_domain_availability` | Checks if a Vercel domain is available and suggests the top 2 best alternatives if taken |
-| `manage_domain` | Assigns custom/Vercel domain to a project with option to remove or redirect old domain (308 permanent redirect) |
-
-### 📦 Project Tools
-
-| Tool | What it does |
-|---|---|
-| `smart_deploy` | **All-in-one deploy** — detects, checks, syncs env, deploys, polls, and auto-diagnoses failures |
-| `detect_project` | Detects framework (Next.js, React, Vue, etc.) and build config |
-| `check_project` | Validates the project can build successfully |
-| `project_report` | Full pre-flight report — git, build, env, everything |
-| `delete_project` | Permanently deletes a Vercel project (requires your manual approval via OS popup) |
-
-### 🔐 Environment Variable Tools
-
-> **Security:** Secret values **never** reach the AI. Only key names are shown. Values go directly from your machine to Vercel.
-
-| Tool | What it does |
-|---|---|
-| `scan_env` | Lists all local `.env` variables (names only, values hidden) |
-| `compare_env` | Shows what's missing on Vercel vs. your local `.env` |
-| `sync_env` | Uploads missing secrets directly from your machine to Vercel |
-| `create_env_example` | Generates a safe `.env.example` file with all values blanked out |
-| `validate_environment_variables` | Checks your local env against `.env.example` requirements |
-| `check_env_leak` | 🚨 Detects if any `.env` files are accidentally tracked by Git |
-
-### 🌿 Git Tools
-
-| Tool | What it does |
-|---|---|
-| `git_status` | Shows branch, uncommitted files, and change count |
-| `git_commit_and_push` | Commits all changes and pushes to remote |
-
-### ☁️ Vercel Tools
-
-| Tool | What it does |
-|---|---|
-| `deploy_to_vercel` | Triggers deployment |
-| `get_deployment_status` | Polls current deployment status |
-| `get_deployment_logs` | Fetches raw build logs for debugging |
-| `diagnose_build_failure` | Parses logs and gives AI-readable fix suggestions |
+```text
+┌────────────────────────────────────────────────────────────────────────┐
+│  1. 🔍 Detect Framework   → Scans package.json & directory markers    │
+│  2. 🔨 Validate Build     → Executes dry-run build locally             │
+│  3. 🌿 Audit Git State    → Checks uncommitted files & secret leaks    │
+│  4. 🔐 Sync Environment   → Directly pushes local .env keys to Vercel  │
+│  5. 🚀 Trigger Deployment → Calls Vercel REST API                      │
+│  6. ⏳ Poll Telemetry     → Awaits READY status from Vercel servers    │
+│  7. 🩺 Self-Diagnose      → Reads raw logs & guides code fix if needed │
+│  8. 🎉 Deliver Live Link  → Returns active production URL              │
+└────────────────────────────────────────────────────────────────────────┘
+```
 
 ---
 
-## 🛠 Troubleshooting
+## 🧰 Comprehensive Tool Suite
 
-### ❌ "Vercel not authenticated" or token error
+Deploy MCP equips your AI assistant with **20 purpose-built tools** categorized across 6 core functional modules:
+
+### 📦 Smart Deployment & Build Validation
+
+| Tool | Capability & Description |
+|---|---|
+| `smart_deploy` | **Master Deployment Pipeline** — Detects framework, checks local build, syncs environment keys, triggers deployment, polls status, and auto-diagnoses build errors. |
+| `detect_project` | Inspects directory structure and configuration to determine project framework (Next.js, Vite, React, Vue, HTML, etc.) and build scripts. |
+| `check_project` | Runs local build dry-run validation to ensure clean compilation prior to cloud upload. |
+| `project_report` | Generates a full pre-flight audit report covering Git status, build health, and environment synchronization. |
+| `delete_project` | Permanently deletes a Vercel project with safety confirmation (requires explicit native OS dialog confirmation). |
+
+### 🌐 Custom Domain & Alias Management
+
+| Tool | Capability & Description |
+|---|---|
+| `check_domain_availability` | Queries Vercel domain registry to verify availability. If taken, automatically computes and presents the top 2 best alternative domain names. |
+| `manage_domain` | Assigns custom domains or Vercel aliases to projects, with optional 308 permanent redirect or old domain removal. |
+
+### 🔐 Secret & Environment Security Isolation
+
+> 🛡️ **Security Architecture**: Environment values remain strictly on your local device. The AI model receives key names and validation metadata only.
+
+| Tool | Capability & Description |
+|---|---|
+| `scan_env` | Audits local `.env` files and returns sanitized variable key names (redacting all confidential values). |
+| `compare_env` | Performs key diffing between local `.env` declarations and target Vercel project settings. |
+| `sync_env` | Securely transmits missing environment variables directly from local environment storage to Vercel REST endpoints. |
+| `create_env_example` | Automatically synthesizes a sanitized `.env.example` template with blanked default values. |
+| `validate_environment_variables` | Cross-checks runtime environment variables against expected project schema definitions. |
+| `check_env_leak` | 🚨 Audits Git index via `git ls-files` to flag accidentally committed `.env` files. |
+
+### 🌿 Version Control & Safety Matrix
+
+| Tool | Capability & Description |
+|---|---|
+| `git_status` | Returns git repository state, modified file count, current branch, and uncommitted change summary. |
+| `git_commit_and_push` | Stages modified files, generates formatted git commit, and pushes to configured upstream repository. |
+
+### ☁️ Vercel Infrastructure & Telemetry
+
+| Tool | Capability & Description |
+|---|---|
+| `deploy_to_vercel` | Initiates direct cloud deployment via Vercel REST deployment API endpoints. |
+| `get_deployment_status` | Polls current deployment pipeline status (`BUILDING`, `READY`, `ERROR`). |
+| `get_deployment_logs` | Fetches raw build log stdout/stderr stream from Vercel build nodes. |
+| `diagnose_build_failure` | Parses raw error output lines and generates structured, machine-actionable repair instructions for the AI assistant. |
+
+### ⚡ System & Version Management
+
+| Tool | Capability & Description |
+|---|---|
+| `check_for_updates` | Queries npm registry for new Deploy MCP releases, features, and performance enhancements. |
+
+---
+
+## 🔒 Architecture & Security Model
+
+Deploy MCP is designed with a **Zero-Trust Security Boundary** to ensure project secrets and access tokens are never exposed to external AI APIs:
+
+```
+ ┌──────────────────────────────────────────────────────────────────┐
+ │  AI IDE (Cursor / VS Code / Antigravity)                         │
+ │                                                                  │
+ │  Prompt: "Deploy my website to Vercel"                           │
+ └─────────────────────────────────┬────────────────────────────────┘
+                                   │ MCP Stdio Channel
+                                   ▼
+ ┌──────────────────────────────────────────────────────────────────┐
+ │  Local Deploy MCP Server (Runs strictly on YOUR machine)         │
+ │                                                                  │
+ │  ├── detect_project()   → Parses package.json                    │
+ │  ├── check_project()    → Executes local build check             │
+ │  ├── scan_env()         → Reads local .env (Returns KEYS ONLY)  │
+ │  ├── sync_env()         → Sends values directly to Vercel API    │
+ │  └── deploy_to_vercel() → Executes Vercel REST deploy call       │
+ └─────────────────────────────────┬────────────────────────────────┘
+                                   │ HTTPS (Vercel REST API)
+                                   ▼
+ ┌──────────────────────────────────────────────────────────────────┐
+ │  Vercel Global Edge Network                                      │
+ │                                                                  │
+ │  ├── Encrypts & assigns environment variables                    │
+ │  ├── Compiles production asset bundle                            │
+ │  └── Returns active HTTPS production deployment URL 🎉           │
+ └──────────────────────────────────────────────────────────────────┘
+```
+
+### Secret Protection Layer
+
+```text
+❌  INSECURE ARCHITECTURE (Secret exposed to LLM context):
+    .env values → LLM Context Window → MCP Server → Vercel API
+
+✅  DEPLOY MCP ZERO-TRUST MODEL (Secret isolated locally):
+    .env values ───[ Local Machine Execution ]───> Vercel API
+                             │
+                  (AI sees key NAMES only)
+```
+
+---
+
+## 🛠 Troubleshooting & Diagnostics
+
+### ❌ "Vercel not authenticated" or API Token Error
+
+Re-run the configuration wizard to refresh your access token:
 
 ```bash
 npx @tusharjain-19/deploy-mcp setup
 ```
 
-Re-run setup and paste a fresh token. Make sure the token has **Full Access** scope.
+Ensure your token generated on [Vercel Account Tokens](https://vercel.com/account/tokens) has **Full Access** scope enabled.
 
 ---
 
-### ❌ "MCP not showing up in my IDE"
+### ❌ "MCP server not detected in IDE"
 
-1. Double-check the JSON config you pasted — look for missing commas or brackets
-2. **Fully restart your IDE** (close all windows, reopen)
-3. Test the server manually:
+1. Validate syntax in your IDE configuration file (`settings.json` or `cursor_settings.json`).
+2. **Perform a full IDE restart** (close all active windows and reopen).
+3. Test server startup manually in terminal:
    ```bash
    npx @tusharjain-19/deploy-mcp
    ```
-   You should see: `Deploy MCP server running on stdio`
+   Expected output: `🚀 Deploy MCP server running on stdio`
 
 ---
 
-### ❌ "Build failed" during deployment
+### ❌ Build Failure During Cloud Compilation
 
-Ask your AI: *"Diagnose the build failure and fix it"* — the `diagnose_build_failure` tool will automatically parse the error logs and tell the AI exactly what to fix.
+Ask your AI assistant: *"Diagnose the build failure and fix it"*. 
 
-Common causes:
-- Missing `npm install` → run `npm install` in your project
-- Wrong Node.js version → add `"engines": { "node": "20" }` to `package.json`
-- Missing environment variable → ask AI to sync your env vars
+Deploy MCP will invoke `diagnose_build_failure` to extract Vercel build logs, locate syntax or dependency errors, and guide the AI to edit broken files directly.
 
----
-
-### ❌ "Environment variables not syncing"
-
-- Make sure your Vercel token has **Full Access** permissions
-- Check that the project name you tell the AI **exactly matches** your Vercel project name
-- Run: *"Compare my local env vars with Vercel"* — the AI will show exactly what's missing
+Common fixes:
+- **Missing node modules**: Run `npm install` locally.
+- **Node version mismatch**: Specify `"engines": { "node": "20.x" }` inside `package.json`.
+- **Missing environment keys**: Run `compare_env` and ask AI to sync missing secrets.
 
 ---
 
-### ❌ ".env file accidentally in Git"
+### ❌ Sensitive `.env` Files Tracked by Git
 
-Ask your AI: *"Check if my .env is tracked by git"*
-
-The `check_env_leak` tool will detect it. If found, fix it:
+If `check_env_leak` detects `.env` files in your git repository:
 
 ```bash
-# Remove .env from git tracking (keeps the file locally)
+# Untrack sensitive files while preserving local copies
 echo ".env" >> .gitignore
 echo ".env.local" >> .gitignore
-git rm --cached .env
-git rm --cached .env.local
-git commit -m "fix: remove .env from git tracking"
+git rm --cached .env .env.local
+git commit -m "fix(security): untrack local environment files"
 ```
 
 ---
 
-### ❌ "Module not found" error locally
+## ⚙️ Development & Local Testing
+
+To contribute or extend Deploy MCP locally from source:
 
 ```bash
-npm install
-npm run build
-```
-
----
-
-### ❌ "Cannot find Vercel CLI"
-
-Deploy MCP uses the **Vercel REST API directly** — no Vercel CLI needed. But if you want the CLI anyway:
-
-```bash
-npm install -g vercel
-```
-
----
-
-## ⚙️ How It Works
-
-```
- ┌─────────────────────────────────────────────────┐
- │  Your IDE (Cursor / VS Code / Antigravity)      │
- │                                                 │
- │  You say: "Deploy this"                         │
- └───────────────────┬─────────────────────────────┘
-                     │ MCP Protocol (stdio)
-                     ▼
- ┌─────────────────────────────────────────────────┐
- │  Deploy MCP Server (runs on YOUR machine)       │
- │                                                 │
- │  ├── detect_project()   → Read package.json     │
- │  ├── check_project()    → Run build locally     │
- │  ├── scan_env()         → Read .env names only  │
- │  ├── sync_env()         → Push secrets directly │
- │  └── deploy_to_vercel() → Trigger deployment    │
- └───────────────────┬─────────────────────────────┘
-                     │ Vercel REST API
-                     ▼
- ┌─────────────────────────────────────────────────┐
- │  Vercel                                         │
- │  ├── Finds or creates your project              │
- │  ├── Receives encrypted env vars                │
- │  ├── Builds your site                           │
- │  └── Returns your live URL 🎉                   │
- └─────────────────────────────────────────────────┘
-```
-
-### Security Model
-
-```
-❌  INSECURE (secret touches the AI):
-    .env → AI Model → MCP → Vercel
-
-✅  DEPLOY MCP (secret never leaves your machine):
-    .env → MCP Process → Vercel API
-               ↑
-      AI sees key NAMES only, never values
-```
-
----
-
-## 🔧 Development Setup
-
-Want to run Deploy MCP locally from source?
-
-```bash
-# 1. Clone the repo
+# 1. Clone source repository
 git clone https://github.com/Tusharjain-19/deploy-mcp.git
 cd deploy-mcp/mcp-server
 
 # 2. Install dependencies
 npm install
 
-# 3. Build TypeScript
+# 3. Compile TypeScript
 npm run build
 
-# 4. Run setup wizard
+# 4. Execute setup wizard
 npm run setup
 
-# 5. Start the server (IDEs do this automatically)
+# 5. Run local development mode
 npm run dev
 ```
 
-### Test All Tools Without an IDE
+### Interactive MCP Inspector Test GUI
+
+Launch the official MCP Inspector to test all 20 tools interactively in a web interface without needing an IDE restart:
 
 ```bash
 npx @modelcontextprotocol/inspector npx tsx src/index.ts
 ```
 
-This opens a browser UI where you can call every tool manually and see outputs.
-
-### Available Scripts
-
-| Script | Command | Description |
-|---|---|---|
-| Build | `npm run build` | Compile TypeScript to `dist/` |
-| Dev | `npm run dev` | Run server directly with tsx |
-| Setup | `npm run setup` | Run the setup wizard |
-
 ---
 
-## 📁 Project Structure
+## 📁 Repository Structure
 
 ```
 mcp-server/
 ├── src/
-│   ├── index.ts                    ← MCP server entry (all 20 tools registered)
+│   ├── index.ts                    ← Main MCP Server Entry & Tool Registry
 │   │
-│   ├── tools/
-│   │   ├── smart-deploy.ts         ← All-in-one deploy with auto-diagnose
-│   │   ├── domains.ts              ← Domain availability & management (redirect/remove)
-│   │   ├── check-project.ts        ← Build validation
-│   │   ├── deploy.ts               ← Vercel deployment trigger
-│   │   ├── diagnose.ts             ← Build failure diagnosis
-│   │   ├── env-vars.ts             ← .env scanning, diffing, syncing
-│   │   ├── git.ts                  ← Git status, commit, leak detection
-│   │   ├── logs.ts                 ← Deployment log fetching
-│   │   ├── delete-project.ts       ← Safe project deletion with OS prompt
-│   │   └── project-report.ts       ← Master pre-flight report
+│   ├── tools/                      ← Modular Tool Implementation Suite
+│   │   ├── smart-deploy.ts         ← Master Deployment Pipeline
+│   │   ├── domains.ts              ← Domain Availability & Custom DNS Management
+│   │   ├── check-project.ts        ← Local Compilation & Build Validation
+│   │   ├── deploy.ts               ← Vercel Deployment REST Client
+│   │   ├── diagnose.ts             ← Failure Analysis Engine
+│   │   ├── env-vars.ts             ← Redacted Env Scanner & Diff Engine
+│   │   ├── git.ts                  ← Git Repository Telemetry & Secret Leak Auditor
+│   │   ├── logs.ts                 ← Telemetry & Build Log Extractor
+│   │   ├── delete-project.ts       ← Safe Project Removal Engine
+│   │   └── project-report.ts       ← Comprehensive Pre-flight Inspector
 │   │
 │   ├── vercel/
-│   │   └── client.ts               ← Vercel REST API wrapper
+│   │   └── client.ts               ← Native Vercel REST API Client
 │   │
-│   ├── utils/
-│   │   ├── config.ts               ← Token storage/retrieval
-│   │   ├── filesystem.ts           ← File reading utilities
-│   │   └── framework-detector.ts   ← Framework & package manager detection
+│   ├── utils/                      ← Shared Helpers, Rate Limiting & Utilities
+│   │   ├── config.ts               ← Encrypted Local Credentials Manager
+│   │   ├── filesystem.ts           ← Safe Disk I/O Utilities
+│   │   ├── framework-detector.ts   ← Project Ecosystem Classifier
+│   │   ├── rate-limiter.ts         ← Operation Rate Limiter
+│   │   └── version-checker.ts      ← Registry Release Monitor
 │   │
 │   └── cli/
-│       ├── index.ts                ← CLI entry point
-│       └── setup.ts                ← Interactive setup wizard
+│       ├── index.ts                ← Executable CLI Entry Point
+│       └── setup.ts                ← Interactive Config & Token Wizard
 │
-├── dist/                           ← Compiled JS (auto-generated, git-ignored)
+├── dist/                           ← Compiled Production Artifacts
 ├── package.json
 ├── tsconfig.json
 └── README.md
@@ -400,79 +405,44 @@ mcp-server/
 
 ## 🗺 Roadmap
 
-| Version | Status | Features |
+| Milestone | Status | Key Deliverables |
 |---|---|---|
-| **v1.0** | ✅ Active | Vercel deployment, smart auto-diagnose, secret env sync, git tools, rate limiting & auto-updater |
-| **v2.0** | 🔄 Next | Multi-platform support (Netlify/Railway) & team deployments |
-
----
-
-## 🔄 Automatic Updates
-
-Because your IDE config uses `npx -y @tusharjain-19/deploy-mcp`, Node.js will **automatically pull the latest version from npm** every time your IDE starts the server. No manual update commands needed — you always get the latest features and fixes automatically.
+| **v1.0** | ✅ Production | Vercel REST API deployment, auto-diagnose self-healing, zero-trust env sync, Git security matrix, domain management |
+| **v2.0** | 🔄 Planned | Multi-cloud deployment targets (Netlify, Railway, Render, Cloudflare Pages) & team organization sharing |
 
 ---
 
 ## 🤝 Contributing
 
-Contributions are welcome! This is a free, open-source project built for the community.
+Contributions are welcomed! Help build the ultimate deployment tooling for AI pair programmers:
 
 ```bash
-# Fork the repo, then:
 git clone https://github.com/YOUR-USERNAME/deploy-mcp.git
 cd deploy-mcp/mcp-server
 npm install
-
-# Create a feature branch
-git checkout -b feature/my-feature
-
-# Make changes, then build and test
+git checkout -b feature/amazing-feature
 npm run build
-
-# Commit and push
-git commit -m "feat: add my feature"
-git push origin feature/my-feature
-
-# Open a Pull Request on GitHub
+git commit -m "feat: add amazing feature"
+git push origin feature/amazing-feature
 ```
 
-Please open an issue first for large changes. Bug fixes and docs improvements are always welcome!
-
----
-
-## 🔐 Security
-
-| Principle | How it's implemented |
-|---|---|
-| **Secrets never touch the AI** | `scan_env` returns only key names + classifications |
-| **No external servers** | MCP runs entirely on your machine |
-| **No overwrite without consent** | `sync_env` skips existing Vercel vars by default |
-| **Leak detection** | `check_env_leak` scans `git ls-files` before deploy |
-| **Token stored locally** | `~/.deploy-mcp/config.json` — your machine only |
-| **No hardcoded credentials** | Zero hardcoded tokens in the codebase |
-
----
-
-## 👨‍💻 About
-
-Built by **Tushar Jain** — tools that bridge the gap between AI and shipping real products.
-
-- 🌐 [tusharjain.in](https://tusharjain.in)
-- 🐙 [@Tusharjain-19](https://github.com/Tusharjain-19)
+Please open an issue before submitting major structural refactors.
 
 ---
 
 ## 📄 License
 
-MIT License — 100% free forever. Use it in commercial projects, modify it, distribute it. See [LICENSE](LICENSE) for full text.
+Distributed under the **MIT License**. Free for commercial and open-source projects. See [LICENSE](LICENSE) for details.
 
 ---
 
 <div align="center">
 
-**Built with ❤️ for vibe coders everywhere**
+**Crafted with care by Tushar Jain**
 
-⭐ Star this repo if it saved you time!
+[Website](https://tusharjain.in) • [GitHub](https://github.com/Tusharjain-19)
+
+⭐ Star this repository if Deploy MCP accelerated your development workflow!
 
 [![GitHub stars](https://img.shields.io/github/stars/Tusharjain-19/deploy-mcp?style=social)](https://github.com/Tusharjain-19/deploy-mcp)
 

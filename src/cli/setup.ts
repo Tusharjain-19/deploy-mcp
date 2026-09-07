@@ -1,6 +1,6 @@
 import { setVercelToken, loadConfig } from "../utils/config.js";
 import { checkForUpdates } from "../utils/version-checker.js";
-import { c, cyanMagentaGradient, lineGradient } from "../utils/colors.js";
+import { c } from "../utils/colors.js";
 import readline from "readline";
 
 const rl = readline.createInterface({
@@ -21,33 +21,37 @@ export async function runSetup(): Promise<void> {
   // Asynchronously check for updates
   const updateInfo = await checkForUpdates();
 
-  const rawAsciiLogo = `  ██████╗ ███████╗██████╗ ██╗      ██████╗ ██╗   ██╗   ███╗   ███╗ ██████╗██████╗ 
-  ██╔══██╗██╔════╝██╔══██╗██║     ██╔══██╗╚██╗ ██╔╝   ████╗ ████║██╔════╝██╔══██╗
-  ██║  ██║█████╗  ██████╔╝██║     ██║  ██║ ╚████╔╝    ██╔████╔██║██║     ██████╔╝
-  ██║  ██║██╔══╝  ██╔═══╝ ██║     ██║  ██║  ╚██╔╝     ██║╚██╔╝██║██║     ██╔═══╝ 
-  ██████╔╝███████╗██║     ███████╗╚██████╔╝   ██║     ██║ ╚═╝ ██║╚██████╗██║     
-  ╚═════╝ ╚══════╝╚═╝     ╚══════╝ ╚═════╝    ╚═╝     ╚═╝     ╚═╝ ╚═════╝╚═╝     `;
+  const rawAsciiLines = [
+    `   ██████╗ ███████╗██████╗ ██╗      ██████╗ ██╗   ██╗    ███╗   ███╗  ██████╗  ██████╗   `,
+    `   ██╔══██╗██╔════╝██╔══██╗██║     ██╔═══██╗╚██╗ ██╔╝    ████╗ ████║ ██╔════╝  ██╔══██╗  `,
+    `   ██║  ██║█████╗  ██████╔╝██║     ██║   ██║ ╚████╔╝     ██╔████╔██║ ██║       ██████╔╝  `,
+    `   ██║  ██║██╔══╝  ██╔═══╝ ██║     ██║   ██║  ╚██╔╝      ██║╚██╔╝██║ ██║       ██╔═══╝   `,
+    `   ██████╔╝███████╗██║     ███████╗╚██████╔╝   ██║       ██║ ╚═╝ ██║ ╚██████╗  ██║       `,
+    `   ╚═════╝ ╚══════╝╚═╝     ╚══════╝ ╚═════╝    ╚═╝       ╚═╝     ╚═╝  ╚═════╝  ╚═╝       `
+  ];
 
-  const coloredLogo = cyanMagentaGradient(rawAsciiLogo);
+  const coloredLogo = rawAsciiLines
+    .map(line => `│ ${c.brand(line)} │`)
+    .join("\n");
 
-  const topBorder = c.gray("┌─ ") + lineGradient("Welcome to Deploy MCP") + c.gray(" ────────────────────────────────────────────────────────┐");
-  const bottomBorder = c.gray("└─────────────────────────────────────────────────────────────────────────────────────────┘");
+  const topBorder = c.gray("┌─ ") + c.brand("Welcome to Deploy MCP") + c.gray(" ─────────────────────────────────────────────────────────────┐");
+  const bottomBorder = c.gray("└───────────────────────────────────────────────────────────────────────────────────────────┘");
 
   console.log(`
 ${topBorder}
-│                                                                                         │
+│                                                                                           │
 ${coloredLogo}
-│                                                                                         │
-│  ${c.badge(` v${updateInfo.currentVersion} `, 0, 150, 255)}  ${c.italic(c.gray("Your agent deploys your site. We make sure it goes live."))}                    │
-│                                                                                         │
-│  ${c.brightCyan("Deploy MCP")} connects your AI assistant (${c.cyan("Claude")} / ${c.blue("Cursor")} / ${c.magenta("Antigravity")}) directly to      │
-│  ${c.white("Vercel")} — zero server costs, environment syncing, and auto-diagnostics handled.         │
-│                                                                                         │
+│                                                                                           │
+│  ${c.badge(` v${updateInfo.currentVersion} `, 0, 118, 255)}  ${c.italic(c.gray("Your agent deploys your site. We make sure it goes live."))}                      │
+│                                                                                           │
+│  ${c.brand("Deploy MCP")} connects your AI assistant (${c.cyan("Claude")} / ${c.blue("Cursor")} / ${c.magenta("Antigravity")}) directly to         │
+│  ${c.white("Vercel")} — zero server costs, environment syncing, and auto-diagnostics handled.           │
+│                                                                                           │
 ${bottomBorder}
   `);
 
   if (updateInfo.hasUpdate) {
-    console.log(`\n  ${c.badge(" UPDATE AVAILABLE ", 255, 165, 0)} ${c.yellow(`v${updateInfo.latestVersion} is ready!`)}`);
+    console.log(`\n  ${c.badge(" UPDATE AVAILABLE ", 245, 158, 11)} ${c.yellow(`v${updateInfo.latestVersion} is ready!`)}`);
     console.log(`  ${c.gray("Run update:")} ${c.code(updateInfo.updateCommand)}\n`);
   }
 
@@ -70,12 +74,12 @@ ${bottomBorder}
   }
 
   console.log(`  ${c.gray("─".repeat(70))}\n`);
-  console.log(`  ${c.badge(" STEP 1 OF 3 ", 0, 180, 216)}  ${c.bold("Get Your Vercel Personal Access Token")}`);
+  console.log(`  ${c.badge(" STEP 1 OF 3 ", 0, 118, 255)}  ${c.bold("Get Your Vercel Personal Access Token")}`);
   console.log(`  ${c.gray("› Open in browser:")} ${c.underline(c.brightCyan("https://vercel.com/account/tokens"))}`);
   console.log(`  ${c.gray("› Click")} ${c.bold("'Create Token'")}${c.gray(", enter name")} ${c.code("deploy-mcp")}${c.gray(", choose")} ${c.bold("'Full Access'")}.\n`);
 
   console.log(`  ${c.gray("─".repeat(70))}\n`);
-  console.log(`  ${c.badge(" STEP 2 OF 3 ", 0, 180, 216)}  ${c.bold("Connect Your Vercel Account")}\n`);
+  console.log(`  ${c.badge(" STEP 2 OF 3 ", 0, 118, 255)}  ${c.bold("Connect Your Vercel Account")}\n`);
 
   const token = await question(`  ${c.highlight("👉 Paste your Vercel token: ")}`);
 
@@ -105,10 +109,10 @@ ${bottomBorder}
     await setVercelToken(cleanToken);
 
     console.log(`\n  ${c.gray("─".repeat(70))}\n`);
-    console.log(`  ${c.badge(" STEP 3 OF 3 ", 0, 180, 216)}  ${c.bold("Add Deploy MCP to Your AI IDE")}\n`);
+    console.log(`  ${c.badge(" STEP 3 OF 3 ", 0, 118, 255)}  ${c.bold("Add Deploy MCP to Your AI IDE")}\n`);
     console.log(`  Copy and paste the config snippet below into your IDE settings:\n`);
 
-    console.log(`  ${c.badge(" CURSOR IDE ", 0, 122, 255)} ${c.gray("(%APPDATA%\\Cursor\\User\\settings\\cursor_settings.json):")}`);
+    console.log(`  ${c.badge(" CURSOR IDE ", 0, 118, 255)} ${c.gray("(%APPDATA%\\Cursor\\User\\settings\\cursor_settings.json):")}`);
     console.log(c.code(`
 {
   "mcpServers": {
@@ -120,7 +124,7 @@ ${bottomBorder}
 }
     `));
 
-    console.log(`  ${c.badge(" VS CODE / CLAUDE / ANTIGRAVITY ", 46, 160, 67)} ${c.gray("(settings.json):")}`);
+    console.log(`  ${c.badge(" VS CODE / CLAUDE / ANTIGRAVITY ", 16, 185, 129)} ${c.gray("(settings.json):")}`);
     console.log(c.code(`
 {
   "claude.mcp.servers": [

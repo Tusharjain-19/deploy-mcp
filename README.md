@@ -1,20 +1,20 @@
 <div align="center">
 
 ```text
-┌──────────────────────────────────────────────────────────────────────────────┐
-│  ● ● ● terminal — deploy-mcp                                                 │
-├──────────────────────────────────────────────────────────────────────────────┤
-│                                                                              │
-│   ██████╗ ███████╗██████╗ ██╗      ██████╗ ██╗   ██╗    ███╗   ███╗██████╗   │
-│   ██╔══██╗██╔════╝██╔══██╗██║     ██╔═══██╗╚██╗ ██╔╝    ████╗ ████║██╔══██╗  │
-│   ██║  ██║█████╗  ██████╔╝██║     ██║   ██║ ╚████╔╝     ██╔████╔██║██████╔╝  │
-│   ██║  ██║██╔══╝  ██╔═══╝ ██║     ██║   ██║  ╚██╔╝      ██║╚██╔╝██║██╔═══╝   │
-│   ██████╔╝███████╗██║     ███████╗╚██████╔╝   ██║       ██║ ╚═╝ ██║██║       │
-│   ╚═════╝ ╚══════╝╚═╝     ╚══════╝ ╚═════╝    ╚═╝       ╚═╝     ╚═╝╚═╝       │
-│                                                                              │
-│         🚀 Zero-Config Autonomous Vercel Deployment Engine for AI IDEs        │
-│                                                                              │
-└──────────────────────────────────────────────────────────────────────────────┘
+┌───────────────────────────────────────────────────────────────────────────────────────────┐
+│  ● ● ● terminal — deploy-mcp                                                              │
+├───────────────────────────────────────────────────────────────────────────────────────────┤
+│                                                                                           │
+│   ██████╗ ███████╗██████╗ ██╗      ██████╗ ██╗   ██╗    ███╗   ███╗  ██████╗  ██████╗     │
+│   ██╔══██╗██╔════╝██╔══██╗██║     ██╔═══██╗╚██╗ ██╔╝    ████╗ ████║ ██╔════╝  ██╔══██╗    │
+│   ██║  ██║█████╗  ██████╔╝██║     ██║   ██║ ╚████╔╝     ██╔████╔██║ ██║       ██████╔╝    │
+│   ██║  ██║██╔══╝  ██╔═══╝ ██║     ██║   ██║  ╚██╔╝      ██║╚██╔╝██║ ██║       ██╔═══╝     │
+│   ██████╔╝███████╗██║     ███████╗╚██████╔╝   ██║       ██║ ╚═╝ ██║ ╚██████╗  ██║         │
+│   ╚═════╝ ╚══════╝╚═╝     ╚══════╝ ╚═════╝    ╚═╝       ╚═╝     ╚═╝  ╚═════╝  ╚═╝         │
+│                                                                                           │
+│           🚀 Zero-Config Autonomous Vercel Deployment Engine for AI IDEs                  │
+│                                                                                           │
+└───────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
 # 🚀 Deploy MCP
@@ -72,24 +72,20 @@ AI:   ✓ Framework Detected: Next.js (App Router)
 
 Set up Deploy MCP in less than 2 minutes:
 
-### 1️⃣ Step 1 — Run the 1-Minute Setup Command
+### 1️⃣ Step 1 — Run the Easy 1-Minute Setup Command
 
-Open your terminal (or your IDE terminal) and run:
+Open your terminal and run:
 
 ```bash
-npx @tusharjain-19/deploy-mcp setup
+npx deploymcp setup
 ```
+
+*(or: `npx deploy-mcp setup` / `npx @tusharjain-19/deploy-mcp setup`)*
 
 **What this wizard does in 3 easy steps:**
 1. 🔑 **Connects Vercel**: Guides you to get your free [Vercel Personal Access Token](https://vercel.com/account/tokens).
 2. 🔒 **Saves Token Securely**: Stores your token safely on your machine (`~/.deploy-mcp/config.json`).
 3. 📋 **Gives You IDE Config**: Prints the exact JSON snippet ready to copy into your AI IDE!
-
-> 💡 **Short Command Shortcut**: You can also install it globally once to use the short `deploymcp` command:
-> ```bash
-> npm install -g @tusharjain-19/deploy-mcp
-> deploymcp setup
-> ```
 
 ---
 

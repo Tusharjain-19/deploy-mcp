@@ -80,9 +80,10 @@ Open your terminal and run:
 npx deploymcp setup
 ```
 
-*(or: `npx deploy-mcp setup` / `npx @tusharjain-19/deploy-mcp setup`)*
+_(or: `npx deploy-mcp setup` / `npx @tusharjain-19/deploy-mcp setup`)_
 
 **What this wizard does in 3 easy steps:**
+
 1. 🔑 **Connects Vercel**: Guides you to get your free [Vercel Personal Access Token](https://vercel.com/account/tokens).
 2. 🔒 **Saves Token Securely**: Stores your token safely on your machine (`~/.deploy-mcp/config.json`).
 3. 📋 **Gives You IDE Config**: Prints the exact JSON snippet ready to copy into your AI IDE!
@@ -94,6 +95,7 @@ npx deploymcp setup
 Copy and paste the appropriate snippet into your IDE's MCP configuration settings:
 
 #### 🟦 Cursor IDE
+
 File: `%APPDATA%\Cursor\User\settings\cursor_settings.json` (Windows) or `~/.cursor/rules/cursor_settings.json` (Mac/Linux)
 
 ```json
@@ -108,7 +110,8 @@ File: `%APPDATA%\Cursor\User\settings\cursor_settings.json` (Windows) or `~/.cur
 ```
 
 #### 🟩 VS Code / Claude Extension / Antigravity AI
-File: `settings.json` (Press `Ctrl+Shift+P` → *"Open User Settings (JSON)"*)
+
+File: `settings.json` (Press `Ctrl+Shift+P` → _"Open User Settings (JSON)"_)
 
 ```json
 {
@@ -123,6 +126,7 @@ File: `settings.json` (Press `Ctrl+Shift+P` → *"Open User Settings (JSON)"*)
 ```
 
 #### 🏄 Windsurf / Supermaven
+
 File: `~/.codeium/windsurf/mcp_config.json`
 
 ```json
@@ -146,7 +150,7 @@ Open any web project in your IDE, open the AI prompt panel, and request:
 "Use Deploy MCP to deploy my project to Vercel."
 ```
 
-*(or simply: "Deploy my website")*
+_(or simply: "Deploy my website")_
 
 ---
 
@@ -175,54 +179,54 @@ Deploy MCP equips your AI assistant with **20 purpose-built tools** categorized 
 
 ### 📦 Smart Deployment & Build Validation
 
-| Tool | Capability & Description |
-|---|---|
-| `smart_deploy` | **Master Deployment Pipeline** — Detects framework, checks local build, syncs environment keys, triggers deployment, polls status, and auto-diagnoses build errors. |
-| `detect_project` | Inspects directory structure and configuration to determine project framework (Next.js, Vite, React, Vue, HTML, etc.) and build scripts. |
-| `check_project` | Runs local build dry-run validation to ensure clean compilation prior to cloud upload. |
-| `project_report` | Generates a full pre-flight audit report covering Git status, build health, and environment synchronization. |
-| `delete_project` | Permanently deletes a Vercel project with safety confirmation (requires explicit native OS dialog confirmation). |
+| Tool             | Capability & Description                                                                                                                                            |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `smart_deploy`   | **Master Deployment Pipeline** — Detects framework, checks local build, syncs environment keys, triggers deployment, polls status, and auto-diagnoses build errors. |
+| `detect_project` | Inspects directory structure and configuration to determine project framework (Next.js, Vite, React, Vue, HTML, etc.) and build scripts.                            |
+| `check_project`  | Runs local build dry-run validation to ensure clean compilation prior to cloud upload.                                                                              |
+| `project_report` | Generates a full pre-flight audit report covering Git status, build health, and environment synchronization.                                                        |
+| `delete_project` | Permanently deletes a Vercel project with safety confirmation (requires explicit native OS dialog confirmation).                                                    |
 
 ### 🌐 Custom Domain & Alias Management
 
-| Tool | Capability & Description |
-|---|---|
+| Tool                        | Capability & Description                                                                                                                      |
+| --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
 | `check_domain_availability` | Queries Vercel domain registry to verify availability. If taken, automatically computes and presents the top 2 best alternative domain names. |
-| `manage_domain` | Assigns custom domains or Vercel aliases to projects, with optional 308 permanent redirect or old domain removal. |
+| `manage_domain`             | Assigns custom domains or Vercel aliases to projects, with optional 308 permanent redirect or old domain removal.                             |
 
 ### 🔐 Secret & Environment Security Isolation
 
 > 🛡️ **Security Architecture**: Environment values remain strictly on your local device. The AI model receives key names and validation metadata only.
 
-| Tool | Capability & Description |
-|---|---|
-| `scan_env` | Audits local `.env` files and returns sanitized variable key names (redacting all confidential values). |
-| `compare_env` | Performs key diffing between local `.env` declarations and target Vercel project settings. |
-| `sync_env` | Securely transmits missing environment variables directly from local environment storage to Vercel REST endpoints. |
-| `create_env_example` | Automatically synthesizes a sanitized `.env.example` template with blanked default values. |
-| `validate_environment_variables` | Cross-checks runtime environment variables against expected project schema definitions. |
-| `check_env_leak` | 🚨 Audits Git index via `git ls-files` to flag accidentally committed `.env` files. |
+| Tool                             | Capability & Description                                                                                           |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| `scan_env`                       | Audits local `.env` files and returns sanitized variable key names (redacting all confidential values).            |
+| `compare_env`                    | Performs key diffing between local `.env` declarations and target Vercel project settings.                         |
+| `sync_env`                       | Securely transmits missing environment variables directly from local environment storage to Vercel REST endpoints. |
+| `create_env_example`             | Automatically synthesizes a sanitized `.env.example` template with blanked default values.                         |
+| `validate_environment_variables` | Cross-checks runtime environment variables against expected project schema definitions.                            |
+| `check_env_leak`                 | 🚨 Audits Git index via `git ls-files` to flag accidentally committed `.env` files.                                |
 
 ### 🌿 Version Control & Safety Matrix
 
-| Tool | Capability & Description |
-|---|---|
-| `git_status` | Returns git repository state, modified file count, current branch, and uncommitted change summary. |
+| Tool                  | Capability & Description                                                                             |
+| --------------------- | ---------------------------------------------------------------------------------------------------- |
+| `git_status`          | Returns git repository state, modified file count, current branch, and uncommitted change summary.   |
 | `git_commit_and_push` | Stages modified files, generates formatted git commit, and pushes to configured upstream repository. |
 
 ### ☁️ Vercel Infrastructure & Telemetry
 
-| Tool | Capability & Description |
-|---|---|
-| `deploy_to_vercel` | Initiates direct cloud deployment via Vercel REST deployment API endpoints. |
-| `get_deployment_status` | Polls current deployment pipeline status (`BUILDING`, `READY`, `ERROR`). |
-| `get_deployment_logs` | Fetches raw build log stdout/stderr stream from Vercel build nodes. |
+| Tool                     | Capability & Description                                                                                             |
+| ------------------------ | -------------------------------------------------------------------------------------------------------------------- |
+| `deploy_to_vercel`       | Initiates direct cloud deployment via Vercel REST deployment API endpoints.                                          |
+| `get_deployment_status`  | Polls current deployment pipeline status (`BUILDING`, `READY`, `ERROR`).                                             |
+| `get_deployment_logs`    | Fetches raw build log stdout/stderr stream from Vercel build nodes.                                                  |
 | `diagnose_build_failure` | Parses raw error output lines and generates structured, machine-actionable repair instructions for the AI assistant. |
 
 ### ⚡ System & Version Management
 
-| Tool | Capability & Description |
-|---|---|
+| Tool                | Capability & Description                                                                  |
+| ------------------- | ----------------------------------------------------------------------------------------- |
 | `check_for_updates` | Queries npm registry for new Deploy MCP releases, features, and performance enhancements. |
 
 ---
@@ -301,11 +305,12 @@ Ensure your token generated on [Vercel Account Tokens](https://vercel.com/accoun
 
 ### ❌ Build Failure During Cloud Compilation
 
-Ask your AI assistant: *"Diagnose the build failure and fix it"*. 
+Ask your AI assistant: _"Diagnose the build failure and fix it"_.
 
 Deploy MCP will invoke `diagnose_build_failure` to extract Vercel build logs, locate syntax or dependency errors, and guide the AI to edit broken files directly.
 
 Common fixes:
+
 - **Missing node modules**: Run `npm install` locally.
 - **Node version mismatch**: Specify `"engines": { "node": "20.x" }` inside `package.json`.
 - **Missing environment keys**: Run `compare_env` and ask AI to sync missing secrets.
@@ -401,10 +406,10 @@ mcp-server/
 
 ## 🗺 Roadmap
 
-| Milestone | Status | Key Deliverables |
-|---|---|---|
-| **v1.0** | ✅ Production | Vercel REST API deployment, auto-diagnose self-healing, zero-trust env sync, Git security matrix, domain management |
-| **v2.0** | 🔄 Planned | Multi-cloud deployment targets (Netlify, Railway, Render, Cloudflare Pages) & team organization sharing |
+| Milestone | Status        | Key Deliverables                                                                                                    |
+| --------- | ------------- | ------------------------------------------------------------------------------------------------------------------- |
+| **v1.0**  | ✅ Production | Vercel REST API deployment, auto-diagnose self-healing, zero-trust env sync, Git security matrix, domain management |
+| **v2.0**  | 🔄 Planned    | Multi-cloud deployment targets (Netlify, Railway, Render, Cloudflare Pages) & team organization sharing             |
 
 ---
 

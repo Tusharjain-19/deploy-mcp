@@ -54,7 +54,7 @@ ${bottomBorder}
   if (config.vercelToken) {
     console.log(`  ${c.success("●")}  ${c.bold("Status:")} ${c.green("CONFIGURED")} ${c.gray("(token saved in ~/.deploy-mcp/config.json)")}`);
   } else {
-    console.log(`  ${c.warn("●")}  ${c.bold("Status:")} ${c.yellow("NOT CONFIGURED")} ${c.gray("- run npx @tusharjain-19/deploy-mcp setup")}`);
+    console.log(`  ${c.warn("●")}  ${c.bold("Status:")} ${c.yellow("NOT CONFIGURED")} ${c.gray("- run npx deploy-mcp setup")}`);
   }
   console.log(`  ${c.gray("Directory:")} ${c.dim(currentWorkingDir)}\n`);
 
@@ -141,7 +141,7 @@ ${bottomBorder}
     console.log(`  ${c.italic(c.brightCyan("🤖 Your AI assistant will handle 100% of the building, checking, and deploying for you!"))}\n`);
   } catch (error) {
     console.log(`\n  ${c.error("❌ Authentication failed:")} ${error instanceof Error ? error.message : error}`);
-    console.log(`  Please check your token at ${c.underline(c.brightCyan("https://vercel.com/account/tokens"))} and re-run: ${c.code("npx @tusharjain-19/deploy-mcp setup")}\n`);
+    console.log(`  Please check your token at ${c.underline(c.brightCyan("https://vercel.com/account/tokens"))} and re-run: ${c.code("npx deploy-mcp setup")}\n`);
   }
 
   rl.close();

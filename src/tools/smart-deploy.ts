@@ -46,7 +46,7 @@ export async function smartDeploy(
     if (!token) {
       return {
         success: false,
-        error: "Vercel not authenticated. Run 'npx @tusharjain-19/deploy-mcp setup' first."
+        error: "Vercel not authenticated. Run 'npx deploy-mcp setup' first."
       };
     }
 

@@ -97,7 +97,7 @@ export async function manageDomain(
 ): Promise<ManageDomainResult> {
   const client = await getVercelClient();
   if (!client) {
-    throw new VercelApiError(401, "Vercel client not authenticated. Run 'npx @tusharjain-19/deploy-mcp setup'.");
+    throw new VercelApiError(401, "Vercel client not authenticated. Run 'npx deploy-mcp setup'.");
   }
 
   const formattedNew = formatDomainName(newDomain);

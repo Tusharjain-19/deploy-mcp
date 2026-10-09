@@ -10,29 +10,29 @@ export const HowItWorks: React.FC = () => {
       number: '01',
       title: 'DETECT FRAMEWORK',
       icon: Search,
-      description: 'Scans package.json and directory markers to determine whether the app is Next.js, Vite, React, Vue, Astro, or static HTML.',
-      tag: 'AST Inspection'
+      description: 'Scans your files to automatically detect Next.js, Vite, React, Vue, Astro, or static HTML.',
+      tag: 'Auto-Detect'
     },
     {
       number: '02',
-      title: 'VALIDATE LOCAL BUILD',
+      title: 'TEST BUILD LOCALLY',
       icon: CheckCircle,
-      description: 'Executes clean dry-run compilation locally to catch syntax, type, and lint errors before uploading to cloud infrastructure.',
-      tag: 'Dry-Run Sandbox'
+      description: 'Runs a quick test build on your computer to catch syntax and package errors before uploading.',
+      tag: 'Instant Check'
     },
     {
       number: '03',
       title: 'SYNC LOCAL SECRETS',
       icon: ShieldCheck,
-      description: 'Synchronizes .env keys directly over local mutual TLS to Vercel. Secret values never touch AI models.',
-      tag: 'TLS Isolation'
+      description: 'Sends your .env variables safely to Vercel. Secret passwords and tokens are never shown to the AI.',
+      tag: 'Safe & Private'
     },
     {
       number: '04',
-      title: 'DEPLOY & DIAGNOSE',
+      title: 'DEPLOY & AUTO-REPAIR',
       icon: Rocket,
-      description: 'Triggers atomic deployment on Vercel, polls build telemetry until READY, and diagnoses build failures automatically.',
-      tag: 'Vercel Native'
+      description: 'Deploys your site to Vercel, checks live status, and helps fix any build errors automatically.',
+      tag: 'Live on Vercel'
     }
   ];
 

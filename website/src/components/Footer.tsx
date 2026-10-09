@@ -39,30 +39,30 @@ export const Footer: React.FC<FooterProps> = ({
       {/* Top Wave Transition */}
       <HaikeiWaveDivider fill="#0C0C0C" className="opacity-95 -mt-1" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-20 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-16 relative z-10">
         
-        {/* BIG BOLD EDITORIAL HERO CALLOUT BANNER IN FOOTER */}
-        <div className="p-8 sm:p-12 rounded-3xl bg-[#141414] border-2 border-white/15 shadow-[12px_12px_0px_#101010] mb-16 relative overflow-hidden">
+        {/* BIG BOLD HERO CALLOUT BANNER IN FOOTER (Responsive Grid, Zero Overlap) */}
+        <div className="p-8 sm:p-12 rounded-3xl bg-[#141414] border-2 border-white/15 shadow-[12px_12px_0px_#101010] mb-14 relative overflow-hidden">
           
-          <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
-            <div className="space-y-4 max-w-2xl">
+          <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div className="lg:col-span-7 xl:col-span-8 space-y-4">
               <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#181818] border border-[#D5380C] text-[#FAF6EE] text-xs font-mono font-bold uppercase tracking-wider">
                 <span className="w-2 h-2 rounded-full bg-[#D5380C] animate-pulse" />
-                <span>SOVEREIGN RUNTIME // MODEL CONTEXT PROTOCOL</span>
+                <span>ONE-CLICK DEPLOYMENT // MODEL CONTEXT PROTOCOL</span>
               </div>
 
-              <h2 className="font-syne font-black text-3xl sm:text-5xl lg:text-6xl text-[#FAF6EE] uppercase tracking-tight leading-[0.98]">
-                SHIP AT THE SPEED OF <br />
-                <span className="text-[#D5380C]">AUTONOMOUS THOUGHT.</span>
+              <h2 className="font-syne font-black text-3xl sm:text-5xl lg:text-5xl text-[#FAF6EE] uppercase tracking-tight leading-[1.05]">
+                DEPLOY YOUR APP <br />
+                <span className="text-[#D5380C]">WITH A SINGLE PROMPT.</span>
               </h2>
 
-              <p className="text-sm sm:text-base text-[#E6D5BD]/85 font-sans leading-relaxed">
-                Connect Cursor, Claude 3.7, and Antigravity directly to Vercel infrastructure. Zero server costs, zero credential leaks, and 100% deterministic edge deployments.
+              <p className="text-sm sm:text-base text-[#E6D5BD]/85 font-sans leading-relaxed max-w-xl">
+                Connect Cursor, Claude, and your AI assistant directly to Vercel infrastructure. Zero server costs, zero secrets leaked, and 100% automated edge deployments.
               </p>
             </div>
 
             {/* Quick 1-Click Install Capsule */}
-            <div className="w-full lg:w-96 p-6 rounded-2xl bg-[#0E0E0E] border-2 border-white/10 space-y-4 shrink-0 shadow-xl">
+            <div className="lg:col-span-5 xl:col-span-4 w-full p-6 rounded-2xl bg-[#0E0E0E] border-2 border-white/10 space-y-4 shrink-0 shadow-xl">
               <div className="flex items-center justify-between text-xs font-mono text-[#FAF6EE] pb-2 border-b border-white/10">
                 <span className="font-bold flex items-center gap-1.5">
                   <Terminal className="w-3.5 h-3.5 text-[#D5380C]" /> QUICK START
@@ -96,7 +96,7 @@ export const Footer: React.FC<FooterProps> = ({
         </div>
 
         {/* Real-time System Telemetry Bar */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-10 border-b border-white/10 text-xs font-mono">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-8 border-b border-white/10 text-xs font-mono">
           <div className="flex items-center gap-3">
             <LogoMark size="sm" showBadge={false} />
             <span className="font-bold text-[#FAF6EE] text-sm">DEPLOY MCP</span>
@@ -107,7 +107,7 @@ export const Footer: React.FC<FooterProps> = ({
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#141414] border border-white/10 text-[#FAF6EE]">
               <span className="w-2 h-2 rounded-full bg-[#0C9367] animate-pulse" />
-              <span className="font-bold">ALL 12 VERCEL EDGE REGIONS 100% NOMINAL</span>
+              <span className="font-bold">ALL 12 VERCEL EDGE REGIONS 100% ONLINE</span>
             </div>
 
             <button
@@ -121,54 +121,54 @@ export const Footer: React.FC<FooterProps> = ({
           </div>
         </div>
 
-        {/* Fully Detailed 4-Column Sitemap Grid with BIGGER Text */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-10 py-14 border-b border-white/10">
+        {/* Fully Detailed 4-Column Sitemap Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 sm:gap-10 py-12 border-b border-white/10">
           
-          {/* Column 1: Product Runtime */}
+          {/* Column 1: Product */}
           <div className="space-y-4">
             <h4 className="font-syne font-black text-sm text-[#FAF6EE] uppercase tracking-wider flex items-center gap-2">
               <Zap className="w-4 h-4 text-[#D5380C]" />
-              <span>PRODUCT RUNTIME</span>
+              <span>PRODUCT</span>
             </h4>
             <ul className="space-y-3 font-mono text-xs sm:text-sm text-[#E6D5BD]/80">
               <li>
                 <button onClick={() => { onNavigate?.('home'); scrollToTop(); }} className="hover:text-[#D5380C] transition-colors cursor-pointer text-left">
-                  Platform Overview
+                  Overview
                 </button>
               </li>
               <li>
                 <button onClick={() => onNavigate?.('terminal')} className="hover:text-[#D5380C] transition-colors cursor-pointer text-left">
-                  Terminal Console Simulator
+                  Terminal Simulator
                 </button>
               </li>
               <li>
                 <button onClick={() => onNavigate?.('tools')} className="hover:text-[#D5380C] transition-colors cursor-pointer text-left">
-                  20 Governed MCP Tools
+                  20 Built-In Tools
                 </button>
               </li>
               <li>
                 <button onClick={() => onNavigate?.('security')} className="hover:text-[#D5380C] transition-colors cursor-pointer text-left">
-                  Zero-Trust Enclave Model
+                  Security Architecture
                 </button>
               </li>
               <li>
                 <a href="#showcase-runway" className="hover:text-[#D5380C] transition-colors">
-                  Showcase Runway (5 Frames)
+                  Product Showcase
                 </a>
               </li>
             </ul>
           </div>
 
-          {/* Column 2: Developer Documentation */}
+          {/* Column 2: Documentation */}
           <div className="space-y-4">
             <h4 className="font-syne font-black text-sm text-[#FAF6EE] uppercase tracking-wider flex items-center gap-2">
               <BookOpen className="w-4 h-4 text-[#F1B333]" />
-              <span>DEVELOPER DOCS</span>
+              <span>DOCUMENTATION</span>
             </h4>
             <ul className="space-y-3 font-mono text-xs sm:text-sm text-[#E6D5BD]/80">
               <li>
                 <button onClick={() => onNavigate?.('docs')} className="hover:text-[#D5380C] transition-colors cursor-pointer text-left">
-                  Quickstart Guide (60s)
+                  Quickstart Guide
                 </button>
               </li>
               <li>
@@ -183,7 +183,7 @@ export const Footer: React.FC<FooterProps> = ({
               </li>
               <li>
                 <button onClick={() => onNavigate?.('docs')} className="hover:text-[#D5380C] transition-colors cursor-pointer text-left">
-                  Antigravity Stdio Protocol
+                  VS Code & Antigravity Setup
                 </button>
               </li>
               <li>
@@ -194,11 +194,11 @@ export const Footer: React.FC<FooterProps> = ({
             </ul>
           </div>
 
-          {/* Column 3: Legal & Security Policies */}
+          {/* Column 3: Privacy & Security */}
           <div className="space-y-4">
             <h4 className="font-syne font-black text-sm text-[#FAF6EE] uppercase tracking-wider flex items-center gap-2">
               <ShieldCheck className="w-4 h-4 text-[#0C9367]" />
-              <span>GOVERNANCE & TRUST</span>
+              <span>PRIVACY & SECURITY</span>
             </h4>
             <ul className="space-y-3 font-mono text-xs sm:text-sm text-[#E6D5BD]/80">
               <li>
@@ -213,12 +213,12 @@ export const Footer: React.FC<FooterProps> = ({
               </li>
               <li>
                 <button onClick={onOpenSecurity} className="hover:text-[#D5380C] transition-colors cursor-pointer text-left">
-                  Security Model & Whitepaper
+                  Security Whitepaper
                 </button>
               </li>
               <li>
                 <button onClick={onOpenCookies} className="hover:text-[#D5380C] transition-colors cursor-pointer text-left">
-                  Cookie & Storage Policy
+                  Cookie Preferences
                 </button>
               </li>
               <li>
@@ -228,18 +228,18 @@ export const Footer: React.FC<FooterProps> = ({
                   rel="noopener noreferrer"
                   className="hover:text-[#D5380C] transition-colors inline-flex items-center gap-1"
                 >
-                  <span>MIT Open-Source License</span>
+                  <span>MIT License</span>
                   <ExternalLink className="w-3 h-3" />
                 </a>
               </li>
             </ul>
           </div>
 
-          {/* Column 4: Community & Source */}
+          {/* Column 4: Community & Links */}
           <div className="space-y-4">
             <h4 className="font-syne font-black text-sm text-[#FAF6EE] uppercase tracking-wider flex items-center gap-2">
               <Globe className="w-4 h-4 text-[#FAF6EE]" />
-              <span>COMMUNITY & REPO</span>
+              <span>COMMUNITY & LINKS</span>
             </h4>
             <ul className="space-y-3 font-mono text-xs sm:text-sm text-[#E6D5BD]/80">
               <li>
@@ -260,7 +260,7 @@ export const Footer: React.FC<FooterProps> = ({
                   rel="noopener noreferrer"
                   className="hover:text-[#D5380C] transition-colors inline-flex items-center gap-1.5"
                 >
-                  <span>npm Registry Package</span>
+                  <span>npm Package</span>
                 </a>
               </li>
               <li>
@@ -280,7 +280,7 @@ export const Footer: React.FC<FooterProps> = ({
                   rel="noopener noreferrer"
                   className="hover:text-[#D5380C] transition-colors inline-flex items-center gap-1.5"
                 >
-                  <span>Model Context Protocol Standard</span>
+                  <span>Model Context Protocol</span>
                 </a>
               </li>
               <li>
@@ -290,7 +290,7 @@ export const Footer: React.FC<FooterProps> = ({
                   rel="noopener noreferrer"
                   className="hover:text-[#D5380C] transition-colors inline-flex items-center gap-1.5"
                 >
-                  <span>Vercel Edge Network</span>
+                  <span>Vercel Platform</span>
                 </a>
               </li>
             </ul>
@@ -298,21 +298,17 @@ export const Footer: React.FC<FooterProps> = ({
 
         </div>
 
-        {/* Bottom Giant Brand Watermark & Copyright */}
-        <div className="pt-10 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-white/40">
-          <div>
-            © {new Date().getFullYear()} DEPLOY MCP. ARCHITECTED BY TUSHAR JAIN. 100% FREE MIT.
+        {/* Clean, Refined Bottom Bar (No Ugly Watermark) */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-white/60">
+          <div className="flex items-center gap-2">
+            <span>© {new Date().getFullYear()} DEPLOY MCP. Built by <strong className="text-[#FAF6EE]">Tushar Jain</strong>.</span>
+            <span className="text-[#0C9367] font-bold">100% Free MIT.</span>
           </div>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3">
             <span className="text-[#D5380C] font-bold">BURNT ORANGE & WARM IVORY</span>
             <span>•</span>
-            <span>ZERO CLOUD CREDENTIAL LEAKAGE</span>
+            <span className="text-white/40">ZERO SECRETS LEAKED</span>
           </div>
-        </div>
-
-        {/* Giant Watermark Typography across footer background */}
-        <div className="font-syne font-black text-[70px] sm:text-[140px] lg:text-[180px] text-white/[0.025] select-none pointer-events-none text-center leading-none mt-6 tracking-tighter uppercase">
-          DEPLOY MCP
         </div>
 
       </div>

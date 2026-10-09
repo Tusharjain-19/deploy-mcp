@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { CosmicGalaxy3D } from './CosmicGalaxy3D';
 import { PixelLogoHeader } from './PixelLogoHeader';
 import { StarburstIcon } from './StarburstIcon';
-import { Copy, Check, ShieldCheck, Terminal, Cpu, Lock, Globe, ArrowRight, Sparkles, MessageSquareQuote, CheckCircle2 } from 'lucide-react';
+import { Copy, Check, ShieldCheck, Terminal, Cpu, Lock, Globe, Sparkles, CheckCircle2 } from 'lucide-react';
 import { playClickSound, playSuccessSound } from '../utils/soundEffects';
 
 export const Hero: React.FC = () => {
@@ -20,7 +20,6 @@ export const Hero: React.FC = () => {
   const galaxyY = useTransform(scrollYProgress, [0, 1], ['0%', '22%']);
   const posterY = useTransform(scrollYProgress, [0, 1], ['0%', '10%']);
   const starburstRotate = useTransform(scrollYProgress, [0, 1], [0, 120]);
-  const founderCardY = useTransform(scrollYProgress, [0, 1], ['0%', '6%']);
   const stepsCardY = useTransform(scrollYProgress, [0, 1], ['0%', '-4%']);
 
   const handleCopy = (cmd: string) => {
@@ -33,39 +32,39 @@ export const Hero: React.FC = () => {
   const steps = [
     {
       num: '01',
-      title: 'AMBIENT STDIO HANDSHAKE',
-      subtitle: 'Zero Raw Bash Permissions',
+      title: 'CONNECT YOUR AI IDE',
+      subtitle: 'Fast & Safe Connection',
       icon: Terminal,
-      desc: 'Deploy MCP initializes an authenticated, type-safe RPC channel over stdio. Your AI pair programmer gains verified tools for inspection without ever running arbitrary, unsafe shell commands.',
-      badge: 'PROTOCOL CORE',
+      desc: 'Deploy MCP connects to Cursor, Claude, VS Code, or Antigravity in one command. Your AI gets 20 tested deployment tools without running dangerous shell commands.',
+      badge: 'SAFE PROTOCOL',
       metric: '< 10ms handshake'
     },
     {
       num: '02',
-      title: 'LOCAL PRE-FLIGHT COMPILATION',
-      subtitle: 'Deterministic AST Dry-Runs',
+      title: 'TEST BUILD LOCALLY',
+      subtitle: 'Find Bugs Before Uploading',
       icon: Cpu,
-      desc: 'Before any code leaves your computer, Deploy MCP compiles a local dry-run against your Next.js 14, Vite, or Astro AST. Catches syntax, type, and module errors in under 2 seconds.',
-      badge: 'COMPILER RAIL',
+      desc: 'Before any code leaves your computer, Deploy MCP runs a test build on your Next.js, Vite, React, or Vue app. It catches syntax errors, broken imports, and missing packages in under 2 seconds.',
+      badge: 'FAST TESTING',
       metric: '< 2s dry-run'
     },
     {
       num: '03',
-      title: 'ZERO-TRUST SECRET ENCLAVE',
-      subtitle: 'Hardware Memory Isolation',
+      title: 'KEEP SECRETS SAFE',
+      subtitle: 'Never Sent to AI Prompts',
       icon: Lock,
-      desc: 'Environment variables and auth tokens live strictly inside local process memory. The AI only reads variable keys—never plaintext values. Eliminates LLM credential exfiltration entirely.',
-      badge: 'SECURITY SHIELD',
+      desc: 'Your API keys and passwords stay private on your computer. Deploy MCP sends environment variables straight to Vercel via encrypted local HTTPS. AI models only see variable names, never your actual secret values.',
+      badge: '100% PRIVATE',
       metric: '0 leaked secrets'
     },
     {
       num: '04',
-      title: 'ATOMIC ANYCAST DEPLOYMENT',
-      subtitle: 'Instant Global Rollout & Rollbacks',
+      title: '1-CLICK GLOBAL DEPLOY',
+      subtitle: 'Instant Live Production URL',
       icon: Globe,
-      desc: 'The verified bundle is signed and pushed to Vercel global edge network across 300+ Anycast PoPs. Atomic deployments guarantee zero downtime and instant 1-click rollback recovery.',
-      badge: 'EDGE RUNTIME',
-      metric: '300+ Global PoPs'
+      desc: 'Your project deploys to Vercel edge network across 300+ global locations. You get a live HTTPS production URL immediately, with 1-click rollbacks if you ever need them.',
+      badge: 'VERCEL EDGE',
+      metric: '300+ Global Regions'
     }
   ];
 
@@ -85,11 +84,11 @@ export const Hero: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-2">
         <div className="text-center max-w-5xl mx-auto space-y-6">
           
-          {/* Top Capsule Tagline Pill with Parallax Header */}
+          {/* Top Capsule Tagline Pill */}
           <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#101010]/90 backdrop-blur-md border border-white/10 text-[#FAF6EE] text-xs font-bold tracking-wider uppercase shadow-lg">
             <span className="w-2 h-2 rounded-full bg-[#D5380C] animate-pulse" />
             <span className="font-mono text-[11px] text-[#FAF6EE] whitespace-nowrap">
-              SOVEREIGN VERCEL DEPLOYMENT RUNTIME FOR MODEL CONTEXT PROTOCOL
+              AUTONOMOUS VERCEL DEPLOYMENT FOR AI CODING ASSISTANTS
             </span>
           </div>
 
@@ -112,13 +111,16 @@ export const Hero: React.FC = () => {
               />
             </motion.div>
 
-            {/* Full Fully-Visible MCP Graphic Watermark */}
+            {/* Fully-Visible Background Watermark */}
             <div className="absolute left-6 sm:left-10 bottom-2.5 sm:bottom-3 font-black font-syne text-6xl sm:text-7xl lg:text-8xl text-[#781802]/70 select-none pointer-events-none tracking-wider leading-none z-0">
               MCP
             </div>
 
-            <div className="relative z-10 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
-              <div className="space-y-4 max-w-xl">
+            {/* Bulletproof 2-Column Responsive Grid (No Overlaps on any screen) */}
+            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              
+              {/* Left Column: Heading and Intro */}
+              <div className="lg:col-span-7 xl:col-span-8 space-y-4">
                 <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#101010] text-[#FAF6EE] font-mono text-xs font-bold uppercase tracking-widest border border-[#FAF6EE]/30">
                   <div className="w-4 h-4 shrink-0">
                     <svg viewBox="0 0 24 24" fill="none" className="w-full h-full">
@@ -130,23 +132,23 @@ export const Hero: React.FC = () => {
                   <span>DEPLOY MCP v1.0.0</span>
                 </div>
 
-                <h1 className="font-syne text-4xl sm:text-6xl lg:text-7xl font-black text-[#FAF6EE] tracking-tight leading-[0.98] uppercase">
-                  SOVEREIGN <br />
-                  <span className="text-[#101010] drop-shadow-[2px_2px_0px_#FAF6EE]">DEPLOYMENT</span> RUNTIME.
+                <h1 className="font-syne text-3xl sm:text-5xl lg:text-5xl xl:text-6xl font-black text-[#FAF6EE] tracking-tight leading-[1.05] uppercase">
+                  DEPLOY TO VERCEL <br className="hidden sm:inline" />
+                  <span className="text-[#101010] drop-shadow-[2px_2px_0px_#FAF6EE]">IN SECONDS.</span>
                 </h1>
 
-                <p className="text-[#FAF6EE] text-sm sm:text-base font-medium opacity-95 leading-relaxed font-sans">
-                  Equip <strong className="text-[#101010] bg-[#FAF6EE] px-1.5 py-0.5 rounded font-mono font-bold">Cursor</strong>,{' '}
-                  <strong className="text-[#101010] bg-[#FAF6EE] px-1.5 py-0.5 rounded font-mono font-bold">Claude 3.7</strong>, and{' '}
-                  <strong className="text-[#101010] bg-[#FAF6EE] px-1.5 py-0.5 rounded font-mono font-bold">Antigravity</strong> with 20 deterministic tools to pre-flight test, isolate secrets, and deploy to Vercel without leaving your IDE.
+                <p className="text-[#FAF6EE] text-sm sm:text-base font-medium opacity-95 leading-relaxed font-sans max-w-xl">
+                  Connect <strong className="text-[#101010] bg-[#FAF6EE] px-1.5 py-0.5 rounded font-mono font-bold">Cursor</strong>,{' '}
+                  <strong className="text-[#101010] bg-[#FAF6EE] px-1.5 py-0.5 rounded font-mono font-bold">Claude</strong>, and{' '}
+                  <strong className="text-[#101010] bg-[#FAF6EE] px-1.5 py-0.5 rounded font-mono font-bold">Antigravity</strong> directly to Vercel. Test builds locally, protect your secrets, and deploy straight from your AI chat.
                 </p>
               </div>
 
-              {/* 1-Click Interactive Box within Poster */}
-              <div className="w-full lg:w-80 bg-[#101010] p-5 rounded-2xl border-2 border-[#FAF6EE] shadow-[6px_6px_0px_#101010] space-y-3 shrink-0">
-                <div className="flex items-center justify-between text-[11px] font-mono text-[#E6D5B0]/70 pb-1 border-b border-[#E6D5B0]/10">
-                  <span className="font-bold text-[#FAF6EE]">INITIALIZE CLIENT</span>
-                  <span className="text-[#D5380C] font-black">ZERO-TRUST</span>
+              {/* Right Column: 1-Click Interactive Box (Fixed Column Width, Never Overlaps) */}
+              <div className="lg:col-span-5 xl:col-span-4 w-full bg-[#101010] p-5 sm:p-6 rounded-2xl border-2 border-[#FAF6EE] shadow-[6px_6px_0px_#101010] space-y-3.5 shrink-0">
+                <div className="flex items-center justify-between text-[11px] font-mono text-[#E6D5B0]/70 pb-2 border-b border-[#E6D5B0]/15">
+                  <span className="font-bold text-[#FAF6EE]">1-MINUTE SETUP</span>
+                  <span className="text-[#D5380C] font-black">100% PRIVATE</span>
                 </div>
 
                 <div className="flex items-center gap-2 bg-[#161616] px-3.5 py-2.5 rounded-xl border border-[#E6D5B0]/20 font-mono text-xs text-[#FAF6EE]">
@@ -176,52 +178,10 @@ export const Hero: React.FC = () => {
             {/* Bottom Status Bar in Poster */}
             <div className="mt-8 pt-4 border-t-2 border-[#FAF6EE]/30 flex flex-wrap items-center justify-between text-xs font-mono text-[#FAF6EE] gap-3 relative z-10">
               <span className="flex items-center gap-1.5 font-bold">
-                <ShieldCheck className="w-4 h-4 text-[#FAF6EE]" /> Enclave Memory Secret Fence
+                <ShieldCheck className="w-4 h-4 text-[#FAF6EE]" /> Safe Local Secrets (Never Sent to AI)
               </span>
               <span className="bg-[#101010] text-[#FAF6EE] px-3 py-1 rounded-full text-[10px] font-bold border border-[#FAF6EE]/30">
                 100% Free & Open Source MIT
-              </span>
-            </div>
-          </motion.div>
-
-          {/* FOUNDER'S NOTE & ARCHITECTURE MANIFESTO CARD */}
-          <motion.div
-            style={{ y: founderCardY, willChange: 'transform' }}
-            className="p-6 sm:p-8 rounded-3xl bg-[#141414]/95 backdrop-blur-xl border-2 border-white/10 shadow-[8px_8px_0px_#101010] text-left max-w-4xl mx-auto relative overflow-hidden"
-          >
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-4 mb-4 border-b border-white/10">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-2xl bg-[#D5380C] border border-[#FAF6EE]/30 flex items-center justify-center text-[#FAF6EE] shadow-md">
-                  <MessageSquareQuote className="w-5 h-5" />
-                </div>
-                <div>
-                  <span className="font-mono text-xs font-bold text-[#D5380C] uppercase tracking-wider block">
-                    FOUNDER'S NOTE // THE PROBLEM WE SOLVED
-                  </span>
-                  <h3 className="font-syne font-black text-lg sm:text-xl text-[#FAF6EE] uppercase">
-                    WHY DEVELOPERS NEED DEPLOY MCP
-                  </h3>
-                </div>
-              </div>
-              <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#1A1A1A] border border-white/10 font-mono text-[11px] text-[#E6D5B0]/80">
-                <span className="w-2 h-2 rounded-full bg-[#0C9367]" />
-                <span>ARCHITECT: TUSHAR JAIN</span>
-              </div>
-            </div>
-
-            <p className="text-xs sm:text-sm text-[#E6D5B0]/90 leading-relaxed font-sans mb-4">
-              "Modern AI code assistants can synthesize complex React components and server routes in seconds. But deploying to production was broken: models hallucinated invalid shell commands, leaked plaintext tokens, and failed on broken cloud builds. We engineered <strong>Deploy MCP</strong> as a sovereign local bridge: giving agents 20 deterministic tools to compile, verify, and ship without exposing a single token."
-            </p>
-
-            <div className="flex flex-wrap items-center gap-2 pt-2 border-t border-white/5 font-mono text-xs text-[#FAF6EE]">
-              <span className="flex items-center gap-1 text-[11px] bg-[#1a1a1a] px-3 py-1 rounded-full border border-white/10">
-                <CheckCircle2 className="w-3.5 h-3.5 text-[#D5380C]" /> Zero Raw Terminal Access
-              </span>
-              <span className="flex items-center gap-1 text-[11px] bg-[#1a1a1a] px-3 py-1 rounded-full border border-white/10">
-                <CheckCircle2 className="w-3.5 h-3.5 text-[#F1B333]" /> Local AST Pre-Flight Tests
-              </span>
-              <span className="flex items-center gap-1 text-[11px] bg-[#1a1a1a] px-3 py-1 rounded-full border border-white/10">
-                <CheckCircle2 className="w-3.5 h-3.5 text-[#FAF6EE]" /> Deterministic Anycast Rollouts
               </span>
             </div>
           </motion.div>
@@ -235,14 +195,14 @@ export const Hero: React.FC = () => {
               <div>
                 <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#161616] text-[#D5380C] font-mono text-xs font-bold mb-1 border border-[#D5380C]/30">
                   <Sparkles className="w-3 h-3" />
-                  <span>STEP-BY-STEP ARCHITECTURE</span>
+                  <span>STEP-BY-STEP PROCESS</span>
                 </div>
                 <h2 className="font-syne font-black text-xl sm:text-3xl text-[#FAF6EE] uppercase">
-                  HOW AUTONOMOUS DEPLOYMENT EXECUTES
+                  HOW DEPLOY MCP WORKS
                 </h2>
               </div>
               <span className="text-xs font-mono text-white/50">
-                PROGRESSIVE 4-PHASE PROTOCOL
+                4 EASY PHASES
               </span>
             </div>
 
@@ -277,7 +237,7 @@ export const Hero: React.FC = () => {
               <div className="space-y-2 max-w-2xl">
                 <div className="flex items-center gap-2">
                   <span className="px-2 py-0.5 rounded-md bg-[#D5380C] text-[#FAF6EE] font-mono text-[10px] font-bold">
-                    PHASE {steps[activeStepTab].num}
+                    STEP {steps[activeStepTab].num}
                   </span>
                   <span className="font-mono text-xs text-[#F1B333] font-bold">
                     {steps[activeStepTab].subtitle}
@@ -292,10 +252,10 @@ export const Hero: React.FC = () => {
               </div>
 
               <div className="shrink-0 w-full md:w-auto p-4 rounded-xl bg-[#101010] border border-white/10 font-mono text-xs space-y-1.5 text-right">
-                <div className="text-white/40 text-[10px]">VERIFIED METRIC</div>
+                <div className="text-white/40 text-[10px]">VERIFIED SPEED</div>
                 <div className="text-[#FAF6EE] font-bold text-sm">{steps[activeStepTab].metric}</div>
                 <div className="text-[10px] text-[#0C9367] flex items-center justify-end gap-1 font-bold">
-                  <CheckCircle2 className="w-3 h-3" /> ENFORCED RUNTIME
+                  <CheckCircle2 className="w-3 h-3" /> VERIFIED SAFE
                 </div>
               </div>
             </div>
@@ -310,7 +270,7 @@ export const Hero: React.FC = () => {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 max-w-4xl mx-auto pt-2 font-mono">
             <div className="p-4 rounded-2xl bg-[#141414] border border-[#E6D5B0]/15 text-center hover:border-[#D5380C] transition-all shadow-[4px_4px_0px_#101010]">
               <div className="text-3xl font-black text-[#FAF6EE] font-syne">20</div>
-              <div className="text-[11px] text-[#D5380C] font-bold uppercase tracking-wider mt-1">Autonomous Tools</div>
+              <div className="text-[11px] text-[#D5380C] font-bold uppercase tracking-wider mt-1">Ready Tools</div>
             </div>
             <div className="p-4 rounded-2xl bg-[#141414] border border-[#E6D5B0]/15 text-center hover:border-[#FAF6EE] transition-all shadow-[4px_4px_0px_#101010]">
               <div className="text-3xl font-black text-[#FAF6EE] font-syne">0</div>
@@ -318,7 +278,7 @@ export const Hero: React.FC = () => {
             </div>
             <div className="p-4 rounded-2xl bg-[#141414] border border-[#E6D5B0]/15 text-center hover:border-[#F1B333] transition-all shadow-[4px_4px_0px_#101010]">
               <div className="text-3xl font-black text-[#FAF6EE] font-syne">&lt; 2s</div>
-              <div className="text-[11px] text-[#F1B333] font-bold uppercase tracking-wider mt-1">Pre-Flight Speed</div>
+              <div className="text-[11px] text-[#F1B333] font-bold uppercase tracking-wider mt-1">Test Build Speed</div>
             </div>
             <div className="p-4 rounded-2xl bg-[#141414] border border-[#E6D5B0]/15 text-center hover:border-[#0C9367] transition-all shadow-[4px_4px_0px_#101010]">
               <div className="text-3xl font-black text-[#0C9367] font-syne">100%</div>

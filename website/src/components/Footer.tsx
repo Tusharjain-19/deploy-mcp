@@ -298,16 +298,22 @@ export const Footer: React.FC<FooterProps> = ({
 
         </div>
 
-        {/* Clean, Refined Bottom Bar (No Ugly Watermark) */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-white/60">
-          <div className="flex items-center gap-2">
-            <span>© {new Date().getFullYear()} DEPLOY MCP. Built by <strong className="text-[#FAF6EE]">Tushar Jain</strong>.</span>
-            <span className="text-[#0C9367] font-bold">100% Free MIT.</span>
+        {/* Bottom Metadata Bar */}
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-white/50">
+          <div>
+            © {new Date().getFullYear()} DEPLOY MCP. ARCHITECTED BY TUSHAR JAIN. 100% FREE MIT.
           </div>
           <div className="flex items-center gap-3">
             <span className="text-[#D5380C] font-bold">BURNT ORANGE & WARM IVORY</span>
             <span>•</span>
-            <span className="text-white/40">ZERO SECRETS LEAKED</span>
+            <span className="text-white/40">ZERO CLOUD CREDENTIAL LEAKAGE</span>
+          </div>
+        </div>
+
+        {/* Giant One-Liner Brand Watermark (Strictly 1 Line, Never Wraps) */}
+        <div className="w-full overflow-hidden select-none pointer-events-none mt-6 sm:mt-8">
+          <div className="font-syne font-black text-[9.5vw] text-white/[0.04] hover:text-white/[0.06] transition-colors text-center leading-none tracking-tighter uppercase whitespace-nowrap">
+            DEPLOY MCP
           </div>
         </div>
 

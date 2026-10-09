@@ -1,20 +1,34 @@
 {
   "name": "@tusharjain-19/deploy-mcp",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Zero-Config Autonomous Vercel Deployment Engine for AI IDEs",
+  "main": "dist/index.js",
   "bin": {
     "deploy-mcp": "dist/cli/index.js",
     "deploymcp": "dist/cli/index.js"
   },
   "scripts": {
     "build": "tsc",
+    "build:website": "npm --prefix website run build",
+    "build:all": "tsc && npm --prefix website run build",
     "dev": "tsx src/index.ts",
     "setup": "tsx src/cli/index.ts setup",
     "test": "vitest run"
   },
-  "keywords": [],
-  "author": "",
+  "allowScripts": {
+    "esbuild": true
+  },
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "vercel",
+    "ai",
+    "deployment",
+    "cursor",
+    "windsurf",
+    "claude"
+  ],
+  "author": "Tushar Jain <jaint0910@gmail.com>",
   "license": "MIT",
   "type": "module",
   "dependencies": {

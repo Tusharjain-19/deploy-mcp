@@ -1,0 +1,261 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --burnt-orange: #D5360C;
+    --warm-ivory: #E6D5BD;
+    --soft-black: #101010;
+  }
+
+  html {
+    scroll-behavior: auto;
+    overflow-x: clip;
+  }
+
+  body {
+    font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+    background-color: #101010;
+    color: #E6D5BD;
+    overflow-x: clip;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  code, pre {
+    font-family: 'JetBrains Mono', monospace;
+  }
+}
+
+/* ==========================================================================
+   IMAGE 1 & IMAGE 2 SIGNATURE STYLES: 
+   Radiant Arched Halo Arc + Bold Warm Ivory on Burnt Orange Posters
+   ========================================================================== */
+
+
+
+/* Background Grid in Warm Ivory (Very subtle, 0.04 opacity) */
+.bg-grid-ivory {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(230, 213, 189, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(230, 213, 189, 0.05) 1px, transparent 1px);
+}
+
+/* Floating Capsule Pill Bar (from Image 1 top navbar) */
+.capsule-pill {
+  background: rgba(16, 16, 16, 0.9);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(230, 213, 189, 0.2);
+  border-radius: 9999px;
+}
+
+/* Image 2 Bold Poster Banner Card (Burnt Orange with Ivory Typography) */
+.poster-card-orange {
+  background-color: #D5360C;
+  color: #E6D5BD;
+  border: 1px solid rgba(230, 213, 189, 0.3);
+  box-shadow: 0 20px 50px -10px rgba(213, 54, 12, 0.5);
+}
+
+/* Luxury Soft Black Cards with Ivory Border */
+.card-soft-black {
+  background-color: #161616;
+  border: 1px solid rgba(230, 213, 189, 0.15);
+}
+
+.card-soft-black:hover {
+  border-color: #D5360C;
+  box-shadow: 0 0 35px -5px rgba(213, 54, 12, 0.3);
+}
+
+/* Buttons in 3 Colors */
+.btn-burnt-orange {
+  background-color: #D5360C;
+  color: #E6D5BD;
+  border: 1px solid rgba(230, 213, 189, 0.3);
+  box-shadow: 0 0 25px rgba(213, 54, 12, 0.5);
+  transition: all 0.2s ease;
+}
+
+.btn-burnt-orange:hover {
+  background-color: #B82D09;
+  border-color: #E6D5BD;
+  box-shadow: 0 0 40px rgba(213, 54, 12, 0.75);
+}
+
+.btn-warm-ivory {
+  background-color: #E6D5BD;
+  color: #101010;
+  border: 1px solid #E6D5BD;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+
+.btn-warm-ivory:hover {
+  background-color: #FAF7F2;
+  box-shadow: 0 0 25px rgba(230, 213, 189, 0.5);
+}
+
+.btn-soft-black {
+  background-color: #1A1A1A;
+  color: #E6D5BD;
+  border: 1px solid rgba(230, 213, 189, 0.2);
+  transition: all 0.2s ease;
+}
+
+.btn-soft-black:hover {
+  border-color: #D5360C;
+  color: #E6D5BD;
+  background-color: #222222;
+}
+
+/* Custom Scrollbar in 3 Colors */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #101010;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #262626;
+  border: 1px solid rgba(230, 213, 176, 0.15);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #D5380C;
+}
+
+/* Selection Color */
+::selection {
+  background-color: #D5380C;
+  color: #FAF6EE;
+}
+
+/* ==========================================================================
+   ALLTHINGS-WTF & EDITORIAL RETRO POSTER EFFECTS:
+   Dot Grid, Grain, Brutalist Badges, Starbursts & Horizontal Track
+   ========================================================================== */
+
+/* Retro Dot Grid Canvas */
+.dot-grid {
+  background-color: transparent;
+  background-image: radial-gradient(circle, rgba(230, 213, 176, 0.22) 1.5px, transparent 1.5px);
+  background-size: 32px 32px;
+}
+
+.dot-grid-dense {
+  background-image: radial-gradient(circle, rgba(230, 213, 176, 0.15) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.dot-grid-orange {
+  background-image: radial-gradient(circle, rgba(213, 56, 12, 0.25) 1.5px, transparent 1.5px);
+  background-size: 32px 32px;
+}
+
+/* Angled Brutalist Floating Badges (from allthingswtf.com) */
+.brutal-badge {
+  font-family: 'Space Grotesk', monospace;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 6px 14px;
+  border: 2px solid #101010;
+  box-shadow: 4px 4px 0px #101010;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+  user-select: none;
+}
+
+.brutal-badge:hover {
+  transform: translate(-2px, -2px) scale(1.04);
+  box-shadow: 6px 6px 0px #101010;
+}
+
+.brutal-badge-orange {
+  background-color: #D5380C;
+  color: #FAF6EE;
+  border-color: #FAF6EE;
+  box-shadow: 4px 4px 0px #FAF6EE;
+}
+
+.brutal-badge-orange:hover {
+  box-shadow: 6px 6px 0px #FAF6EE;
+}
+
+.brutal-card {
+  border: 2px solid rgba(230, 213, 176, 0.2);
+  box-shadow: 6px 6px 0px rgba(16, 16, 16, 0.8);
+  transition: all 0.25s ease;
+}
+
+.brutal-card:hover {
+  border-color: #D5380C;
+  box-shadow: 8px 8px 0px #D5380C;
+}
+
+/* Frame Canvas Viewport */
+.frame-slide {
+  width: 100vw;
+  min-width: 100vw;
+  height: 100vh;
+  flex-shrink: 0;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  scroll-snap-align: start;
+}
+
+@media (max-width: 1024px) {
+  .frame-slide {
+    height: auto;
+    min-height: 100vh;
+  }
+}
+
+/* Subtle Starburst Spin Animation */
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin-slow 24s linear infinite;
+}
+
+/* Tactile Grain Overlay - Disabled heavy SVG fractal filter for 120Hz/144Hz scroll */
+.grain-layer {
+  display: none;
+}
+
+/* Pixel Font Emulation for ASCII Terminal */
+.pixel-text-shadow {
+  text-shadow: 
+    2px 2px 0px #000,
+    -1px -1px 0px #000,
+    1px -1px 0px #000,
+    -1px 1px 0px #000,
+    0 0 16px rgba(0, 240, 255, 0.6);
+}
+
+/* Kinetic Stroke Typography */
+.stroke-text {
+  -webkit-text-stroke: 1.5px #FAF6EE;
+  color: transparent;
+}
+
+.stroke-text-orange {
+  -webkit-text-stroke: 1.5px #D5380C;
+  color: transparent;
+}

@@ -132,7 +132,7 @@ export const Hero: React.FC = () => {
                   <span>DEPLOY MCP v1.0.0</span>
                 </div>
 
-                <h1 className="font-syne text-3xl sm:text-5xl lg:text-5xl xl:text-6xl font-black text-[#FAF6EE] tracking-tight leading-[1.05] uppercase">
+                <h1 className="font-syne text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-extrabold text-[#FAF6EE] tracking-tight leading-[1.05] uppercase">
                   DEPLOY TO VERCEL <br className="hidden sm:inline" />
                   <span className="text-[#101010] drop-shadow-[2px_2px_0px_#FAF6EE]">IN SECONDS.</span>
                 </h1>
@@ -158,16 +158,16 @@ export const Hero: React.FC = () => {
 
                 <button
                   onClick={() => handleCopy('npx deploymcp setup')}
-                  className="w-full py-3 px-4 rounded-xl bg-[#D5380C] hover:bg-[#B82D09] text-[#FAF6EE] font-syne font-black text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 border-2 border-[#FAF6EE] shadow-[3px_3px_0px_#FAF6EE] active:translate-y-0.5 cursor-pointer whitespace-nowrap"
+                  className="w-full py-3 px-3 sm:px-4 rounded-xl bg-[#D5380C] hover:bg-[#B82D09] text-[#FAF6EE] font-sans font-extrabold text-xs uppercase tracking-wide transition-all flex items-center justify-center gap-2 border-2 border-[#FAF6EE] shadow-[3px_3px_0px_#FAF6EE] active:translate-y-0.5 cursor-pointer"
                 >
                   {copiedCmd === 'npx deploymcp setup' ? (
                     <>
-                      <Check className="w-4 h-4 text-[#FAF6EE]" />
+                      <Check className="w-4 h-4 text-[#FAF6EE] shrink-0" />
                       <span>COPIED TO CLIPBOARD!</span>
                     </>
                   ) : (
                     <>
-                      <Copy className="w-4 h-4" />
+                      <Copy className="w-4 h-4 text-[#FAF6EE] shrink-0" />
                       <span>COPY SETUP COMMAND</span>
                     </>
                   )}

@@ -326,7 +326,7 @@ export const HorizontalShowcaseRunway: React.FC<HorizontalShowcaseRunwayProps> =
                         if (card.actionFn) card.actionFn();
                         else if (card.cmd) handleCopy(card.cmd);
                       }}
-                      className="px-4 py-2.5 rounded-xl bg-[#FAF6EE] text-[#101010] hover:bg-[#D5380C] hover:text-[#FAF6EE] transition-all font-syne font-black text-xs uppercase tracking-wider flex items-center gap-1.5 shadow-sm active:scale-95 cursor-pointer whitespace-nowrap"
+                      className="px-4 py-2.5 rounded-xl bg-[#FAF6EE] text-[#101010] hover:bg-[#D5380C] hover:text-[#FAF6EE] transition-all font-sans font-extrabold text-xs uppercase tracking-wide flex items-center gap-1.5 shadow-sm active:scale-95 cursor-pointer whitespace-nowrap"
                     >
                       <span>{card.actionLabel}</span>
                       <ArrowRight className="w-3.5 h-3.5" />

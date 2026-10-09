@@ -86,7 +86,7 @@ export const Footer: React.FC<FooterProps> = ({
 
               <button
                 onClick={handleCopyCmd}
-                className="w-full py-3 px-4 rounded-xl bg-[#D5380C] hover:bg-[#B82D09] text-[#FAF6EE] font-syne font-black text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 border border-[#FAF6EE]/30 shadow-md cursor-pointer"
+                className="w-full py-3 px-4 rounded-xl bg-[#D5380C] hover:bg-[#B82D09] text-[#FAF6EE] font-sans font-extrabold text-xs uppercase tracking-wide transition-all flex items-center justify-center gap-2 border border-[#FAF6EE]/30 shadow-md cursor-pointer"
               >
                 <span>{copied ? 'COPIED TO CLIPBOARD!' : 'COPY SETUP COMMAND'}</span>
                 <Sparkles className="w-3.5 h-3.5" />

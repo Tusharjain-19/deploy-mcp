@@ -114,7 +114,7 @@ export const IdeConfigWizard: React.FC = () => {
               {/* Copy Button in Burnt Orange */}
               <button
                 onClick={handleCopyJson}
-                className="flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#D5380C] text-[#FAF6EE] font-syne font-black text-xs uppercase tracking-wider hover:bg-[#B82D09] transition-all shadow-[4px_4px_0px_#FAF6EE] active:translate-y-0.5 shrink-0 border border-[#FAF6EE]/40 cursor-pointer"
+                className="flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-[#D5380C] text-[#FAF6EE] font-sans font-extrabold text-xs uppercase tracking-wide hover:bg-[#B82D09] transition-all shadow-[4px_4px_0px_#FAF6EE] active:translate-y-0.5 shrink-0 border border-[#FAF6EE]/40 cursor-pointer"
               >
                 {copied ? (
                   <>

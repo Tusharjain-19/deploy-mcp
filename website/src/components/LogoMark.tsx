@@ -6,7 +6,7 @@ interface LogoMarkProps {
   className?: string;
 }
 
-export const LogoMark: React.FC<LogoMarkProps> = ({ size = 'md', showBadge = false, className = '' }) => {
+export const LogoMark: React.FC<LogoMarkProps> = ({ size = 'md', className = '' }) => {
   const iconBoxSizes = {
     sm: 'w-7 h-7',
     md: 'w-8 h-8',
@@ -21,9 +21,9 @@ export const LogoMark: React.FC<LogoMarkProps> = ({ size = 'md', showBadge = fal
 
   return (
     <div className={`flex items-center gap-2.5 select-none ${className}`}>
-      {/* Ultra-Minimalist Geometric Deploy Prism Mark */}
+      {/* Bespoke Geometric Deployment Prism Mark */}
       <div
-        className={`relative ${iconBoxSizes[size]} shrink-0 rounded-lg bg-[#171717] border border-white/10 flex items-center justify-center p-1.5 transition-all duration-200 group-hover:border-[#D5380C]/60 group-hover:bg-[#1c1c1c] shadow-sm`}
+        className={`relative ${iconBoxSizes[size]} shrink-0 rounded-lg bg-[#000000] border border-[#F6E3B8]/25 flex items-center justify-center p-1 transition-all duration-200 group-hover:border-[#E7BA05]/80 group-hover:bg-[#050505] shadow-sm`}
       >
         <svg
           viewBox="0 0 24 24"
@@ -31,39 +31,45 @@ export const LogoMark: React.FC<LogoMarkProps> = ({ size = 'md', showBadge = fal
           xmlns="http://www.w3.org/2000/svg"
           className="w-full h-full"
         >
-          {/* Left Wing - Brand Burnt Orange (#D5380C) */}
-          <path
-            d="M11 4.2L3.5 18.5H11V4.2Z"
-            fill="#D5380C"
+          {/* Top Facet - Brand Yellow (#E7BA05) */}
+          <polygon
+            points="12,3 20,7.5 12,12 4,7.5"
+            fill="#E7BA05"
+            stroke="#000000"
+            strokeWidth="0.8"
           />
-          {/* Right Wing - Warm Ivory (#FAF6EE) */}
-          <path
-            d="M13 4.2V18.5H20.5L13 4.2Z"
-            fill="#FAF6EE"
+          {/* Right Facet - Brand Butter (#F6E3B8) */}
+          <polygon
+            points="12,12 20,7.5 20,16.5 12,21"
+            fill="#F6E3B8"
+            stroke="#000000"
+            strokeWidth="0.8"
           />
-          {/* Minimal Central Accent Dot / Pulse */}
+          {/* Left Facet - Brand Leaf (#6B9E5A) */}
+          <polygon
+            points="4,7.5 12,12 12,21 4,16.5"
+            fill="#6B9E5A"
+            stroke="#000000"
+            strokeWidth="0.8"
+          />
+          {/* Central Core Telemetry Node */}
           <circle
             cx="12"
-            cy="18.5"
-            r="1"
-            fill="#FAF6EE"
+            cy="12"
+            r="1.2"
+            fill="#000000"
           />
         </svg>
       </div>
 
-      {/* Brand Name: Pure Single-Line Typography */}
+      {/* Brand Name: Pure Single-Line Editorial Typography */}
       <div className="flex items-center gap-1.5 whitespace-nowrap">
-        <span className={`font-syne font-black ${textSizes[size]} text-[#FAF6EE] tracking-tight`}>
+        <span className={`font-syne font-black ${textSizes[size]} text-[#F6E3B8] tracking-tight`}>
           DEPLOY
         </span>
-        <span className={`font-mono font-bold ${textSizes[size]} text-[#D5380C]`}>
+        <span className={`font-mono font-bold ${textSizes[size]} text-[#E7BA05]`}>
           MCP
         </span>
-        {showBadge && (
-          <span className="text-[9px] font-mono font-bold text-[#FAF6EE] bg-[#161616] px-1.5 py-0.5 rounded border border-[#D5380C]/40 ml-1">
-            v1.0
-          </span>
-        )}
       </div>
     </div>
   );

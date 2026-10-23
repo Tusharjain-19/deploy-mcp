@@ -32,18 +32,18 @@ export const ToolExplorer: React.FC = () => {
   };
 
   return (
-    <section id="tools" className="py-12 sm:py-16 bg-[#101010] border-t border-white/10 relative overflow-hidden">
+    <section id="tools" className="py-12 sm:py-16 bg-[#000000] border-t border-[#F6E3B8]/15 relative overflow-hidden">
       
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-8">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#101010] text-[#E6D5BD] text-xs font-bold mb-3 border border-[#D5360C]">
-            <Terminal className="w-3.5 h-3.5 text-[#D5360C]" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#000000] text-[#F6E3B8] text-xs font-bold mb-3 border border-[#E7BA05]/40">
+            <Terminal className="w-3.5 h-3.5 text-[#E7BA05]" />
             <span className="font-mono text-[11px]">20 MCP TOOLS SUITE</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-black text-[#E6D5BD] tracking-tight">AUTONOMOUS CAPABILITIES</h2>
-          <p className="text-[#E6D5BD]/80 text-sm mt-3">
+          <h2 className="text-3xl sm:text-5xl font-black text-[#F6E3B8] tracking-tight">AUTONOMOUS CAPABILITIES</h2>
+          <p className="text-[#F6E3B8]/80 text-sm mt-3">
             Equip your AI pair programmer with deep capabilities across compilation, secrets, domain management, and cloud infrastructure.
           </p>
         </div>
@@ -53,13 +53,13 @@ export const ToolExplorer: React.FC = () => {
           
           {/* Search Input */}
           <div className="relative w-full md:w-88">
-            <Search className="w-4 h-4 text-[#E6D5BD]/50 absolute left-4 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-[#F6E3B8]/50 absolute left-4 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               placeholder="Search tools by name or capability..."
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
-              className="w-full pl-11 pr-4 py-2.5 rounded-full bg-[#141414] border border-[#E6D5BD]/20 text-xs text-[#E6D5BD] placeholder-[#E6D5BD]/40 focus:outline-none focus:border-[#D5360C] focus:ring-1 focus:ring-[#D5360C] transition-all font-mono"
+              className="w-full pl-11 pr-4 py-2.5 rounded-full bg-[#000000] border border-[#F6E3B8]/20 text-xs text-[#F6E3B8] placeholder-[#F6E3B8]/40 focus:outline-none focus:border-[#E7BA05] focus:ring-1 focus:ring-[#E7BA05] transition-all font-mono"
             />
           </div>
 
@@ -72,10 +72,10 @@ export const ToolExplorer: React.FC = () => {
                 <button
                   key={cat.id}
                   onClick={() => setSelectedCategory(cat.id)}
-                  className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all ${
+                  className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-bold uppercase tracking-wider transition-all cursor-pointer ${
                     isActive
-                      ? 'bg-[#D5360C] text-[#E6D5BD] border border-[#E6D5BD] shadow-lg shadow-[#D5360C]/20'
-                      : 'bg-[#141414] border border-[#E6D5BD]/15 text-[#E6D5BD]/70 hover:text-[#E6D5BD] hover:border-[#D5360C]'
+                      ? 'bg-[#E7BA05] text-[#000000] border border-[#E7BA05] shadow-lg shadow-[#E7BA05]/20 font-black'
+                      : 'bg-[#000000] border border-[#F6E3B8]/15 text-[#F6E3B8]/70 hover:text-[#F6E3B8] hover:border-[#E7BA05]'
                   }`}
                 >
                   <IconComp className="w-3.5 h-3.5" />
@@ -87,7 +87,7 @@ export const ToolExplorer: React.FC = () => {
 
         </div>
 
-        {/* Tools Interactive Grid strictly in 3 Colors */}
+        {/* Tools Interactive Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {filteredTools.map(tool => {
             const isExpanded = expandedToolId === tool.id;
@@ -95,38 +95,38 @@ export const ToolExplorer: React.FC = () => {
               <div
                 key={tool.id}
                 onClick={() => setExpandedToolId(isExpanded ? null : tool.id)}
-                className={`p-6 rounded-3xl border-2 transition-all duration-200 cursor-pointer ${
+                className={`p-6 rounded-3xl border transition-all duration-200 cursor-pointer ${
                   isExpanded
-                    ? 'bg-[#161616] border-[#D5360C] shadow-xl shadow-[#D5360C]/10'
-                    : 'bg-[#141414] border-[#E6D5BD]/15 hover:border-[#D5360C] hover:bg-[#161616]'
+                    ? 'bg-[#000000] border-2 border-[#E7BA05] shadow-xl shadow-[#E7BA05]/10'
+                    : 'bg-[#000000] border-[#F6E3B8]/20 hover:border-[#E7BA05]'
                 }`}
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
-                    <span className="font-mono text-sm font-black text-[#E6D5BD] bg-[#D5360C] px-3 py-1 rounded-lg">
+                    <span className="font-mono text-sm font-black text-[#000000] bg-[#E7BA05] px-3 py-1 rounded-lg">
                       `{tool.name}`
                     </span>
-                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-[#101010] text-[#E6D5BD] border border-[#E6D5BD]/20">
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold bg-[#000000] text-[#F6E3B8] border border-[#F6E3B8]/20">
                       {tool.categoryLabel}
                     </span>
                   </div>
-                  <ChevronRight className={`w-4 h-4 text-[#E6D5BD]/60 transition-transform duration-200 ${isExpanded ? 'rotate-90 text-[#D5360C]' : ''}`} />
+                  <ChevronRight className={`w-4 h-4 text-[#F6E3B8]/60 transition-transform duration-200 ${isExpanded ? 'rotate-90 text-[#E7BA05]' : ''}`} />
                 </div>
 
-                <p className="text-[#E6D5BD]/90 text-xs mt-3 leading-relaxed">{tool.description}</p>
+                <p className="text-[#F6E3B8]/90 text-xs mt-3 leading-relaxed">{tool.description}</p>
 
                 {/* Expanded Parameter Details */}
                 {isExpanded && (
-                  <div className="mt-4 pt-4 border-t border-[#E6D5BD]/10 space-y-3 font-mono text-xs animate-fadeIn">
+                  <div className="mt-4 pt-4 border-t border-[#F6E3B8]/15 space-y-3 font-mono text-xs animate-fadeIn">
                     <div>
-                      <span className="text-[#E6D5BD]/60 block mb-1 font-sans text-[11px] font-bold">// Input Schema Parameters:</span>
-                      <div className="p-3.5 rounded-xl bg-[#101010] text-[#E6D5BD] border border-[#E6D5BD]/15 space-y-1 text-[11px]">
+                      <span className="text-[#F6E3B8]/60 block mb-1 font-sans text-[11px] font-bold">// Input Schema Parameters:</span>
+                      <div className="p-3.5 rounded-xl bg-[#000000] text-[#F6E3B8] border border-[#F6E3B8]/15 space-y-1 text-[11px]">
                         {Object.entries(tool.inputSchema).length === 0 ? (
-                          <span className="text-[#E6D5BD]/40 italic">None required</span>
+                          <span className="text-[#F6E3B8]/40 italic">None required</span>
                         ) : (
                           Object.entries(tool.inputSchema).map(([key, desc]) => (
                             <p key={key}>
-                              <span className="text-[#D5360C] font-black">{key}</span>: <span className="text-[#E6D5BD]/80">{desc}</span>
+                              <span className="text-[#E7BA05] font-black">{key}</span>: <span className="text-[#F6E3B8]/80">{desc}</span>
                             </p>
                           ))
                         )}
@@ -135,15 +135,15 @@ export const ToolExplorer: React.FC = () => {
 
                     <div>
                       <div className="flex items-center justify-between mb-1">
-                        <span className="text-[#E6D5BD]/60 font-sans text-[11px] font-bold">// Example Invocation:</span>
+                        <span className="text-[#F6E3B8]/60 font-sans text-[11px] font-bold">// Example Invocation:</span>
                         <button
                           onClick={(e) => handleCopyExample(tool.exampleUsage, e)}
-                          className="text-[10px] font-mono text-[#D5360C] hover:text-[#E6D5BD] flex items-center gap-1 transition-colors font-bold"
+                          className="text-[10px] font-mono text-[#E7BA05] hover:text-[#F6E3B8] flex items-center gap-1 transition-colors font-bold cursor-pointer"
                         >
                           {copiedTool === tool.exampleUsage ? (
                             <>
-                              <Check className="w-3 h-3 text-[#E6D5BD]" />
-                              <span>COPIED</span>
+                              <Check className="w-3 h-3 text-[#6B9E5A]" />
+                              <span className="text-[#6B9E5A]">COPIED</span>
                             </>
                           ) : (
                             <>
@@ -153,7 +153,7 @@ export const ToolExplorer: React.FC = () => {
                           )}
                         </button>
                       </div>
-                      <div className="p-3.5 rounded-xl bg-[#101010] text-[#E6D5BD] border border-[#D5360C] text-[11px] overflow-x-auto font-bold">
+                      <div className="p-3.5 rounded-xl bg-[#000000] text-[#F6E3B8] border border-[#E7BA05] text-[11px] overflow-x-auto font-bold">
                         {tool.exampleUsage}
                       </div>
                     </div>

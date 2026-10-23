@@ -1,11 +1,11 @@
 import React from 'react';
 
-// Haikei Organic Wave Divider (app.haikei.app style smooth layered SVG curve)
+// Haikei Organic Wave Divider
 export const HaikeiWaveDivider: React.FC<{
   fill?: string;
   className?: string;
   flip?: boolean;
-}> = ({ fill = '#101010', className = '', flip = false }) => {
+}> = ({ fill = '#000000', className = '', flip = false }) => {
   return (
     <div className={`w-full overflow-hidden leading-none ${className} ${flip ? 'rotate-180' : ''}`}>
       <svg
@@ -24,11 +24,11 @@ export const HaikeiWaveDivider: React.FC<{
   );
 };
 
-// Haikei Stacked Topographic Contour Curves (app.haikei.app style topographic contour meshes)
+// Haikei Stacked Topographic Contour Curves in Butter
 export const HaikeiContourBackground: React.FC<{
   className?: string;
   strokeColor?: string;
-}> = ({ className = '', strokeColor = 'rgba(230, 213, 176, 0.06)' }) => {
+}> = ({ className = '', strokeColor = 'rgba(246, 227, 184, 0.08)' }) => {
   return (
     <div className={`absolute inset-0 pointer-events-none overflow-hidden select-none ${className}`}>
       <svg

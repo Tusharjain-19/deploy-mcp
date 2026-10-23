@@ -46,7 +46,7 @@ export async function checkDomainAvailability(
     return {
       available: true,
       domainName: formattedDomain,
-      message: `🎉 Domain '${formattedDomain}' is available!`
+      message: `[OK] Domain '${formattedDomain}' is available!`
     };
   }
 
@@ -84,7 +84,7 @@ export async function checkDomainAvailability(
   return {
     available: false,
     domainName: formattedDomain,
-    message: `❌ Domain '${formattedDomain}' is currently unavailable/taken on Vercel.`,
+    message: `[!] Domain '${formattedDomain}' is currently unavailable/taken on Vercel.`,
     bestAlternatives
   };
 }
@@ -139,6 +139,6 @@ export async function manageDomain(
     newDomain: formattedNew,
     oldDomain: formattedOld,
     oldDomainActionTaken,
-    message: `✅ Domain '${formattedNew}' successfully assigned to project '${projectName}'. ${actionMsg}`.trim()
+    message: `[OK] Domain '${formattedNew}' successfully assigned to project '${projectName}'. ${actionMsg}`.trim()
   };
 }

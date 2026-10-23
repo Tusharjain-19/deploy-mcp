@@ -5,8 +5,8 @@ export interface VersionCheckResult {
   updateCommand: string;
 }
 
-export const CURRENT_VERSION = "1.0.0";
-const PACKAGE_NAME = "@tusharjain-19/deploy-mcp";
+export const CURRENT_VERSION = "2.0.0";
+const PACKAGE_NAME = "deploymcp";
 
 export async function checkForUpdates(): Promise<VersionCheckResult> {
   try {

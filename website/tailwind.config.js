@@ -7,54 +7,125 @@ export default {
   theme: {
     extend: {
       colors: {
-        // STRICT 3-COLOR SYSTEM: Burnt Orange (#D5360C), Warm Ivory (#E6D5BD), Soft Black (#101010)
+        // SIGNATURE EDITORIAL PALETTE: Yellow (#E7BA05), Butter (#F6E3B8), Leaf (#6B9E5A), Brown (#906342), Pure Black (#000000)
+        brandYellow: {
+          DEFAULT: '#E7BA05',
+          50: '#FDF9EE',
+          100: '#FBF2D5',
+          200: '#F7E4A8',
+          300: '#F2D57A',
+          400: '#EDC740',
+          500: '#E7BA05', // CORE
+          600: '#C79F04',
+          700: '#9E7E03',
+          800: '#755D02',
+          900: '#4C3D01',
+          glow: 'rgba(231, 186, 5, 0.45)',
+        },
+        brandButter: {
+          DEFAULT: '#F6E3B8',
+          50: '#FDFBF7',
+          100: '#FAF4E8',
+          200: '#F6E3B8', // CORE
+          300: '#EDD194',
+          400: '#E3BF70',
+          500: '#D5A946',
+          600: '#B48C30',
+          700: '#8E6D23',
+          800: '#674E17',
+          900: '#41310C',
+          glow: 'rgba(246, 227, 184, 0.35)',
+        },
+        brandLeaf: {
+          DEFAULT: '#6B9E5A',
+          50: '#F2F7F0',
+          100: '#E1EDDE',
+          200: '#C4DCBD',
+          300: '#A5CA9A',
+          400: '#87B778',
+          500: '#6B9E5A', // CORE
+          600: '#558246',
+          700: '#416435',
+          800: '#2D4625',
+          900: '#1A2A16',
+          glow: 'rgba(107, 158, 90, 0.45)',
+        },
+        brandBrown: {
+          DEFAULT: '#906342',
+          50: '#F7F3F0',
+          100: '#EDE2DA',
+          200: '#DCC4B5',
+          300: '#C9A48E',
+          400: '#AD8266',
+          500: '#906342', // CORE
+          600: '#785135',
+          700: '#5E3E28',
+          800: '#432B1B',
+          900: '#2A1A10',
+          glow: 'rgba(144, 99, 66, 0.35)',
+        },
+        brandBlack: {
+          DEFAULT: '#000000', // CORE - Pure OLED Black (No blue tint)
+          50: '#1A1A1A',
+          100: '#141414',
+          200: '#0F0F0F',
+          300: '#0A0A0A',
+          400: '#050505',
+          500: '#000000', // CORE
+          600: '#000000',
+          700: '#000000',
+          800: '#000000',
+          900: '#000000',
+        },
+
+        // Backward compatibility mappings
         burntOrange: {
-          DEFAULT: '#D5360C',
-          50: '#FDF2EE',
-          100: '#FBE4DB',
-          200: '#F7C4B2',
-          300: '#F29F84',
-          400: '#EB714F',
-          500: '#D5360C', // CORE
-          600: '#B82D09',
-          700: '#942206',
-          800: '#751A04',
-          900: '#5A1302',
-          glow: 'rgba(213, 54, 12, 0.45)',
+          DEFAULT: '#E7BA05',
+          50: '#FDF9EE',
+          100: '#FBF2D5',
+          200: '#F7E4A8',
+          300: '#F2D57A',
+          400: '#EDC740',
+          500: '#E7BA05',
+          600: '#C79F04',
+          700: '#9E7E03',
+          800: '#755D02',
+          900: '#4C3D01',
+          glow: 'rgba(231, 186, 5, 0.45)',
         },
         warmIvory: {
-          DEFAULT: '#E6D5BD',
-          50: '#FAF7F2',
-          100: '#F4ECE0',
-          200: '#E6D5BD', // CORE
-          300: '#D6BD9B',
-          400: '#C29F72',
-          500: '#AB824F',
-          600: '#8C673A',
-          700: '#6C4F2B',
-          800: '#4D371E',
-          900: '#2E2010',
-          glow: 'rgba(230, 213, 189, 0.3)',
+          DEFAULT: '#F6E3B8',
+          50: '#FDFBF7',
+          100: '#FAF4E8',
+          200: '#F6E3B8',
+          300: '#EDD194',
+          400: '#E3BF70',
+          500: '#D5A946',
+          600: '#B48C30',
+          700: '#8E6D23',
+          800: '#674E17',
+          900: '#41310C',
+          glow: 'rgba(246, 227, 184, 0.35)',
         },
         softBlack: {
-          DEFAULT: '#101010', // CORE
-          50: '#2A2A2A',
-          100: '#222222',
-          200: '#1A1A1A',
-          300: '#161616',
-          400: '#121212',
-          500: '#101010', // CORE
-          600: '#0D0D0D',
-          700: '#0A0A0A',
-          800: '#070707',
-          900: '#040404',
+          DEFAULT: '#000000',
+          50: '#1A1A1A',
+          100: '#141414',
+          200: '#0F0F0F',
+          300: '#0A0A0A',
+          400: '#050505',
+          500: '#000000',
+          600: '#000000',
+          700: '#000000',
+          800: '#000000',
+          900: '#000000',
         },
         terminalCyan: {
-          DEFAULT: '#00F0FF',
-          glow: 'rgba(0, 240, 255, 0.4)'
+          DEFAULT: '#E7BA05',
+          glow: 'rgba(231, 186, 5, 0.4)'
         },
         vintageYellow: {
-          DEFAULT: '#F1B333'
+          DEFAULT: '#E7BA05'
         }
       },
       fontFamily: {
@@ -65,13 +136,25 @@ export default {
         mono: ['JetBrains Mono', 'Menlo', 'monospace'],
       },
       boxShadow: {
-        'halo-orange': '0 0 100px 20px rgba(213, 56, 12, 0.45)',
-        'halo-ivory': '0 0 80px 15px rgba(230, 213, 176, 0.25)',
-        'card-orange': '0 0 35px -5px rgba(213, 56, 12, 0.35)',
-        'card-ivory': '0 0 35px -5px rgba(230, 213, 176, 0.15)',
-        'brutal-black': '5px 5px 0px #101010',
-        'brutal-orange': '5px 5px 0px #D5380C',
-        'brutal-ivory': '5px 5px 0px #E6D5B0',
+        'halo-yellow': '0 0 100px 20px rgba(231, 186, 5, 0.45)',
+        'halo-butter': '0 0 80px 15px rgba(246, 227, 184, 0.25)',
+        'halo-leaf': '0 0 80px 15px rgba(107, 158, 90, 0.35)',
+        'halo-brown': '0 0 80px 15px rgba(144, 99, 66, 0.25)',
+        'card-yellow': '0 0 35px -5px rgba(231, 186, 5, 0.35)',
+        'card-butter': '0 0 35px -5px rgba(246, 227, 184, 0.15)',
+        'brutal-black': '5px 5px 0px #000000',
+        'brutal-yellow': '5px 5px 0px #E7BA05',
+        'brutal-butter': '5px 5px 0px #F6E3B8',
+        'brutal-leaf': '5px 5px 0px #6B9E5A',
+        'brutal-brown': '5px 5px 0px #906342',
+
+        // Legacy compatibility
+        'halo-orange': '0 0 100px 20px rgba(231, 186, 5, 0.45)',
+        'halo-ivory': '0 0 80px 15px rgba(246, 227, 184, 0.25)',
+        'card-orange': '0 0 35px -5px rgba(231, 186, 5, 0.35)',
+        'card-ivory': '0 0 35px -5px rgba(246, 227, 184, 0.15)',
+        'brutal-orange': '5px 5px 0px #E7BA05',
+        'brutal-ivory': '5px 5px 0px #F6E3B8',
       }
     },
   },

@@ -27,18 +27,18 @@ export const CookieBanner: React.FC<CookieBannerProps> = ({ onOpenCookiePolicy }
 
   return (
     <div className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:max-w-md z-[90] animate-fadeIn">
-      <div className="p-4 rounded-2xl bg-[#141414]/95 backdrop-blur-xl border border-white/10 shadow-2xl flex flex-col gap-3 font-sans text-xs">
+      <div className="p-4 rounded-2xl bg-[#000000]/95 backdrop-blur-xl border border-[#F6E3B8]/20 shadow-2xl flex flex-col gap-3 font-sans text-xs">
         <div className="flex items-start gap-3">
-          <div className="w-8 h-8 rounded-lg bg-[#1a1a1a] border border-white/10 flex items-center justify-center text-[#D5380C] shrink-0 mt-0.5">
+          <div className="w-8 h-8 rounded-lg bg-[#000000] border border-[#F6E3B8]/20 flex items-center justify-center text-[#E7BA05] shrink-0 mt-0.5">
             <Cookie className="w-4 h-4" />
           </div>
           <div className="space-y-1">
-            <h4 className="font-syne font-bold text-xs text-[#FAF6EE]">DEVELOPER COOKIE PREFERENCES</h4>
-            <p className="text-[#E6D5BD]/75 text-[11px] leading-relaxed">
+            <h4 className="font-syne font-bold text-xs text-[#F6E3B8]">DEVELOPER COOKIE PREFERENCES</h4>
+            <p className="text-[#F6E3B8]/75 text-[11px] leading-relaxed">
               We only store functional preferences (terminal framework, audio settings). No advertising trackers or secret tokens are ever persisted.{' '}
               <button
                 onClick={() => { playClickSound(); onOpenCookiePolicy(); }}
-                className="text-[#D5380C] hover:underline font-semibold"
+                className="text-[#E7BA05] hover:underline font-semibold"
               >
                 Cookie Policy
               </button>
@@ -46,16 +46,16 @@ export const CookieBanner: React.FC<CookieBannerProps> = ({ onOpenCookiePolicy }
           </div>
         </div>
 
-        <div className="flex items-center justify-end gap-2 pt-2 border-t border-white/10 font-mono text-[11px]">
+        <div className="flex items-center justify-end gap-2 pt-2 border-t border-[#F6E3B8]/20 font-mono text-[11px]">
           <button
             onClick={() => handleAccept('essential')}
-            className="px-3 py-1.5 rounded-lg bg-[#1a1a1a] hover:bg-[#222222] text-[#E6D5BD] transition-colors"
+            className="px-3 py-1.5 rounded-lg bg-[#000000] hover:bg-[#E7BA05]/15 border border-[#F6E3B8]/20 text-[#F6E3B8] transition-colors"
           >
             ESSENTIAL ONLY
           </button>
           <button
             onClick={() => handleAccept('all')}
-            className="px-3.5 py-1.5 rounded-lg bg-[#D5380C] hover:bg-[#B82D09] text-[#FAF6EE] font-bold transition-all shadow-sm"
+            className="px-3.5 py-1.5 rounded-lg bg-[#E7BA05] hover:bg-[#F6E3B8] text-[#000000] font-bold transition-all shadow-sm"
           >
             ACCEPT
           </button>

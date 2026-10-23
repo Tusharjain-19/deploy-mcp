@@ -1,7 +1,7 @@
 {
-  "name": "@tusharjain-19/deploy-mcp",
-  "version": "1.0.0",
-  "description": "Zero-Config Autonomous Vercel Deployment Engine for AI IDEs",
+  "name": "deploymcp",
+  "version": "2.0.0",
+  "description": "Deploy your website in seconds directly from your AI editor.",
   "main": "dist/index.js",
   "bin": {
     "deploy-mcp": "dist/cli/index.js",
@@ -28,7 +28,7 @@
     "windsurf",
     "claude"
   ],
-  "author": "Tushar Jain <jaint0910@gmail.com>",
+  "author": "Tushar Jain (https://tusharjain.in/contact)",
   "license": "MIT",
   "type": "module",
   "dependencies": {

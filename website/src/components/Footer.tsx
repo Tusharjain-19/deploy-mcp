@@ -1,9 +1,23 @@
 import React, { useState } from 'react';
 import { LogoMark } from './LogoMark';
 import { HaikeiWaveDivider } from './HaikeiDecorations';
-import { Github, Globe, ExternalLink, ArrowUp, ShieldCheck, Terminal, BookOpen, Cookie, FileText, CheckCircle2, Copy, Check, Zap, Sparkles } from 'lucide-react';
+import {
+  IconTerminal,
+  IconShield,
+  IconBook,
+  IconGlobe,
+  IconCopy,
+  IconCheck,
+  IconArrowUp,
+  IconArrowRight,
+  IconExternalLink,
+  IconGithub,
+  IconBolt,
+} from './CustomIcons';
+import { DeploymentGlyph } from './DeploymentGlyph';
 import { playClickSound, playSuccessSound } from '../utils/soundEffects';
 import { NavPage } from './Navbar';
+import { triggerToast } from './ToastNotification';
 
 interface FooterProps {
   onNavigate?: (page: NavPage) => void;
@@ -11,6 +25,7 @@ interface FooterProps {
   onOpenTerms?: () => void;
   onOpenSecurity?: () => void;
   onOpenCookies?: () => void;
+  onOpenDocs?: () => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({
@@ -19,6 +34,7 @@ export const Footer: React.FC<FooterProps> = ({
   onOpenTerms,
   onOpenSecurity,
   onOpenCookies,
+  onOpenDocs,
 }) => {
   const [copied, setCopied] = useState(false);
 
@@ -31,163 +47,180 @@ export const Footer: React.FC<FooterProps> = ({
     playSuccessSound();
     navigator.clipboard.writeText('npx deploymcp setup');
     setCopied(true);
+    triggerToast('Command copied: npx deploymcp setup', 'success');
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const handleDocsClick = () => {
+    playClickSound();
+    if (onOpenDocs) {
+      onOpenDocs();
+    } else if (onNavigate) {
+      onNavigate('docs');
+    } else {
+      window.open('https://github.com/Tusharjain-19/deploy-mcp#readme', '_blank');
+    }
+  };
+
   return (
-    <footer className="bg-[#0C0C0C] border-t-2 border-white/10 relative text-[#E6D5BD] font-sans overflow-hidden">
+    <footer className="bg-[#000000] border-t-2 border-[#F6E3B8]/15 relative text-[#F6E3B8] font-sans overflow-hidden">
       {/* Top Wave Transition */}
-      <HaikeiWaveDivider fill="#0C0C0C" className="opacity-95 -mt-1" />
+      <HaikeiWaveDivider fill="#000000" className="opacity-95 -mt-1" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-16 relative z-10">
         
-        {/* BIG BOLD HERO CALLOUT BANNER IN FOOTER (Responsive Grid, Zero Overlap) */}
-        <div className="p-8 sm:p-12 rounded-3xl bg-[#141414] border-2 border-white/15 shadow-[12px_12px_0px_#101010] mb-14 relative overflow-hidden">
+        {/* EDITORIAL HERO BANNER IN FOOTER */}
+        <div className="p-8 sm:p-12 rounded-3xl bg-[#000000] border-2 border-[#F6E3B8]/20 shadow-[12px_12px_0px_#000000] mb-14 relative overflow-hidden">
           
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-7 xl:col-span-8 space-y-4">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#181818] border border-[#D5380C] text-[#FAF6EE] text-xs font-mono font-bold uppercase tracking-wider">
-                <span className="w-2 h-2 rounded-full bg-[#D5380C] animate-pulse" />
-                <span>ONE-CLICK DEPLOYMENT // MODEL CONTEXT PROTOCOL</span>
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#000000] border border-[#E7BA05] text-[#F6E3B8] text-xs font-mono font-bold uppercase tracking-wider">
+                <span className="w-2 h-2 rounded-full bg-[#E7BA05] animate-pulse" />
+                <span>AUTONOMOUS VERCEL DEPLOYMENT // MODEL CONTEXT PROTOCOL</span>
               </div>
 
-              <h2 className="font-syne font-black text-3xl sm:text-5xl lg:text-5xl text-[#FAF6EE] uppercase tracking-tight leading-[1.05]">
-                DEPLOY YOUR APP <br />
-                <span className="text-[#D5380C]">WITH A SINGLE PROMPT.</span>
+              <h2 className="font-syne font-black text-3xl sm:text-5xl lg:text-5xl text-[#F6E3B8] uppercase tracking-tight leading-[1.05]">
+                DEPLOY YOUR WEBSITE <br />
+                <span className="text-[#E7BA05]">IN SECONDS.</span>
               </h2>
 
-              <p className="text-sm sm:text-base text-[#E6D5BD]/85 font-sans leading-relaxed max-w-xl">
-                Connect Cursor, Claude, and your AI assistant directly to Vercel infrastructure. Zero server costs, zero secrets leaked, and 100% automated edge deployments.
+              <p className="text-sm sm:text-base text-[#F6E3B8]/85 font-sans leading-relaxed max-w-xl">
+                Deploy your website in seconds directly from your AI editor. Connect Cursor, Claude, or Antigravity to Vercel with zero server costs, zero secrets leaked, and zero manual configuration.
               </p>
+
+              <div className="pt-2">
+                <button
+                  onClick={handleDocsClick}
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#000000] border border-[#F6E3B8]/30 hover:border-[#E7BA05] text-xs font-mono font-bold text-[#F6E3B8] hover:text-[#E7BA05] transition-all cursor-pointer"
+                >
+                  <IconBook className="w-4 h-4 text-[#E7BA05]" />
+                  <span>VIEW FULL DOCUMENTATION</span>
+                  <IconArrowRight className="w-3.5 h-3.5 ml-1 text-[#E7BA05]" />
+                </button>
+              </div>
             </div>
 
             {/* Quick 1-Click Install Capsule */}
-            <div className="lg:col-span-5 xl:col-span-4 w-full p-6 rounded-2xl bg-[#0E0E0E] border-2 border-white/10 space-y-4 shrink-0 shadow-xl">
-              <div className="flex items-center justify-between text-xs font-mono text-[#FAF6EE] pb-2 border-b border-white/10">
+            <div className="lg:col-span-5 xl:col-span-4 w-full p-6 rounded-2xl bg-[#000000] border-2 border-[#F6E3B8]/20 space-y-4 shrink-0 shadow-xl">
+              <div className="flex items-center justify-between text-xs font-mono text-[#F6E3B8] pb-2 border-b border-[#F6E3B8]/15">
                 <span className="font-bold flex items-center gap-1.5">
-                  <Terminal className="w-3.5 h-3.5 text-[#D5380C]" /> QUICK START
+                  <IconTerminal className="w-3.5 h-3.5 text-[#E7BA05]" /> QUICK START
                 </span>
-                <span className="text-[#F1B333] font-bold">ZERO CONFIG</span>
+                <span className="text-[#E7BA05] font-bold">ZERO CONFIG</span>
               </div>
 
-              <div className="flex items-center justify-between bg-[#161616] p-3.5 rounded-xl border border-white/10 font-mono text-xs sm:text-sm text-[#FAF6EE]">
+              <div className="flex items-center justify-between bg-[#000000] p-3.5 rounded-xl border border-[#F6E3B8]/15 font-mono text-xs sm:text-sm text-[#F6E3B8]">
                 <div className="flex items-center gap-2 truncate">
-                  <span className="text-[#D5380C] font-black select-none">$</span>
+                  <span className="text-[#E7BA05] font-black select-none">$</span>
                   <span className="font-bold">npx deploymcp setup</span>
                 </div>
                 <button
                   onClick={handleCopyCmd}
-                  className="p-1.5 hover:text-[#D5380C] text-white/50 cursor-pointer ml-2 transition-colors"
+                  className="p-1.5 hover:text-[#E7BA05] text-[#F6E3B8]/50 cursor-pointer ml-2 transition-colors"
                   title="Copy command"
                 >
-                  {copied ? <Check className="w-4 h-4 text-[#0C9367]" /> : <Copy className="w-4 h-4" />}
+                  {copied ? <IconCheck className="w-4 h-4 text-[#6B9E5A]" /> : <IconCopy className="w-4 h-4" />}
                 </button>
               </div>
 
               <button
                 onClick={handleCopyCmd}
-                className="w-full py-3 px-4 rounded-xl bg-[#D5380C] hover:bg-[#B82D09] text-[#FAF6EE] font-sans font-extrabold text-xs uppercase tracking-wide transition-all flex items-center justify-center gap-2 border border-[#FAF6EE]/30 shadow-md cursor-pointer"
+                className="w-full py-3 px-4 rounded-xl bg-[#E7BA05] hover:bg-[#C79F04] text-[#000000] font-sans font-black text-xs uppercase tracking-wide transition-all flex items-center justify-center gap-2 border border-[#000000] shadow-md cursor-pointer"
               >
                 <span>{copied ? 'COPIED TO CLIPBOARD!' : 'COPY SETUP COMMAND'}</span>
-                <Sparkles className="w-3.5 h-3.5" />
+                <IconBolt className="w-3.5 h-3.5 text-[#000000]" />
               </button>
             </div>
           </div>
         </div>
 
         {/* Real-time System Telemetry Bar */}
-        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-8 border-b border-white/10 text-xs font-mono">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-8 border-b border-[#F6E3B8]/15 text-xs font-mono">
           <div className="flex items-center gap-3">
-            <LogoMark size="sm" showBadge={false} />
-            <span className="font-bold text-[#FAF6EE] text-sm">DEPLOY MCP</span>
-            <span className="text-white/30">/</span>
-            <span className="text-[#E6D5BD]/70 text-xs">v1.0.0 OPEN SOURCE</span>
+            <LogoMark size="sm" />
+            <span className="text-[#F6E3B8]/40">•</span>
+            <span className="text-[#F6E3B8]/80 text-xs font-mono">AUTONOMOUS DEPLOYMENT RUNTIME</span>
           </div>
 
-          <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#141414] border border-white/10 text-[#FAF6EE]">
-              <span className="w-2 h-2 rounded-full bg-[#0C9367] animate-pulse" />
-              <span className="font-bold">ALL 12 VERCEL EDGE REGIONS 100% ONLINE</span>
+          <div className="flex flex-wrap items-center gap-2.5">
+            <div className="flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#000000] border border-[#6B9E5A]/50 text-[#6B9E5A] text-xs shadow-sm">
+              <span className="w-2 h-2 rounded-full bg-[#6B9E5A] animate-pulse" />
+              <span className="font-bold">VERIFIED: 100% PRIVATE • 0 SECRETS LEAKED</span>
+            </div>
+
+            <div className="hidden md:flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#000000] border border-[#F6E3B8]/20 text-[#F6E3B8]">
+              <span className="w-2 h-2 rounded-full bg-[#6B9E5A]" />
+              <span className="font-bold text-[#6B9E5A]">12/12 EDGE REGIONS ONLINE</span>
             </div>
 
             <button
               onClick={scrollToTop}
-              className="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#181818] hover:bg-[#252525] border border-white/10 text-[#FAF6EE] font-bold cursor-pointer transition-colors"
+              className="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#000000] hover:bg-[#E7BA05]/15 hover:border-[#E7BA05] border border-[#F6E3B8]/20 text-[#F6E3B8] font-bold cursor-pointer transition-colors"
               title="Back to top"
             >
-              <ArrowUp className="w-3.5 h-3.5 text-[#D5380C]" />
+              <IconArrowUp className="w-3.5 h-3.5 text-[#E7BA05]" />
               <span>TOP</span>
             </button>
           </div>
         </div>
 
-        {/* Fully Detailed 4-Column Sitemap Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 sm:gap-10 py-12 border-b border-white/10">
+        {/* Streamlined 4-Column Sitemap Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 sm:gap-10 py-10 border-b border-[#F6E3B8]/15">
           
           {/* Column 1: Product */}
           <div className="space-y-4">
-            <h4 className="font-syne font-black text-sm text-[#FAF6EE] uppercase tracking-wider flex items-center gap-2">
-              <Zap className="w-4 h-4 text-[#D5380C]" />
+            <h4 className="font-syne font-black text-sm text-[#F6E3B8] uppercase tracking-wider flex items-center gap-2">
+              <IconBolt className="w-4 h-4 text-[#E7BA05]" />
               <span>PRODUCT</span>
             </h4>
-            <ul className="space-y-3 font-mono text-xs sm:text-sm text-[#E6D5BD]/80">
+            <ul className="space-y-3 font-mono text-xs sm:text-sm text-[#F6E3B8]/80">
               <li>
-                <button onClick={() => { onNavigate?.('home'); scrollToTop(); }} className="hover:text-[#D5380C] transition-colors cursor-pointer text-left">
+                <button onClick={() => { onNavigate?.('home'); scrollToTop(); }} className="hover:text-[#E7BA05] transition-colors cursor-pointer text-left">
                   Overview
                 </button>
               </li>
               <li>
-                <button onClick={() => onNavigate?.('terminal')} className="hover:text-[#D5380C] transition-colors cursor-pointer text-left">
+                <button onClick={() => onNavigate?.('terminal')} className="hover:text-[#E7BA05] transition-colors cursor-pointer text-left">
                   Terminal Simulator
                 </button>
               </li>
               <li>
-                <button onClick={() => onNavigate?.('tools')} className="hover:text-[#D5380C] transition-colors cursor-pointer text-left">
+                <button onClick={() => onNavigate?.('tools')} className="hover:text-[#E7BA05] transition-colors cursor-pointer text-left">
                   20 Built-In Tools
                 </button>
               </li>
               <li>
-                <button onClick={() => onNavigate?.('security')} className="hover:text-[#D5380C] transition-colors cursor-pointer text-left">
+                <button onClick={() => onNavigate?.('security')} className="hover:text-[#E7BA05] transition-colors cursor-pointer text-left">
                   Security Architecture
                 </button>
-              </li>
-              <li>
-                <a href="#showcase-runway" className="hover:text-[#D5380C] transition-colors">
-                  Product Showcase
-                </a>
               </li>
             </ul>
           </div>
 
           {/* Column 2: Documentation */}
           <div className="space-y-4">
-            <h4 className="font-syne font-black text-sm text-[#FAF6EE] uppercase tracking-wider flex items-center gap-2">
-              <BookOpen className="w-4 h-4 text-[#F1B333]" />
+            <h4 className="font-syne font-black text-sm text-[#F6E3B8] uppercase tracking-wider flex items-center gap-2">
+              <IconBook className="w-4 h-4 text-[#E7BA05]" />
               <span>DOCUMENTATION</span>
             </h4>
-            <ul className="space-y-3 font-mono text-xs sm:text-sm text-[#E6D5BD]/80">
+            <ul className="space-y-3 font-mono text-xs sm:text-sm text-[#F6E3B8]/80">
               <li>
-                <button onClick={() => onNavigate?.('docs')} className="hover:text-[#D5380C] transition-colors cursor-pointer text-left">
-                  Quickstart Guide
+                <button onClick={handleDocsClick} className="hover:text-[#E7BA05] transition-colors cursor-pointer text-left font-bold text-[#E7BA05]">
+                  Quickstart Guide →
                 </button>
               </li>
               <li>
-                <button onClick={() => onNavigate?.('docs')} className="hover:text-[#D5380C] transition-colors cursor-pointer text-left">
+                <button onClick={handleDocsClick} className="hover:text-[#E7BA05] transition-colors cursor-pointer text-left">
                   CLI Commands Reference
                 </button>
               </li>
               <li>
-                <button onClick={() => onNavigate?.('docs')} className="hover:text-[#D5380C] transition-colors cursor-pointer text-left">
+                <button onClick={handleDocsClick} className="hover:text-[#E7BA05] transition-colors cursor-pointer text-left">
                   Cursor & Claude Configs
                 </button>
               </li>
               <li>
-                <button onClick={() => onNavigate?.('docs')} className="hover:text-[#D5380C] transition-colors cursor-pointer text-left">
-                  VS Code & Antigravity Setup
-                </button>
-              </li>
-              <li>
-                <button onClick={() => onNavigate?.('docs')} className="hover:text-[#D5380C] transition-colors cursor-pointer text-left">
+                <button onClick={handleDocsClick} className="hover:text-[#E7BA05] transition-colors cursor-pointer text-left">
                   Troubleshooting & FAQ
                 </button>
               </li>
@@ -196,29 +229,24 @@ export const Footer: React.FC<FooterProps> = ({
 
           {/* Column 3: Privacy & Security */}
           <div className="space-y-4">
-            <h4 className="font-syne font-black text-sm text-[#FAF6EE] uppercase tracking-wider flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-[#0C9367]" />
+            <h4 className="font-syne font-black text-sm text-[#F6E3B8] uppercase tracking-wider flex items-center gap-2">
+              <IconShield className="w-4 h-4 text-[#6B9E5A]" />
               <span>PRIVACY & SECURITY</span>
             </h4>
-            <ul className="space-y-3 font-mono text-xs sm:text-sm text-[#E6D5BD]/80">
+            <ul className="space-y-3 font-mono text-xs sm:text-sm text-[#F6E3B8]/80">
               <li>
-                <button onClick={onOpenPrivacy} className="hover:text-[#D5380C] transition-colors cursor-pointer text-left">
+                <button onClick={onOpenPrivacy} className="hover:text-[#E7BA05] transition-colors cursor-pointer text-left">
                   Privacy Policy
                 </button>
               </li>
               <li>
-                <button onClick={onOpenTerms} className="hover:text-[#D5380C] transition-colors cursor-pointer text-left">
+                <button onClick={onOpenTerms} className="hover:text-[#E7BA05] transition-colors cursor-pointer text-left">
                   Terms of Service
                 </button>
               </li>
               <li>
-                <button onClick={onOpenSecurity} className="hover:text-[#D5380C] transition-colors cursor-pointer text-left">
+                <button onClick={onOpenSecurity} className="hover:text-[#E7BA05] transition-colors cursor-pointer text-left">
                   Security Whitepaper
-                </button>
-              </li>
-              <li>
-                <button onClick={onOpenCookies} className="hover:text-[#D5380C] transition-colors cursor-pointer text-left">
-                  Cookie Preferences
                 </button>
               </li>
               <li>
@@ -226,10 +254,10 @@ export const Footer: React.FC<FooterProps> = ({
                   href="https://github.com/Tusharjain-19/deploy-mcp/blob/main/LICENSE"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-[#D5380C] transition-colors inline-flex items-center gap-1"
+                  className="hover:text-[#E7BA05] transition-colors inline-flex items-center gap-1"
                 >
-                  <span>MIT License</span>
-                  <ExternalLink className="w-3 h-3" />
+                  <span>MIT Open Source</span>
+                  <IconExternalLink className="w-3 h-3" />
                 </a>
               </li>
             </ul>
@@ -237,40 +265,31 @@ export const Footer: React.FC<FooterProps> = ({
 
           {/* Column 4: Community & Links */}
           <div className="space-y-4">
-            <h4 className="font-syne font-black text-sm text-[#FAF6EE] uppercase tracking-wider flex items-center gap-2">
-              <Globe className="w-4 h-4 text-[#FAF6EE]" />
-              <span>COMMUNITY & LINKS</span>
+            <h4 className="font-syne font-black text-sm text-[#F6E3B8] uppercase tracking-wider flex items-center gap-2">
+              <IconGlobe className="w-4 h-4 text-[#F6E3B8]" />
+              <span>COMMUNITY</span>
             </h4>
-            <ul className="space-y-3 font-mono text-xs sm:text-sm text-[#E6D5BD]/80">
+            <ul className="space-y-3 font-mono text-xs sm:text-sm text-[#F6E3B8]/80">
               <li>
                 <a
                   href="https://github.com/Tusharjain-19/deploy-mcp"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-[#D5380C] transition-colors inline-flex items-center gap-1.5"
+                  className="hover:text-[#E7BA05] transition-colors inline-flex items-center gap-1.5"
                 >
-                  <Github className="w-3.5 h-3.5" />
+                  <IconGithub className="w-3.5 h-3.5" />
                   <span>GitHub Repository</span>
                 </a>
               </li>
               <li>
                 <a
-                  href="https://www.npmjs.com/package/@tusharjain-19/deploy-mcp"
+                  href="https://tusharjain.in/contact"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-[#D5380C] transition-colors inline-flex items-center gap-1.5"
+                  className="hover:text-[#E7BA05] transition-colors inline-flex items-center gap-1.5 font-bold text-[#E7BA05]"
                 >
-                  <span>npm Package</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://github.com/Tusharjain-19/deploy-mcp/issues"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-[#D5380C] transition-colors inline-flex items-center gap-1.5"
-                >
-                  <span>Issue Tracker</span>
+                  <IconExternalLink className="w-3.5 h-3.5" />
+                  <span>Contact Architect</span>
                 </a>
               </li>
               <li>
@@ -278,19 +297,10 @@ export const Footer: React.FC<FooterProps> = ({
                   href="https://modelcontextprotocol.io"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hover:text-[#D5380C] transition-colors inline-flex items-center gap-1.5"
+                  className="hover:text-[#E7BA05] transition-colors inline-flex items-center gap-1.5"
                 >
+                  <IconExternalLink className="w-3.5 h-3.5" />
                   <span>Model Context Protocol</span>
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://vercel.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-[#D5380C] transition-colors inline-flex items-center gap-1.5"
-                >
-                  <span>Vercel Platform</span>
                 </a>
               </li>
             </ul>
@@ -299,20 +309,26 @@ export const Footer: React.FC<FooterProps> = ({
         </div>
 
         {/* Bottom Metadata Bar */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-white/50">
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-[#F6E3B8]/60">
           <div>
-            © {new Date().getFullYear()} DEPLOY MCP. ARCHITECTED BY TUSHAR JAIN. 100% FREE MIT.
+            © 2026 DEPLOY MCP • ARCHITECTED BY TUSHAR JAIN • OPEN SOURCE MIT
           </div>
-          <div className="flex items-center gap-3">
-            <span className="text-[#D5380C] font-bold">BURNT ORANGE & WARM IVORY</span>
-            <span>•</span>
-            <span className="text-white/40">ZERO CLOUD CREDENTIAL LEAKAGE</span>
+          <div className="flex items-center gap-2">
+            <span className="text-[#F6E3B8]/40">DOCUMENTATION:</span>
+            <a
+              href="https://github.com/Tusharjain-19/deploy-mcp#readme"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[#E7BA05] hover:underline font-bold"
+            >
+              github.com/Tusharjain-19/deploy-mcp#readme
+            </a>
           </div>
         </div>
 
-        {/* Giant One-Liner Brand Watermark (Strictly 1 Line, Never Wraps) */}
-        <div className="w-full overflow-hidden select-none pointer-events-none mt-6 sm:mt-8">
-          <div className="font-syne font-black text-[9.5vw] text-white/[0.04] hover:text-white/[0.06] transition-colors text-center leading-none tracking-tighter uppercase whitespace-nowrap">
+        {/* Giant Single-Line Brand Watermark in Canonical Butter #F6E3B8 */}
+        <div className="w-full overflow-hidden select-none pointer-events-none mt-8 sm:mt-12 pt-6 border-t border-[#F6E3B8]/15">
+          <div className="font-syne font-black text-[10vw] sm:text-[9.5vw] text-[#F6E3B8] text-center leading-none tracking-tight uppercase whitespace-nowrap opacity-90 drop-shadow-[0_0_40px_rgba(246,227,184,0.18)]">
             DEPLOY MCP
           </div>
         </div>

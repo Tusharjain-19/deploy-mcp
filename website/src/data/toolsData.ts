@@ -182,7 +182,7 @@ export const MCP_TOOLS: McpTool[] = [
     name: 'check_env_leak',
     category: 'secrets',
     categoryLabel: 'Environment & Secrets',
-    description: '🚨 Audits Git index via git ls-files to flag accidentally committed .env files before deployment.',
+    description: 'Audits Git index via git ls-files to flag accidentally committed .env files before deployment.',
     readOnly: true,
     destructive: false,
     inputSchema: {

@@ -6,20 +6,28 @@
 
 @layer base {
   :root {
-    --burnt-orange: #D5360C;
-    --warm-ivory: #E6D5BD;
-    --soft-black: #101010;
+    --brand-yellow: #E7BA05;
+    --brand-butter: #F6E3B8;
+    --brand-leaf: #6B9E5A;
+    --brand-brown: #906342;
+    --brand-black: #000000;
+
+    /* Legacy compatibility */
+    --burnt-orange: #E7BA05;
+    --warm-ivory: #F6E3B8;
+    --soft-black: #000000;
   }
 
   html {
     scroll-behavior: auto;
     overflow-x: clip;
+    background-color: #000000;
   }
 
   body {
     font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
-    background-color: #101010;
-    color: #E6D5BD;
+    background-color: #000000;
+    color: #F6E3B8;
     overflow-x: clip;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -31,175 +39,221 @@
 }
 
 /* ==========================================================================
-   IMAGE 1 & IMAGE 2 SIGNATURE STYLES: 
-   Radiant Arched Halo Arc + Bold Warm Ivory on Burnt Orange Posters
+   EDITORIAL RETRO POSTER & BRAND STYLES:
+   Yellow (#E7BA05), Butter (#F6E3B8), Leaf (#6B9E5A), Brown (#906342), Pure Black (#000000)
    ========================================================================== */
 
-
-
-/* Background Grid in Warm Ivory (Very subtle, 0.04 opacity) */
-.bg-grid-ivory {
+/* Background Grid in Butter */
+.bg-grid-ivory, .bg-grid-butter {
   background-size: 40px 40px;
   background-image: 
-    linear-gradient(to right, rgba(230, 213, 189, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(230, 213, 189, 0.05) 1px, transparent 1px);
+    linear-gradient(to right, rgba(246, 227, 184, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(246, 227, 184, 0.05) 1px, transparent 1px);
 }
 
-/* Floating Capsule Pill Bar (from Image 1 top navbar) */
+/* Floating Capsule Pill Bar */
 .capsule-pill {
-  background: rgba(16, 16, 16, 0.9);
+  background: rgba(0, 0, 0, 0.92);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(230, 213, 189, 0.2);
+  border: 1px solid rgba(246, 227, 184, 0.2);
   border-radius: 9999px;
 }
 
-/* Image 2 Bold Poster Banner Card (Burnt Orange with Ivory Typography) */
-.poster-card-orange {
-  background-color: #D5360C;
-  color: #E6D5BD;
-  border: 1px solid rgba(230, 213, 189, 0.3);
-  box-shadow: 0 20px 50px -10px rgba(213, 54, 12, 0.5);
+/* Bold Poster Banner Card (Yellow with High Contrast Black Typography) */
+.poster-card-orange, .poster-card-yellow {
+  background-color: #E7BA05;
+  color: #000000;
+  border: 3px solid #000000;
+  box-shadow: 0 20px 50px -10px rgba(231, 186, 5, 0.5);
 }
 
-/* Luxury Soft Black Cards with Ivory Border */
+/* Pure Black Cards with Butter Border */
 .card-soft-black {
-  background-color: #161616;
-  border: 1px solid rgba(230, 213, 189, 0.15);
+  background-color: #000000;
+  border: 1px solid rgba(246, 227, 184, 0.15);
 }
 
 .card-soft-black:hover {
-  border-color: #D5360C;
-  box-shadow: 0 0 35px -5px rgba(213, 54, 12, 0.3);
+  border-color: #E7BA05;
+  box-shadow: 0 0 35px -5px rgba(231, 186, 5, 0.35);
 }
 
-/* Buttons in 3 Colors */
-.btn-burnt-orange {
-  background-color: #D5360C;
-  color: #E6D5BD;
-  border: 1px solid rgba(230, 213, 189, 0.3);
-  box-shadow: 0 0 25px rgba(213, 54, 12, 0.5);
+/* Buttons in Signature Palette */
+.btn-burnt-orange, .btn-yellow {
+  background-color: #E7BA05;
+  color: #000000;
+  border: 2px solid #000000;
+  font-weight: 800;
+  box-shadow: 0 0 25px rgba(231, 186, 5, 0.45);
   transition: all 0.2s ease;
 }
 
-.btn-burnt-orange:hover {
-  background-color: #B82D09;
-  border-color: #E6D5BD;
-  box-shadow: 0 0 40px rgba(213, 54, 12, 0.75);
+.btn-burnt-orange:hover, .btn-yellow:hover {
+  background-color: #C79F04;
+  border-color: #000000;
+  box-shadow: 0 0 40px rgba(231, 186, 5, 0.7);
 }
 
-.btn-warm-ivory {
-  background-color: #E6D5BD;
-  color: #101010;
-  border: 1px solid #E6D5BD;
+.btn-warm-ivory, .btn-butter {
+  background-color: #F6E3B8;
+  color: #000000;
+  border: 1px solid #F6E3B8;
   font-weight: 700;
   transition: all 0.2s ease;
 }
 
-.btn-warm-ivory:hover {
-  background-color: #FAF7F2;
-  box-shadow: 0 0 25px rgba(230, 213, 189, 0.5);
+.btn-warm-ivory:hover, .btn-butter:hover {
+  background-color: #FAF4E8;
+  box-shadow: 0 0 25px rgba(246, 227, 184, 0.5);
+}
+
+.btn-leaf {
+  background-color: #6B9E5A;
+  color: #000000;
+  border: 1px solid #6B9E5A;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+
+.btn-leaf:hover {
+  background-color: #558246;
+  box-shadow: 0 0 25px rgba(107, 158, 90, 0.5);
+}
+
+.btn-brown {
+  background-color: #906342;
+  color: #F6E3B8;
+  border: 1px solid #906342;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+
+.btn-brown:hover {
+  background-color: #785135;
+  box-shadow: 0 0 25px rgba(144, 99, 66, 0.5);
 }
 
 .btn-soft-black {
-  background-color: #1A1A1A;
-  color: #E6D5BD;
-  border: 1px solid rgba(230, 213, 189, 0.2);
+  background-color: #000000;
+  color: #F6E3B8;
+  border: 1px solid rgba(246, 227, 184, 0.2);
   transition: all 0.2s ease;
 }
 
 .btn-soft-black:hover {
-  border-color: #D5360C;
-  color: #E6D5BD;
-  background-color: #222222;
+  border-color: #E7BA05;
+  color: #E7BA05;
+  background-color: #0A0A0A;
 }
 
-/* Custom Scrollbar in 3 Colors */
+/* Custom Scrollbar in Signature Colors */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #101010;
+  background: #000000;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #262626;
-  border: 1px solid rgba(230, 213, 176, 0.15);
+  background: #906342;
+  border: 1px solid rgba(246, 227, 184, 0.2);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #D5380C;
+  background: #E7BA05;
 }
 
 /* Selection Color */
 ::selection {
-  background-color: #D5380C;
-  color: #FAF6EE;
+  background-color: #E7BA05;
+  color: #000000;
 }
 
 /* ==========================================================================
-   ALLTHINGS-WTF & EDITORIAL RETRO POSTER EFFECTS:
-   Dot Grid, Grain, Brutalist Badges, Starbursts & Horizontal Track
+   EDITORIAL RETRO POSTER EFFECTS:
+   Dot Grid, Brutalist Badges, Starbursts & Horizontal Track
    ========================================================================== */
 
 /* Retro Dot Grid Canvas */
 .dot-grid {
   background-color: transparent;
-  background-image: radial-gradient(circle, rgba(230, 213, 176, 0.22) 1.5px, transparent 1.5px);
+  background-image: radial-gradient(circle, rgba(246, 227, 184, 0.22) 1.5px, transparent 1.5px);
   background-size: 32px 32px;
 }
 
 .dot-grid-dense {
-  background-image: radial-gradient(circle, rgba(230, 213, 176, 0.15) 1px, transparent 1px);
+  background-image: radial-gradient(circle, rgba(246, 227, 184, 0.15) 1px, transparent 1px);
   background-size: 20px 20px;
 }
 
-.dot-grid-orange {
-  background-image: radial-gradient(circle, rgba(213, 56, 12, 0.25) 1.5px, transparent 1.5px);
+.dot-grid-orange, .dot-grid-yellow {
+  background-image: radial-gradient(circle, rgba(231, 186, 5, 0.25) 1.5px, transparent 1.5px);
   background-size: 32px 32px;
 }
 
-/* Angled Brutalist Floating Badges (from allthingswtf.com) */
+/* Angled Brutalist Floating Badges */
 .brutal-badge {
   font-family: 'Space Grotesk', monospace;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   padding: 6px 14px;
-  border: 2px solid #101010;
-  box-shadow: 4px 4px 0px #101010;
+  border: 2px solid #000000;
+  box-shadow: 4px 4px 0px #000000;
   transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
   user-select: none;
 }
 
 .brutal-badge:hover {
   transform: translate(-2px, -2px) scale(1.04);
-  box-shadow: 6px 6px 0px #101010;
+  box-shadow: 6px 6px 0px #000000;
 }
 
-.brutal-badge-orange {
-  background-color: #D5380C;
-  color: #FAF6EE;
-  border-color: #FAF6EE;
-  box-shadow: 4px 4px 0px #FAF6EE;
+.brutal-badge-orange, .brutal-badge-yellow {
+  background-color: #E7BA05;
+  color: #000000;
+  border-color: #000000;
+  box-shadow: 4px 4px 0px #000000;
 }
 
-.brutal-badge-orange:hover {
-  box-shadow: 6px 6px 0px #FAF6EE;
+.brutal-badge-orange:hover, .brutal-badge-yellow:hover {
+  box-shadow: 6px 6px 0px #000000;
+}
+
+.brutal-badge-leaf {
+  background-color: #6B9E5A;
+  color: #000000;
+  border-color: #000000;
+  box-shadow: 4px 4px 0px #000000;
+}
+
+.brutal-badge-brown {
+  background-color: #906342;
+  color: #F6E3B8;
+  border-color: #000000;
+  box-shadow: 4px 4px 0px #000000;
+}
+
+.brutal-badge-butter {
+  background-color: #F6E3B8;
+  color: #000000;
+  border-color: #000000;
+  box-shadow: 4px 4px 0px #000000;
 }
 
 .brutal-card {
-  border: 2px solid rgba(230, 213, 176, 0.2);
-  box-shadow: 6px 6px 0px rgba(16, 16, 16, 0.8);
+  border: 2px solid rgba(246, 227, 184, 0.2);
+  box-shadow: 6px 6px 0px #000000;
   transition: all 0.25s ease;
 }
 
 .brutal-card:hover {
-  border-color: #D5380C;
-  box-shadow: 8px 8px 0px #D5380C;
+  border-color: #E7BA05;
+  box-shadow: 8px 8px 0px #E7BA05;
 }
 
 /* Frame Canvas Viewport */
@@ -236,7 +290,7 @@
   animation: spin-slow 24s linear infinite;
 }
 
-/* Tactile Grain Overlay - Disabled heavy SVG fractal filter for 120Hz/144Hz scroll */
+/* Tactile Grain Overlay */
 .grain-layer {
   display: none;
 }
@@ -248,16 +302,26 @@
     -1px -1px 0px #000,
     1px -1px 0px #000,
     -1px 1px 0px #000,
-    0 0 16px rgba(0, 240, 255, 0.6);
+    0 0 16px rgba(231, 186, 5, 0.6);
 }
 
 /* Kinetic Stroke Typography */
 .stroke-text {
-  -webkit-text-stroke: 1.5px #FAF6EE;
+  -webkit-text-stroke: 1.5px #F6E3B8;
   color: transparent;
 }
 
-.stroke-text-orange {
-  -webkit-text-stroke: 1.5px #D5380C;
+.stroke-text-orange, .stroke-text-yellow {
+  -webkit-text-stroke: 1.5px #E7BA05;
+  color: transparent;
+}
+
+.stroke-text-leaf {
+  -webkit-text-stroke: 1.5px #6B9E5A;
+  color: transparent;
+}
+
+.stroke-text-brown {
+  -webkit-text-stroke: 1.5px #906342;
   color: transparent;
 }

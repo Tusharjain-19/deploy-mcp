@@ -4,16 +4,16 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 export const ScrollBackgroundGlow: React.FC = () => {
   const { scrollYProgress } = useScroll();
 
-  // Scroll-linked dynamic ambient background tone (deep sleek neutrals)
+  // Scroll-linked background tone: Pure OLED Full Black (Zero blue/slate tint)
   const backgroundColor = useTransform(
     scrollYProgress,
     [0, 0.25, 0.5, 0.75, 1],
     [
-      '#0e0e11', // Top Hero: deep obsidian
-      '#111114', // Runway: clean dark obsidian
-      '#0d1114', // Terminal: cyber slate dark
-      '#121113', // Security: neutral dark
-      '#0a0a0c', // Footer: pure dark
+      '#000000', // Top Hero: Pure Black
+      '#000000', // Runway: Pure Black
+      '#000000', // Terminal: Pure Black
+      '#000000', // Security: Pure Black
+      '#000000', // Footer: Pure Black
     ]
   );
 

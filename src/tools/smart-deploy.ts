@@ -159,31 +159,31 @@ function buildAiInstruction(
   projectName: string
 ): string {
   const lines = [
-    `❌ Deployment of "${projectName}" FAILED.`,
+    `[FAILED] Deployment of "${projectName}" failed.`,
     ``,
-    `🔍 Error Type: ${diagnosis.errorType}`,
-    `📌 Issue: ${diagnosis.issue}`,
-    `💡 Suggested Fix: ${diagnosis.suggestion}`,
+    `[ERROR TYPE] ${diagnosis.errorType}`,
+    `[ISSUE] ${diagnosis.issue}`,
+    `[SUGGESTION] ${diagnosis.suggestion}`,
     ``
   ];
 
   if (diagnosis.file) {
-    lines.push(`📄 File: ${diagnosis.file}${diagnosis.line ? ` (line ${diagnosis.line})` : ""}`);
+    lines.push(`[FILE] ${diagnosis.file}${diagnosis.line ? ` (line ${diagnosis.line})` : ""}`);
   }
 
   if (diagnosis.relevantLogs && diagnosis.relevantLogs.length > 0) {
-    lines.push(``, `📋 Relevant Log Lines:`);
+    lines.push(``, `[LOGS] Relevant Log Lines:`);
     diagnosis.relevantLogs.slice(0, 10).forEach(l => lines.push(`  ${l}`));
   }
 
   lines.push(
     ``,
-    `🤖 AI Action Required:`,
+    `[ACTION] AI Remediation Required:`,
     `  1. Inspect the file(s) mentioned above`,
     `  2. Apply the suggested fix`,
     `  3. Call smart_deploy again to redeploy`,
     ``,
-    `⚠️  Do NOT expose any secret values when fixing this issue.`
+    `[SECURITY] Do NOT expose any secret values when fixing this issue.`
   );
 
   return lines.join("\n");

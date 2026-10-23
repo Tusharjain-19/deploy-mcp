@@ -18,7 +18,7 @@ export const CosmicGalaxy3D: React.FC<CosmicGalaxy3DProps> = ({
 
     // 1. Scene, Camera, Renderer
     const scene = new THREE.Scene();
-    scene.fog = new THREE.FogExp2('#101010', 0.002);
+    scene.fog = new THREE.FogExp2('#000000', 0.002);
 
     const camera = new THREE.PerspectiveCamera(
       55,
@@ -40,7 +40,7 @@ export const CosmicGalaxy3D: React.FC<CosmicGalaxy3DProps> = ({
     renderer.toneMappingExposure = 1.2;
     container.appendChild(renderer.domElement);
 
-    // 2. Galaxy Parameters (Inspired by attached spiral galaxy image)
+    // 2. Galaxy Parameters
     const parameters = {
       count: 22000,
       size: 0.18,
@@ -49,12 +49,12 @@ export const CosmicGalaxy3D: React.FC<CosmicGalaxy3DProps> = ({
       spin: 1.4,
       randomness: 0.5,
       power: 3.5,
-      // Brand Colors: Burnt Orange, Warm Ivory, Gold, Deep Ember
-      colorCore: new THREE.Color('#FAF6EE'), // Warm bright core
-      colorInner: new THREE.Color('#D5380C'), // Burnt Orange
-      colorArms: new THREE.Color('#E6D5B0'), // Warm Ivory
-      colorOuter: new THREE.Color('#4A2016'), // Deep ember
-      colorGold: new THREE.Color('#F1B333'), // Golden stars
+      // Brand Colors: Yellow, Butter, Leaf, Brown
+      colorCore: new THREE.Color('#F6E3B8'), // Warm butter core
+      colorInner: new THREE.Color('#E7BA05'), // Brand Yellow
+      colorArms: new THREE.Color('#6B9E5A'), // Leaf green
+      colorOuter: new THREE.Color('#906342'), // Warm roasted hazelnut brown
+      colorGold: new THREE.Color('#E7BA05'), // Yellow stars
     };
 
     // 3. Create Particle Geometry
@@ -220,13 +220,13 @@ export const CosmicGalaxy3D: React.FC<CosmicGalaxy3DProps> = ({
 
     // 9. Animation Loop
     let animationFrameId: number;
-    const clock = new THREE.Clock();
+    const startTime = performance.now();
 
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate);
       if (!isVisible) return;
 
-      const elapsedTime = clock.getElapsedTime();
+      const elapsedTime = (performance.now() - startTime) * 0.001;
 
       // Continuous celestial galaxy rotation
       galaxy.rotation.y = elapsedTime * 0.045 + targetRotationY;

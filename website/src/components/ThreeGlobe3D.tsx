@@ -157,7 +157,7 @@ export const ThreeGlobe3D: React.FC<ThreeGlobe3DProps> = ({
     // Warm Atmospheric Glow Shell
     const atmosGeometry = new THREE.SphereGeometry(globeRadius + 0.25, 48, 48);
     const atmosMaterial = new THREE.MeshBasicMaterial({
-      color: 0xe6d5b0,
+      color: 0xf6e3b8,
       transparent: true,
       opacity: 0.08,
       side: THREE.BackSide,
@@ -174,7 +174,7 @@ export const ThreeGlobe3D: React.FC<ThreeGlobe3DProps> = ({
     sunLight.position.set(12, 6, 10);
     scene.add(sunLight);
 
-    const softFillLight = new THREE.DirectionalLight(0xe6d5b0, 0.4);
+    const softFillLight = new THREE.DirectionalLight(0xf6e3b8, 0.4);
     softFillLight.position.set(-10, -6, -8);
     scene.add(softFillLight);
 
@@ -185,8 +185,8 @@ export const ThreeGlobe3D: React.FC<ThreeGlobe3DProps> = ({
     const pinGeometry = new THREE.CylinderGeometry(0.05, 0.02, 0.65, 8);
     pinGeometry.rotateX(Math.PI / 2);
 
-    const pinMaterialOrange = new THREE.MeshBasicMaterial({ color: 0xd5380c });
-    const pinMaterialIvory = new THREE.MeshBasicMaterial({ color: 0xfaf6ee });
+    const pinMaterialOrange = new THREE.MeshBasicMaterial({ color: 0xe7ba05 });
+    const pinMaterialIvory = new THREE.MeshBasicMaterial({ color: 0xf6e3b8 });
 
     const serverVectors: { [key: string]: THREE.Vector3 } = {};
     const clickableObjects: THREE.Object3D[] = [];
@@ -222,7 +222,7 @@ export const ThreeGlobe3D: React.FC<ThreeGlobe3DProps> = ({
       // Surface Ripple Ring
       const ringGeo = new THREE.RingGeometry(0.12, 0.28, 24);
       const ringMat = new THREE.MeshBasicMaterial({
-        color: isPrimary ? 0xd5380c : 0xf1b333,
+        color: isPrimary ? 0xe7ba05 : 0x6b9e5a,
         side: THREE.DoubleSide,
         transparent: true,
         opacity: 0.65,
@@ -244,7 +244,7 @@ export const ThreeGlobe3D: React.FC<ThreeGlobe3DProps> = ({
       clickableObjects.push(hitboxMesh);
     });
 
-    // 4. Inter-Region Edge Transit Arcs (Warm Ivory)
+    // 4. Inter-Region Edge Transit Arcs (Warm Butter)
     const routes = [
       ['sfo1', 'iad1'],
       ['iad1', 'lhr1'],
@@ -259,7 +259,7 @@ export const ThreeGlobe3D: React.FC<ThreeGlobe3DProps> = ({
     ];
 
     const arcMaterial = new THREE.LineBasicMaterial({
-      color: 0xfaf6ee,
+      color: 0xf6e3b8,
       transparent: true,
       opacity: 0.35,
     });
@@ -387,13 +387,15 @@ export const ThreeGlobe3D: React.FC<ThreeGlobe3DProps> = ({
     observer.observe(container);
 
     let animId: number;
-    const clock = new THREE.Clock();
+    let lastTime = performance.now();
 
     const animate = () => {
       animId = requestAnimationFrame(animate);
       if (!isVisible) return;
 
-      const delta = clock.getDelta();
+      const now = performance.now();
+      const delta = Math.min(0.1, (now - lastTime) * 0.001);
+      lastTime = now;
 
       // Smooth interpolation to target server if clicked
       if (targetRotationRef.current.active && !isDragging) {
@@ -452,8 +454,8 @@ export const ThreeGlobe3D: React.FC<ThreeGlobe3DProps> = ({
         />
 
         {/* Hover Hint Overlay Pill */}
-        <div className="absolute top-2 left-1/2 -translate-x-1/2 pointer-events-none bg-[#101010]/80 backdrop-blur-md px-3 py-1 rounded-full border border-white/10 text-[10px] font-mono text-[#FAF6EE] flex items-center gap-1.5 shadow-lg">
-          <MapPin className="w-3 h-3 text-[#D5380C]" />
+        <div className="absolute top-2 left-1/2 -translate-x-1/2 pointer-events-none bg-[#000000]/90 backdrop-blur-md px-3 py-1 rounded-full border border-[#F6E3B8]/20 text-[10px] font-mono text-[#F6E3B8] flex items-center gap-1.5 shadow-lg">
+          <MapPin className="w-3 h-3 text-[#E7BA05]" />
           <span>CLICK ANY PIN TO INSPECT REGION</span>
         </div>
       </div>
@@ -468,12 +470,12 @@ export const ThreeGlobe3D: React.FC<ThreeGlobe3DProps> = ({
               onClick={() => handleServerClick(server)}
               className={`px-2.5 py-1 rounded-lg text-[10px] font-mono font-bold uppercase transition-all flex items-center gap-1 cursor-pointer ${
                 isSelected
-                  ? 'bg-[#D5380C] text-[#FAF6EE] border border-[#FAF6EE] shadow-[2px_2px_0px_#FAF6EE] scale-105'
-                  : 'bg-[#141414] text-[#E6D5B0]/70 border border-white/10 hover:border-[#D5380C] hover:text-[#FAF6EE]'
+                  ? 'bg-[#E7BA05] text-[#000000] border border-[#000000] shadow-[2px_2px_0px_#000000] scale-105'
+                  : 'bg-[#000000] text-[#F6E3B8]/70 border border-[#F6E3B8]/15 hover:border-[#E7BA05] hover:text-[#F6E3B8]'
               }`}
               title={`Focus on ${server.name} (${server.country})`}
             >
-              <span className={`w-1.5 h-1.5 rounded-full ${isSelected ? 'bg-[#FAF6EE]' : 'bg-[#D5380C]'}`} />
+              <span className={`w-1.5 h-1.5 rounded-full ${isSelected ? 'bg-[#000000]' : 'bg-[#E7BA05]'}`} />
               <span>{server.id}</span>
             </button>
           );
@@ -481,20 +483,20 @@ export const ThreeGlobe3D: React.FC<ThreeGlobe3DProps> = ({
       </div>
 
       {/* Comprehensive Server Telemetry Inspector Card */}
-      <div className="mt-3 w-full max-w-sm p-4 rounded-2xl bg-[#121212] border-2 border-white/10 shadow-2xl text-left font-mono relative overflow-hidden">
+      <div className="mt-3 w-full max-w-sm p-4 rounded-2xl bg-[#000000] border-2 border-[#F6E3B8]/20 shadow-2xl text-left font-mono relative overflow-hidden">
         
         {/* Top Header with Ping Latency Badge */}
-        <div className="flex items-center justify-between pb-3 border-b border-white/10">
+        <div className="flex items-center justify-between pb-3 border-b border-[#F6E3B8]/15">
           <div className="flex items-center gap-2">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#D5380C] animate-pulse" />
-            <span className="font-syne font-black text-sm text-[#FAF6EE] uppercase">{selectedServer.id}</span>
-            <span className="text-white/30">/</span>
-            <span className="text-xs text-[#FAF6EE] font-bold">{selectedServer.name}</span>
+            <span className="w-2.5 h-2.5 rounded-full bg-[#E7BA05] animate-pulse" />
+            <span className="font-syne font-black text-sm text-[#F6E3B8] uppercase">{selectedServer.id}</span>
+            <span className="text-[#F6E3B8]/30">/</span>
+            <span className="text-xs text-[#F6E3B8] font-bold">{selectedServer.name}</span>
           </div>
 
           <div className="flex items-center gap-2">
-            <span className="text-[10px] bg-[#1a1a1a] text-[#F1B333] px-2.5 py-1 rounded-full border border-[#F1B333]/30 font-bold flex items-center gap-1">
-              <Zap className="w-3 h-3 text-[#F1B333]" />
+            <span className="text-[10px] bg-[#000000] text-[#E7BA05] px-2.5 py-1 rounded-full border border-[#E7BA05]/30 font-bold flex items-center gap-1">
+              <Zap className="w-3 h-3 text-[#E7BA05]" />
               <span>{isPingTesting ? '< 1ms' : selectedServer.latency}</span>
             </span>
           </div>
@@ -502,29 +504,29 @@ export const ThreeGlobe3D: React.FC<ThreeGlobe3DProps> = ({
 
         {/* Detailed Metadata Grid */}
         <div className="pt-3 space-y-2 text-[11px]">
-          <div className="flex items-center justify-between text-[#E6D5B0]/80">
-            <span className="text-white/40">Country & Region:</span>
-            <span className="font-bold text-[#FAF6EE]">{selectedServer.country}</span>
+          <div className="flex items-center justify-between text-[#F6E3B8]/80">
+            <span className="text-[#F6E3B8]/40">Country & Region:</span>
+            <span className="font-bold text-[#F6E3B8]">{selectedServer.country}</span>
           </div>
 
-          <div className="flex items-center justify-between text-[#E6D5B0]/80">
-            <span className="text-white/40">Geo Coordinates:</span>
-            <span className="text-[#FAF6EE]">{selectedServer.lat.toFixed(2)}°N, {selectedServer.lon.toFixed(2)}°E</span>
+          <div className="flex items-center justify-between text-[#F6E3B8]/80">
+            <span className="text-[#F6E3B8]/40">Geo Coordinates:</span>
+            <span className="text-[#F6E3B8]">{selectedServer.lat.toFixed(2)}°N, {selectedServer.lon.toFixed(2)}°E</span>
           </div>
 
-          <div className="flex items-center justify-between text-[#E6D5B0]/80">
-            <span className="text-white/40">Node Role:</span>
-            <span className="text-[#F1B333] font-bold">{selectedServer.edgeType}</span>
+          <div className="flex items-center justify-between text-[#F6E3B8]/80">
+            <span className="text-[#F6E3B8]/40">Node Role:</span>
+            <span className="text-[#E7BA05] font-bold">{selectedServer.edgeType}</span>
           </div>
 
-          <div className="flex items-center justify-between pt-1 border-t border-white/5 text-[10px]">
-            <span className="text-[#0C9367] flex items-center gap-1 font-bold">
+          <div className="flex items-center justify-between pt-1 border-t border-[#F6E3B8]/10 text-[10px]">
+            <span className="text-[#6B9E5A] flex items-center gap-1 font-bold">
               <CheckCircle2 className="w-3 h-3" />
               <span>STATUS: NOMINAL</span>
             </span>
             <button
               onClick={handleSimulatePing}
-              className="text-[#D5380C] hover:text-[#FAF6EE] underline cursor-pointer font-bold flex items-center gap-1"
+              className="text-[#E7BA05] hover:text-[#F6E3B8] underline cursor-pointer font-bold flex items-center gap-1"
             >
               <Activity className="w-3 h-3" />
               <span>{isPingTesting ? 'PROBING...' : 'TEST PING'}</span>

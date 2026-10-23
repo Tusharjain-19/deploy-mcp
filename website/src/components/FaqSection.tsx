@@ -37,38 +37,38 @@ export const FaqSection: React.FC = () => {
   ];
 
   return (
-    <section id="faq" className="py-12 sm:py-16 bg-[#101010] border-t border-[#E6D5BD]/10 relative overflow-hidden">
+    <section id="faq" className="py-12 sm:py-16 bg-[#000000] border-t border-[#F6E3B8]/15 relative overflow-hidden">
       
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#101010] text-[#E6D5BD] text-xs font-bold mb-3 border border-[#D5360C]">
-            <HelpCircle className="w-3.5 h-3.5 text-[#D5360C]" />
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#000000] text-[#F6E3B8] text-xs font-bold mb-3 border border-[#E7BA05]/40">
+            <HelpCircle className="w-3.5 h-3.5 text-[#E7BA05]" />
             <span className="font-mono text-[11px]">FREQUENTLY ASKED QUESTIONS</span>
           </div>
-          <h2 className="text-3xl sm:text-5xl font-black text-[#E6D5BD] tracking-tight">GOT QUESTIONS? WE HAVE ANSWERS.</h2>
+          <h2 className="text-3xl sm:text-5xl font-black text-[#F6E3B8] tracking-tight">GOT QUESTIONS? WE HAVE ANSWERS.</h2>
         </div>
 
-        {/* FAQ Accordion List in Strict 3 Colors */}
+        {/* FAQ Accordion List in Signature Palette */}
         <div className="space-y-4">
           {faqs.map((faq, idx) => {
             const isOpen = openIndex === idx;
             return (
               <div
                 key={idx}
-                className="rounded-3xl bg-[#141414] border-2 border-[#E6D5BD]/15 overflow-hidden transition-all duration-200 hover:border-[#D5360C] shadow-xl"
+                className="rounded-3xl bg-[#000000] border border-[#F6E3B8]/20 overflow-hidden transition-all duration-200 hover:border-[#E7BA05] shadow-xl"
               >
                 <button
                   onClick={() => setOpenIndex(isOpen ? null : idx)}
-                  className="w-full px-6 py-5 flex items-center justify-between text-left font-black text-[#E6D5BD] text-sm sm:text-base hover:text-[#D5360C] transition-colors"
+                  className="w-full px-6 py-5 flex items-center justify-between text-left font-black text-[#F6E3B8] text-sm sm:text-base hover:text-[#E7BA05] transition-colors cursor-pointer"
                 >
                   <span className="pr-4">{faq.question}</span>
-                  <ChevronDown className={`w-5 h-5 text-[#E6D5BD]/60 shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180 text-[#D5360C]' : ''}`} />
+                  <ChevronDown className={`w-5 h-5 text-[#F6E3B8]/60 shrink-0 transition-transform duration-300 ${isOpen ? 'rotate-180 text-[#E7BA05]' : ''}`} />
                 </button>
 
                 {isOpen && (
-                  <div className="px-6 pb-6 text-[#E6D5BD]/80 text-xs sm:text-sm leading-relaxed border-t border-[#E6D5BD]/10 pt-4 animate-fadeIn">
+                  <div className="px-6 pb-6 text-[#F6E3B8]/80 text-xs sm:text-sm leading-relaxed border-t border-[#F6E3B8]/10 pt-4 animate-fadeIn">
                     {faq.answer}
                   </div>
                 )}

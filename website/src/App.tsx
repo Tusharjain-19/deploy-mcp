@@ -5,13 +5,14 @@ import 'lenis/dist/lenis.css';
 import { Navbar, NavPage } from './components/Navbar';
 import { PageLoadingBar } from './components/PageLoadingBar';
 import { ScrollBackgroundGlow } from './components/motion/ScrollBackgroundGlow';
+import { CosmicStarfield } from './components/CosmicStarfield';
 import { ScrollTextMarquee } from './components/motion/ScrollTextMarquee';
 import { CookieBanner } from './components/CookieBanner';
+import { ToastContainer } from './components/ToastNotification';
 
 // Main Landing Page Sections
 import { Hero } from './components/Hero';
 import { HorizontalShowcaseRunway } from './components/HorizontalShowcaseRunway';
-import { HowItWorks } from './components/HowItWorks';
 import { TerminalSimulator } from './components/TerminalSimulator';
 import { SelfHealingDemo } from './components/SelfHealingDemo';
 import { IdeConfigWizard } from './components/IdeConfigWizard';
@@ -63,6 +64,7 @@ export const App: React.FC = () => {
 
     // Make lenis globally accessible for smooth programmatic jumps
     (window as any).__lenis = lenis;
+    window.dispatchEvent(new CustomEvent('lenis-init', { detail: lenis }));
 
     return () => {
       cancelAnimationFrame(rafId);
@@ -91,10 +93,13 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#101010] text-[#E6D5B0] selection:bg-[#D5380C] selection:text-[#FAF6EE] relative overflow-x-clip font-sans">
+    <div className="min-h-screen bg-[#000000] text-[#F6E3B8] selection:bg-[#E7BA05] selection:text-[#000000] relative font-sans">
       
       {/* Dynamic Scroll-Reactive Background & Parallax Glow Layer */}
       <ScrollBackgroundGlow />
+
+      {/* Persistent Deep-Space Cosmic Starfield Across Whole Page */}
+      <CosmicStarfield />
 
       {/* Top Silk-Smooth Page Loading Progress Bar in Brand Palette */}
       <PageLoadingBar isLoading={isLoading} />
@@ -129,13 +134,8 @@ export const App: React.FC = () => {
               onOpenSecurity={() => handleNavigate('security')}
             />
 
-            {/* 4. 4-Phase Deployment Architecture Pipeline */}
-            <HowItWorks />
-
-            {/* 5. Interactive Terminal Simulator Playground */}
-            <section id="demo">
-              <TerminalSimulator />
-            </section>
+            {/* 4. Interactive Terminal Simulator Playground */}
+            <TerminalSimulator />
 
             {/* 6. Autonomous Self-Healing Diagnostics Studio */}
             <SelfHealingDemo />
@@ -238,6 +238,9 @@ export const App: React.FC = () => {
       <TermsModal isOpen={isTermsOpen} onClose={() => setIsTermsOpen(false)} />
       <SecurityPolicyModal isOpen={isSecurityOpen} onClose={() => setIsSecurityOpen(false)} />
       <CookiePolicyModal isOpen={isCookieOpen} onClose={() => setIsCookieOpen(false)} />
+      
+      {/* Real-time Global Feedback Toasts */}
+      <ToastContainer />
     </div>
   );
 };

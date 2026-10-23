@@ -81,8 +81,8 @@ export const BorderBeam: React.FC<{
 }> = ({
   size = 200,
   duration = 10,
-  colorFrom = '#D5380C',
-  colorTo = '#F1B333',
+  colorFrom = '#E7BA05',
+  colorTo = '#F6E3B8',
 }) => {
   return (
     <div className="pointer-events-none absolute inset-0 rounded-[inherit] overflow-hidden">

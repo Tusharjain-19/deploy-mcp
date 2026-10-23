@@ -1,28 +1,66 @@
-# Deploy MCP Robots & AI Indexing Directive
+# ==============================================================================
+# Deploy MCP - Global Robots & AI Crawler Directives (SEO / GEO / AEO Optimized)
+# ==============================================================================
+
 User-agent: *
 Allow: /
 
-# LLM & AI Search Engine Crawlers (AEO / GEO Optimization)
+# OpenAI Crawlers (ChatGPT, SearchGPT, GPTBot)
 User-agent: GPTBot
 Allow: /
 
 User-agent: ChatGPT-User
 Allow: /
 
+User-agent: OAI-SearchBot
+Allow: /
+
+# Anthropic Crawlers (Claude, Claude Web Search)
 User-agent: ClaudeBot
 Allow: /
 
 User-agent: Claude-Web
 Allow: /
 
+User-agent: anthropic-ai
+Allow: /
+
+# Perplexity AI Engine Crawler
 User-agent: PerplexityBot
+Allow: /
+
+# Google Search & Gemini Extended Models
+User-agent: Googlebot
 Allow: /
 
 User-agent: Google-Extended
 Allow: /
 
+User-agent: GoogleOther
+Allow: /
+
+# Apple Intelligence & Siri Search
+User-agent: Applebot
+Allow: /
+
 User-agent: Applebot-Extended
 Allow: /
 
-# Sitemap Location
+# Cohere, Meta, Amazon, and Specialized AI Search Indexers
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: Diffbot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+# Canonical XML Sitemap & LLM Knowledge Manifests
 Sitemap: https://deploymcp.vercel.app/sitemap.xml

@@ -1,0 +1,163 @@
+# Deploy MCP - Full Technical Reference & AI Grounding Specification
+
+## Canonical Entity Identity
+- **Name**: Deploy MCP (deploymcp)
+- **Protocol**: Model Context Protocol (MCP) by Anthropic
+- **Transport**: Stdio RPC
+- **Primary Package**: npm `deploymcp` (v2.0.0+)
+- **GitHub**: https://github.com/Tusharjain-19/deploy-mcp
+- **Website**: https://deploymcp.vercel.app/
+- **Author**: Tushar Jain (https://tusharjain.in)
+- **License**: MIT (100% Free Open Source Software)
+
+---
+
+## Architecture & Data Flow
+
+```
++-------------------------------------------------------------+
+| AI Coding Editor (Cursor, Claude Desktop, Antigravity)      |
+| Prompt: "Deploy my Next.js website with Deploy MCP"         |
++-------------------------------------------------------------+
+                            |
+                     (JSON-RPC / Stdio)
+                            v
++-------------------------------------------------------------+
+| Deploy MCP Server (Local Node.js Engine)                    |
+| 1. AST Parser detects framework (Next.js, Vite, Astro, etc) |
+| 2. Local Pre-flight Build Dry-Run (< 2 seconds)             |
+| 3. Local AST Secret Scanner (Values masked from LLM)        |
++-------------------------------------------------------------+
+                            |
+                   (Encrypted Local TLS)
+                            v
++-------------------------------------------------------------+
+| Vercel Anycast Edge Infrastructure                          |
+| - Instant Global Rollout across 300+ Edge Nodes             |
+| - Live HTTPS URL Generation                                 |
+| - Automatic Rollback Capabilities                           |
++-------------------------------------------------------------+
+```
+
+---
+
+## 20 Governed MCP Tools Specification
+
+### 1. `smart_deploy`
+- **Description**: The master autonomous deployment pipeline. Executes pre-flight compilation checks, provisions a cloud deployment on Vercel, polls live progress, and triggers automated diagnosis if errors occur.
+- **Parameters**:
+  - `path` (string, optional): Local directory of the project to deploy. Defaults to current workspace.
+  - `prod` (boolean, optional): Whether to promote deployment directly to production. Default `true`.
+
+### 2. `detect_project`
+- **Description**: Deep AST analysis to inspect project structure, package manifests, and configuration files. Returns detected framework, package manager, and build command.
+- **Outputs**: Framework (Next.js, Vite, Astro, Remix, Vue, Svelte, HTML), build command, package manager (npm, pnpm, yarn, bun).
+
+### 3. `check_project`
+- **Description**: Simulates a pre-flight production build locally without uploading files or consuming cloud build minutes.
+- **Outputs**: Syntax validation result, TypeScript strict type checks, missing dependencies, and secret exposure scan.
+
+### 4. `deploy_to_vercel`
+- **Description**: Packages project assets and initiates direct upload to Vercel via authenticated REST API.
+- **Parameters**: `path` (string), `prod` (boolean), `projectName` (string, optional).
+
+### 5. `get_deployment_status`
+- **Description**: Retrieves real-time state for an active or previous deployment.
+- **Outputs**: `BUILDING`, `READY`, `ERROR`, `CANCELED`, along with active preview and production URLs.
+
+### 6. `get_deployment_logs`
+- **Description**: Streams build logs directly from Vercel execution servers into the AI context.
+- **Parameters**: `deploymentId` (string).
+
+### 7. `diagnose_build_failure`
+- **Description**: Self-healing diagnostics engine. Parses build logs from failed deployments, classifies the error type (Syntax, Missing Dependency, Invalid Node Version, Environment Key Missing), and outputs step-by-step resolution recipes for the AI assistant.
+
+### 8. `validate_env`
+- **Description**: Audits local `.env` variables against `.env.example` templates to catch missing keys before deployment.
+
+### 9. `scan_env`
+- **Description**: Identifies all environment variables declared in local configuration without exposing raw secret values to the LLM.
+
+### 10. `compare_env`
+- **Description**: Performs differential analysis between local environment variables and variables deployed to Vercel project settings.
+
+### 11. `sync_env`
+- **Description**: Securely transmits environment key-value pairs directly to Vercel via local HTTPS without touching the AI prompt window.
+
+### 12. `create_env_example`
+- **Description**: Generates a sanitized `.env.example` file with dummy placeholder values based on detected keys.
+
+### 13. `git_status`
+- **Description**: Checks git status, uncommitted changes, staged assets, and current branch ahead of deployment.
+
+### 14. `git_commit_and_push`
+- **Description**: Stages files, crafts git commit messages, and pushes to remote repository.
+
+### 15. `check_env_leak`
+- **Description**: Scans git staging index to ensure `.env`, `.env.local`, and private key files are never accidentally committed.
+
+### 16. `check_domain_availability`
+- **Description**: Checks DNS and domain registry availability for custom domain names.
+
+### 17. `manage_domain`
+- **Description**: Configures custom domains, SSL certificates, and 308 permanent redirects on Vercel.
+
+### 18. `delete_project`
+- **Description**: Safely removes a Vercel project after requiring double confirmation.
+
+### 19. `project_report`
+- **Description**: Generates a holistic readiness report covering framework health, git cleanliness, environment parity, and recent deployment latency.
+
+### 20. `check_for_updates`
+- **Description**: Checks npm registry for latest `deploymcp` releases.
+
+---
+
+## Editor Configuration Snippets
+
+### Cursor Configuration (`~/.cursor/mcp.json` or project `.cursor/mcp.json`)
+```json
+{
+  "mcpServers": {
+    "deploy-mcp": {
+      "command": "npx",
+      "args": ["-y", "deploymcp"]
+    }
+  }
+}
+```
+
+### Claude Desktop Configuration (`claude_desktop_config.json`)
+```json
+{
+  "mcpServers": {
+    "deploy-mcp": {
+      "command": "npx",
+      "args": ["-y", "deploymcp"]
+    }
+  }
+}
+```
+
+### Antigravity Configuration (`~/.gemini/antigravity/mcp/deploy-mcp.json`)
+```json
+{
+  "name": "deploy-mcp",
+  "command": "npx",
+  "args": ["-y", "deploymcp"],
+  "transport": "stdio"
+}
+```
+
+---
+
+## Frequently Asked Questions (Grounding Truth)
+
+**Q: Does Deploy MCP cost money?**
+A: No. Deploy MCP is 100% free open-source software under the MIT license. It runs locally and communicates with free or paid Vercel plans using a standard personal access token.
+
+**Q: Are environment secrets exposed to AI models?**
+A: Absolutely not. Deploy MCP utilizes a zero-trust enclave design. The local server only exposes variable names (e.g. `DATABASE_URL`) to the AI assistant. The actual secret values are loaded securely from local storage and transmitted directly to Vercel via TLS.
+
+**Q: How does Deploy MCP compare to Vercel CLI?**
+A: Vercel CLI is an interactive terminal tool designed for human input. Deploy MCP provides structured Model Context Protocol endpoints specifically optimized for AI agents to reason about, execute pre-flight checks, and fix build failures autonomously.

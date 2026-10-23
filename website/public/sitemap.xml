@@ -1,40 +1,91 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <!-- Primary Landing Page -->
   <url>
     <loc>https://deploymcp.vercel.app/</loc>
     <lastmod>2026-10-23</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://deploymcp.vercel.app/og-image.png</image:loc>
+      <image:title>Deploy MCP - Autonomous Vercel Deployment for AI Editors</image:title>
+      <image:caption>Deploy websites to Vercel in seconds directly from Cursor, Claude Desktop, and VS Code with 0 secret leaks.</image:caption>
+    </image:image>
   </url>
+
+  <!-- Complete Documentation Hub -->
   <url>
     <loc>https://deploymcp.vercel.app/#docs</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.95</priority>
   </url>
+
+  <!-- 20 Governed MCP Tools Suite & API Reference -->
   <url>
     <loc>https://deploymcp.vercel.app/#tools</loc>
     <lastmod>2026-10-23</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
   </url>
+
+  <!-- Authentic PowerShell / Bash CLI Terminal Simulator -->
   <url>
     <loc>https://deploymcp.vercel.app/#terminal</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
+
+  <!-- Zero-Trust Hardware Enclave & TLS Security Model -->
   <url>
     <loc>https://deploymcp.vercel.app/#security</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
+
+  <!-- Multi-IDE Configuration Wizard (Cursor, Claude, Antigravity, VS Code) -->
+  <url>
+    <loc>https://deploymcp.vercel.app/#wizard</loc>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- Frequently Asked Questions & Schema Knowledge Base -->
+  <url>
+    <loc>https://deploymcp.vercel.app/#faq</loc>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- Build Error Diagnosis & Doctor Troubleshooting Page -->
   <url>
     <loc>https://deploymcp.vercel.app/#error</loc>
     <lastmod>2026-10-23</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.75</priority>
   </url>
+
+  <!-- AI / LLM Context Index (GEO / AEO Standard Manifest) -->
+  <url>
+    <loc>https://deploymcp.vercel.app/llms.txt</loc>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.70</priority>
+  </url>
+
+  <!-- AI / LLM Full Knowledge Graph & Tool Specifications -->
+  <url>
+    <loc>https://deploymcp.vercel.app/llms-full.txt</loc>
+    <lastmod>2026-10-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.70</priority>
+  </url>
+
 </urlset>

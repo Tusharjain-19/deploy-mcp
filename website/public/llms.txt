@@ -1,45 +1,35 @@
 # Deploy MCP
 
-> Deploy your website in seconds directly from your AI editor.
+> Autonomous Vercel Deployment Runtime for Model Context Protocol (MCP)
+> Deploy your website in seconds directly from Cursor, Claude, Antigravity, or VS Code.
 
-Deploy MCP is an open-source Model Context Protocol (MCP) server that empowers AI coding assistants (Cursor, Claude Desktop, Antigravity, VS Code, Windsurf) to autonomously build-check, synchronize secrets, and deploy web applications to Vercel without leaving the IDE chat interface.
+## Executive Summary
+Deploy MCP is an open-source Model Context Protocol server that bridges AI editors directly with Vercel's Anycast Edge Network. Developers write prompts like "Deploy my project" in Cursor or Claude Desktop, and Deploy MCP autonomously validates the local build in under 2 seconds, safeguards environment secrets through local AST scanning, provisions Vercel deployments, streams logs, and diagnoses failures with automated fix recipes.
 
-- **Official Website**: https://deploymcp.vercel.app/
-- **GitHub Repository**: https://github.com/Tusharjain-19/deploy-mcp
-- **Documentation**: https://github.com/Tusharjain-19/deploy-mcp#readme
+- **Website**: https://deploymcp.vercel.app/
+- **GitHub**: https://github.com/Tusharjain-19/deploy-mcp
 - **NPM Package**: https://www.npmjs.com/package/deploymcp
-- **Contact & Creator**: https://tusharjain.in/contact
+- **License**: MIT (100% Free & Open Source)
+- **Creator**: Tushar Jain (https://tusharjain.in)
+- **Protocol**: Model Context Protocol (JSON-RPC over Stdio)
 
-## Quick Start
-To set up Deploy MCP in any project:
-1. Run setup: `npx deploymcp setup`
-2. Connect your free Vercel Personal Access Token.
-3. Paste the generated JSON configuration into Cursor (`cursor_settings.json`) or Claude (`claude_desktop_config.json`).
-4. In your AI chat prompt, type: `Deploy my website with Deploy MCP`.
+## Core Capabilities
+- **Autonomous Multi-Stage Pipeline (`smart_deploy`)**: Automatic framework detection, local dry-run compile checks, Vercel edge deployment, live status polling, and self-healing build error diagnostics.
+- **Zero-Trust Security Enclave**: Raw environment secrets and API keys are NEVER passed to LLM context windows. Variables are transmitted straight from local machine to Vercel via local TLS.
+- **Sub-2-Second Local Build Checks**: Compiles Next.js, Vite, React, Astro, or Remix locally before upload to catch broken imports and syntax bugs before hitting cloud build quotas.
+- **Self-Healing Diagnostics Studio**: Parses cloud build logs on failure, isolates the root problem, and generates copy-paste fix instructions directly in chat.
+- **20 Governed MCP Tools**: Full lifecycle management covering project checks, deployments, environment variable syncing, custom domains, git health, and updates.
 
-## 20 Autonomous Tools Exposed to AI Assistants
-- `smart_deploy`: Master pipeline that checks, deploys, auto-polls, and diagnoses failures.
-- `detect_project`: Auto-detects Next.js, React Vite, Remix, Astro, Vue, Svelte, or static HTML.
-- `check_project`: Runs local dry-run build tests without uploading code.
-- `deploy_to_vercel`: Uploads build bundle to Vercel global Anycast edge network.
-- `get_deployment_status`: Polls deployment state (BUILDING, READY, ERROR).
-- `get_deployment_logs`: Streams real-time build and execution logs.
-- `diagnose_build_failure`: Analyzes failed build logs and extracts root-cause fix instructions.
-- `validate_env`: Audits required `.env` variables against `.env.example`.
-- `scan_env`: Scans local environment key names with values 100% redacted.
-- `compare_env`: Compares local keys against active Vercel project environment.
-- `sync_env`: Pushes environment variables directly to Vercel via local TLS.
-- `create_env_example`: Generates redacted `.env.example` file.
-- `git_status`: Verifies git tree cleanliness and branch health.
-- `git_commit_and_push`: Commits and pushes branch before deploy.
-- `check_env_leak`: Validates git index to prevent committing `.env` files.
-- `check_domain_availability`: Checks custom domain availability and suggests alternatives.
-- `manage_domain`: Binds custom domains and sets 308 permanent redirects.
-- `delete_project`: Permanently removes project after local interactive confirmation.
-- `project_report`: Comprehensive readiness audit.
-- `check_for_updates`: Checks for newer releases on npm.
+## Supported Environments
+- **AI Editors**: Cursor, Claude Desktop, Google Antigravity, VS Code (Cline / Roo-Code), Windsurf.
+- **Frameworks**: Next.js 13/14/15 (App Router & Pages Router), Vite React, Vue, SvelteKit, Remix, Astro, Static HTML.
+- **Runtimes**: Node.js 18+, Edge Runtime, Serverless Functions.
 
-## Zero-Trust Security Guarantee
-- Secrets are NEVER sent to AI models or LLM prompt contexts.
-- Local AST scanner parses variable key names only.
-- Secret transmission occurs directly between the local client and Vercel endpoints via encrypted mutual TLS.
+## Quick Setup
+```bash
+npx deploymcp setup
+```
+Run `npx deploymcp setup` to verify your free Vercel Personal Access Token and automatically configure your AI editor's MCP settings file.
+
+For the exhaustive 20-tool specification and parameter schemas, see:
+https://deploymcp.vercel.app/llms-full.txt
